@@ -1,0 +1,64 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+env:
+  PYTHON_VERSION: "3.11"
+
+jobs:
+  quality:
+    name: Format, lint, type-check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+      - name: Install dependencies
+        run: pip install -e ".[dev]"
+      - name: Ruff format check
+        run: ruff format --check .
+      - name: Ruff lint
+        run: ruff check .
+      - name: MyPy
+        run: mypy src app
+
+  tests:
+    name: Unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+      - name: Install dependencies
+        run: pip install -e ".[dev]"
+      - name: Pytest (unit)
+        run: pytest -m "not integration and not slow" --cov=src --cov=app --cov-report=term
+
+  docker:
+    name: Docker build + API health smoke test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build API image
+        run: docker build --target api -t pi-api:ci .
+      - name: Run container and check /health
+        run: |
+          docker run -d --name pi-api -p 8000:8000 pi-api:ci
+          for i in $(seq 1 30); do
+            if curl -fsS http://localhost:8000/health > /dev/null 2>&1; then
+              echo "API healthy"
+              curl -s http://localhost:8000/health
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "API failed to become healthy" >&2
+          docker logs pi-api >&2
+          exit 1

@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+
+# Tooling caches
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+
+# Environment / secrets
+.env
+
+# Data (raw/interim/processed are reproducible; reference snapshots ARE committed)
+data/raw/*
+!data/raw/.gitkeep
+data/interim/*
+!data/interim/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+
+# Model artifacts (reproducible via `make train`; a small demo bundle may be committed later intentionally)
+models/*
+!models/.gitkeep
+
+# MLflow
+mlruns/
+mlartifacts/
+
+# Monitoring outputs
+monitoring/reports/*
+!monitoring/reports/.gitkeep
+
+# Notebooks
+.ipynb_checkpoints/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/

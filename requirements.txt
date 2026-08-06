@@ -1,0 +1,19 @@
+# Runtime dependencies — kept in sync with [project.dependencies] in pyproject.toml.
+# Docker builds install from this file for layer-caching efficiency.
+pandas>=2.2,<3
+numpy>=1.26
+scikit-learn>=1.5,<2
+xgboost>=2.1,<4
+shap>=0.46
+SQLAlchemy>=2.0,<3
+psycopg2-binary>=2.9
+fastapi>=0.115
+uvicorn[standard]>=0.30
+pydantic>=2.8,<3
+pydantic-settings>=2.4,<3
+mlflow>=2.19,<3
+evidently>=0.7,<0.8
+streamlit>=1.38
+pyyaml>=6
+joblib>=1.4
+requests>=2.32
