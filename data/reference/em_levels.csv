@@ -1,0 +1,16 @@
+hcpcs,em_family,level,relative_payment
+99211,office_established,1,0.25
+99212,office_established,2,0.55
+99213,office_established,3,1.0
+99214,office_established,4,1.45
+99215,office_established,5,2.0
+99202,office_new,2,0.8
+99203,office_new,3,1.25
+99204,office_new,4,1.85
+99205,office_new,5,2.45
+99221,hospital_initial,1,1.0
+99222,hospital_initial,2,1.55
+99223,hospital_initial,3,2.2
+99231,hospital_subsequent,1,0.5
+99232,hospital_subsequent,2,0.9
+99233,hospital_subsequent,3,1.3

@@ -4,7 +4,7 @@ SHELL := /bin/bash
 -include .env
 export
 
-.PHONY: help install format lint typecheck test test-all compose-up compose-down compose-serve api clean
+.PHONY: help install format lint typecheck test test-all compose-up compose-down compose-serve api clean data
 
 help: ## Show available targets
 	@grep -E '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-16s\033[0m %s\n", $$1, $$2}'
@@ -37,6 +37,9 @@ compose-down: ## Stop all compose services
 
 compose-serve: ## Build and start the full stack (API + dashboard included)
 	docker compose --profile serve up -d --build
+
+data: ## Build the dataset: ingest, generate, validate, clean, load Postgres
+	python scripts/build_dataset.py
 
 api: ## Run the FastAPI app locally with reload
 	uvicorn app.api.main:app --reload --port $${API_PORT:-8000}

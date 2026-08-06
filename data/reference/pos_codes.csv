@@ -1,0 +1,9 @@
+pos_code,description,setting
+11,Office,office
+12,Home,office
+21,Inpatient Hospital,facility
+22,On Campus-Outpatient Hospital,facility
+23,Emergency Room - Hospital,facility
+24,Ambulatory Surgical Center,facility
+31,Skilled Nursing Facility,facility
+81,Independent Laboratory,office

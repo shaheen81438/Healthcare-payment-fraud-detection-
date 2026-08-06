@@ -1,0 +1,63 @@
+# Synthetic claims generation — every knob that shapes the dataset.
+# Full labeling assumptions are documented in docs/labeling.md.
+
+seed: 42
+start_month: "2024-01"
+n_months: 24
+n_providers: 2000
+n_beneficiaries: 40000
+
+# Simulated volumes are scaled to a fraction of realistic Medicare panels for
+# tractability (~400k claims total). Relative peer comparisons are preserved.
+volume_scale: 0.05
+annual_claims_clip: [60, 1200]
+
+# Specialty sampling weights (approximate national mix among the sampled types).
+specialty_weights:
+  Internal Medicine: 0.19
+  Family Practice: 0.17
+  Nurse Practitioner: 0.16
+  Physical Therapist in Private Practice: 0.09
+  Emergency Medicine: 0.07
+  Diagnostic Radiology: 0.07
+  Cardiology: 0.06
+  Orthopedic Surgery: 0.05
+  Dermatology: 0.05
+  Psychiatry: 0.04
+  Podiatry: 0.03
+  Clinical Laboratory: 0.02
+
+payer_share: 0.80          # Medicare Part B pays ~80% of allowed
+amount_noise_sigma: 0.12   # lognormal noise on claim amounts
+provider_multiplier_sigma: 0.08
+
+# Benign confounders (label = 0; create honest false-positive pressure)
+confounders:
+  corrected_resubmission_rate: 0.006   # near-duplicate corrected claims
+  legit_high_cost_rate: 0.003          # legitimately expensive claims (x2-3)
+  legit_unbundle_with_modifier_rate: 0.002  # PTP component billed WITH modifier 59
+
+# Injected FWA patterns. `provider_share`: fraction of providers assigned the
+# behavior. `claim_rate`: share of ALL claims affected (approximate target).
+patterns:
+  F01_exact_duplicate:      {provider_share: 0.030, claim_rate: 0.0050}
+  F02_near_duplicate:       {provider_share: 0.030, claim_rate: 0.0050}
+  F03_rapid_repeat:         {provider_share: 0.020, n_episodes: [2, 4], n_repeats: [4, 8]}
+  F04_excessive_units:      {provider_share: 0.020, claim_rate: 0.0040, unit_multiplier: [3, 8]}
+  F05_amount_inflation:     {provider_share: 0.025, multiplier: [1.8, 2.8]}
+  F06_upcoding:             {provider_share: 0.030, shift_share: [0.35, 0.65]}
+  F07_unbundling:           {provider_share: 0.020, claim_rate: 0.0030}
+  F08_volume_spike:         {provider_share: 0.015, spike_months: [1, 2], multiplier: [2.0, 4.0]}
+  F09_dx_mismatch:          {provider_share: 0.020, claim_rate: 0.0025}
+  F10_pos_anomaly:          {provider_share: 0.015, claim_rate: 0.0025}
+  F11_collusion_cluster:    {n_clusters: 3, providers_per_cluster: [3, 4], shared_benes: [20, 40]}
+  F12_code_concentration:   {provider_share: 0.015, shift_share: [0.5, 0.7]}
+
+# Data-quality defects injected into the RAW file only (validation/cleaning must handle these).
+defects:
+  missing_pos_rate: 0.008
+  amount_as_string_rate: 0.003     # e.g. "$1,234.56" in paid_amount
+  impossible_date_rate: 0.001      # submit date before service date
+  ingestion_duplicate_rate: 0.0015 # same claim_id repeated (system artifact — NOT fraud)
+  negative_amount_rate: 0.0005
+  invalid_hcpcs_rate: 0.001

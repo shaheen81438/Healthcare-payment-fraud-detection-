@@ -70,7 +70,9 @@ select = [
     "RUF", # ruff-specific
 ]
 ignore = [
-    "E501", # line length is handled by the formatter
+    "E501",   # line length is handled by the formatter
+    "RUF002", # en-dashes / multiplication signs in docstrings are intentional
+    "RUF003", # same, in comments
 ]
 
 [tool.ruff.lint.isort]
@@ -89,6 +91,7 @@ disallow_untyped_defs = true
 
 [[tool.mypy.overrides]]
 module = [
+    "pandas.*",
     "shap.*",
     "mlflow.*",
     "evidently.*",

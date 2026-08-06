@@ -1,0 +1,16 @@
+comprehensive_code,component_code,component_desc,component_amount_ratio,note
+80053,80048,Basic metabolic panel (component of comprehensive metabolic panel),0.55,Panel component billed separately
+80053,84443,TSH assay commonly bundled in panel workups,0.45,Illustrative panel-adjacent component
+93000,93005,ECG tracing only (component of complete ECG),0.55,Global service split
+93000,93010,ECG interpretation and report only,0.4,Global service split
+99213,99000,Specimen handling billed with office visit,0.15,Ancillary unbundled from visit
+99214,99000,Specimen handling billed with office visit,0.12,Ancillary unbundled from visit
+97110,97140,Manual therapy overlapping timed therapeutic exercise,0.85,Overlapping timed therapy codes
+97110,97530,Therapeutic activities overlapping therapeutic exercise,0.9,Overlapping timed therapy codes
+11721,11720,Debridement of 1-5 nails (component of 6+ nails),0.7,Mutually exclusive nail debridement levels
+17000,17003,Destruction of additional premalignant lesions,0.5,Add-on billed without primary logic
+29881,29870,Diagnostic knee arthroscopy with surgical arthroscopy,0.6,Diagnostic scope bundled into surgical scope
+71046,71045,Single-view chest X-ray with 2-view exam,0.7,Lesser imaging service same session
+G0439,G0438,Initial annual wellness visit billed with subsequent AWV,0.9,Mutually exclusive wellness visits
+99223,99221,Lower-level initial hospital care same day,0.55,Mutually exclusive initial hospital levels
+88305,88302,Lower-level surgical pathology same specimen,0.5,Mutually exclusive pathology levels

@@ -1,0 +1,6 @@
+# Data-contract thresholds for raw claim validation.
+service_date_min: "2020-01-01"
+service_date_max: "2030-12-31"
+units_max: 200
+# Pipeline fails if more than this share of rows is quarantined.
+max_quarantine_share: 0.02

@@ -1,0 +1,25 @@
+dx_group,name,typical_specialties
+DXG01,Hypertension & hypertensive disease,Internal Medicine|Family Practice|Nurse Practitioner|Cardiology
+DXG02,Diabetes mellitus,Internal Medicine|Family Practice|Nurse Practitioner|Podiatry
+DXG03,Ischemic heart disease,Cardiology|Internal Medicine
+DXG04,Cardiac arrhythmias,Cardiology|Internal Medicine
+DXG05,Heart failure,Cardiology|Internal Medicine
+DXG06,COPD & asthma,Internal Medicine|Family Practice|Nurse Practitioner
+DXG07,Low back & spine disorders,Physical Therapist in Private Practice|Orthopedic Surgery|Family Practice
+DXG08,Osteoarthritis & joint disorders,Orthopedic Surgery|Physical Therapist in Private Practice|Internal Medicine
+DXG09,Inflammatory & rheumatoid conditions,Internal Medicine|Orthopedic Surgery
+DXG10,Benign skin neoplasm,Dermatology
+DXG11,Malignant skin neoplasm,Dermatology
+DXG12,Dermatitis & eczema,Dermatology|Family Practice
+DXG13,Depression & anxiety disorders,Psychiatry|Family Practice|Nurse Practitioner
+DXG14,Psychotic & bipolar disorders,Psychiatry
+DXG15,Substance use disorders,Psychiatry|Family Practice
+DXG16,Chronic kidney disease,Internal Medicine|Nurse Practitioner
+DXG17,Urinary & infectious conditions,Internal Medicine|Family Practice|Emergency Medicine
+DXG18,Nail & foot deformity conditions,Podiatry
+DXG19,Diabetic foot complications,Podiatry|Internal Medicine
+DXG20,Fracture & acute trauma,Orthopedic Surgery|Emergency Medicine
+DXG21,Post-surgical aftercare,Orthopedic Surgery|Dermatology|Podiatry
+DXG22,Preventive & wellness encounters,Family Practice|Internal Medicine|Nurse Practitioner
+DXG23,General signs & symptoms,Internal Medicine|Family Practice|Emergency Medicine|Diagnostic Radiology|Clinical Laboratory
+DXG24,Sprains strains & soft-tissue injury,Physical Therapist in Private Practice|Orthopedic Surgery|Emergency Medicine
