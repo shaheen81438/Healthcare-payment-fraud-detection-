@@ -1,0 +1,481 @@
+Rndrng_NPI,Rndrng_Prvdr_Type,Rndrng_Prvdr_State_Abrvtn,Rndrng_Prvdr_RUCA,HCPCS_Cd,HCPCS_Desc,HCPCS_Drug_Ind,Place_Of_Srvc,Tot_Benes,Tot_Srvcs,Tot_Bene_Day_Srvcs,Avg_Sbmtd_Chrg,Avg_Mdcr_Alowd_Amt,Avg_Mdcr_Pymt_Amt
+1003000126,Internal Medicine,MD,1,99221,"Initial hospital care with straightforward or low level of medical decision making, per day, if using time, at least 40 minutes",N,F,36,36,36,284.37888889,79.063888889,60.828888889
+1003000126,Internal Medicine,MD,1,99222,"Initial hospital care with straightforward or low-level medical decision making, if using time, at least 55 minutes",N,F,150,150,150,352.17633333,126.3408,95.6756
+1003000126,Internal Medicine,MD,1,99223,"Initial hospital care with moderate level of medical decision making, if using time, at least 75 minutes",N,F,63,63,63,783.99730159,170.36,134.30047619
+1003000126,Internal Medicine,MD,1,99231,"Subsequent hospital care with straightforward or low level of medical decision making, per day, if using time, at least 25 minutes",N,F,11,16,16,122.125,47.8325,33.350625
+1003000126,Internal Medicine,MD,1,99232,"Subsequent hospital care with moderate levelof medical decision making, if using time, at least 35 minutes",N,F,37,70,70,583.60685714,81.428571429,62.728714286
+1003000126,Internal Medicine,MD,1,99233,"Subsequent hospital care with moderate levelof medical decision making, if using time, at least 50 minutes",N,F,17,22,22,924.98181818,122.97863636,93.394545455
+1003000126,Internal Medicine,MD,1,99239,"Hospital discharge day management, more than 30 minutes",N,F,27,27,27,771.78074074,114.94407407,76.181111111
+1003000530,Internal Medicine,PA,1,81002,"Urinalysis, manual test",N,O,22,25,25,10,3.41,3.41
+1003000530,Internal Medicine,PA,1,90471,Administration of vaccine,N,O,11,11,11,46.727272727,22.121818182,17.820909091
+1003000530,Internal Medicine,PA,1,90480,Admn sarscov2 vacc 1 dose,N,O,17,17,17,82,44.39,44.39
+1003000530,Internal Medicine,PA,1,90662,"Influenza vaccine split virus, preservative free",Y,O,111,113,113,95.89380531,81.469911504,81.469911504
+1003000530,Internal Medicine,PA,1,91320,Sarscv2 vac 30mcg trs-suc im,Y,O,17,17,17,162,152.78,152.78
+1003000530,Internal Medicine,PA,1,93000,Routine electrocardiogram (ecg) using at least 12 leads with interpretation and report,N,O,26,26,26,94.384615385,15.322692308,10.956153846
+1003000530,Internal Medicine,PA,1,99213,"Established patient office or other outpatient visit with low level od decision making, if using time, 20 minutes or more",N,O,25,25,25,149.56,94.734,67.3036
+1003000530,Internal Medicine,PA,1,99214,"Established patient office or other outpatient visit with moderate level of decision making, if using time, 30 minutes or more",N,O,357,736,736,218.98369565,135.77516304,88.720298913
+1003000530,Internal Medicine,PA,1,99495,Transitional care management services for problem of at least moderate complexity,N,O,23,23,23,358.30434783,220.71130435,177.7773913
+1003000530,Internal Medicine,PA,1,G0008,Administration of influenza virus vaccine,N,O,110,114,114,37.947368421,33.29,33.29
+1003000530,Internal Medicine,PA,1,G0402,"Initial preventive physical examination; face-to-face visit, services limited to new beneficiary during the first 12 months of medicare enrollment",N,O,12,12,12,273.33333333,177.86666667,177.86666667
+1003000530,Internal Medicine,PA,1,G0438,"Annual wellness visit; includes a personalized prevention plan of service (pps), initial visit",N,O,30,30,30,293.2,177.801,177.801
+1003000530,Internal Medicine,PA,1,G0439,"Annual wellness visit, includes a personalized prevention plan of service (pps), subsequent visit",N,O,210,210,210,199.42857143,140.19047619,140.19047619
+1003000530,Internal Medicine,PA,1,G2211,Visit complexity inherent to evaluation and management associated with medical care services that serve as the continuing focal point for all needed health care services and/or with medical care services that are part of ongoing care related to a patient's,N,O,264,364,364,35.532967033,17.38456044,13.597967033
+1003002379,Internal Medicine,OR,1,99223,"Initial hospital care with moderate level of medical decision making, if using time, at least 75 minutes",N,F,15,15,15,581,172.87133333,138.01733333
+1003002379,Internal Medicine,OR,1,99232,"Subsequent hospital care with moderate levelof medical decision making, if using time, at least 35 minutes",N,F,31,71,71,264,78.589577465,62.744507042
+1003002379,Internal Medicine,OR,1,99233,"Subsequent hospital care with moderate levelof medical decision making, if using time, at least 50 minutes",N,F,79,199,199,398,116.65246231,92.214824121
+1003002379,Internal Medicine,OR,1,99239,"Hospital discharge day management, more than 30 minutes",N,F,43,43,43,384,115.12883721,91.67
+1003004201,Internal Medicine,TX,1,83036,Hemoglobin a1c level,N,O,27,37,37,15,9.52,9.52
+1003004201,Internal Medicine,TX,1,90661,"Influenza vaccine, trivalent derived from cell cultures",Y,O,14,14,14,37,36.11,36.11
+1003004201,Internal Medicine,TX,1,99214,"Established patient office or other outpatient visit with moderate level of decision making, if using time, 30 minutes or more",N,O,129,278,278,188,122.19823741,79.454964029
+1003004201,Internal Medicine,TX,1,99215,"Established patient office or other outpatient visit with high level of medical decision making, if using time, 40 minutes or more",N,O,14,17,17,248,172.28823529,109.83411765
+1003004201,Internal Medicine,TX,1,G0008,Administration of influenza virus vaccine,N,O,18,19,19,30,29.4,29.4
+1003004201,Internal Medicine,TX,1,G0439,"Annual wellness visit, includes a personalized prevention plan of service (pps), subsequent visit",N,O,17,17,17,188,123.33588235,123.33588235
+1003004201,Internal Medicine,TX,1,G2211,Visit complexity inherent to evaluation and management associated with medical care services that serve as the continuing focal point for all needed health care services and/or with medical care services that are part of ongoing care related to a patient's,N,O,18,19,19,20.64,15.724210526,11.857894737
+1003005836,Internal Medicine,MN,1,90480,Admn sarscov2 vacc 1 dose,N,O,42,49,49,57,41.8,41.8
+1003005836,Internal Medicine,MN,1,90662,"Influenza vaccine split virus, preservative free",Y,O,29,29,29,82.344827586,80.266896552,80.266896552
+1003005836,Internal Medicine,MN,1,91322,Sarscov2 vac 50 mcg/0.5ml im,Y,O,42,49,49,171,150.23795918,150.23795918
+1003005836,Internal Medicine,MN,1,99211,Office or other outpatient visit for the evaluation and management of established patient that may not require presence of healthcare professional,N,O,15,15,15,84,24,14.345333333
+1003005836,Internal Medicine,MN,1,99213,"Established patient office or other outpatient visit with low level od decision making, if using time, 20 minutes or more",N,O,88,99,99,234,91.92030303,62.17020202
+1003005836,Internal Medicine,MN,1,99214,"Established patient office or other outpatient visit with moderate level of decision making, if using time, 30 minutes or more",N,O,130,167,167,299,129.5254491,85.651856287
+1003005836,Internal Medicine,MN,1,99215,"Established patient office or other outpatient visit with high level of medical decision making, if using time, 40 minutes or more",N,O,96,167,167,458,181.86023952,128.38610778
+1003005836,Internal Medicine,MN,1,G0008,Administration of influenza virus vaccine,N,O,32,32,32,56.25,31.34,31.34
+1003000902,Family Practice,KY,1,81003,Automated urinalysis test,N,O,23,26,26,8,2.2,2.2
+1003000902,Family Practice,KY,1,90662,"Influenza vaccine split virus, preservative free",Y,O,26,27,27,165.51851852,81.087407407,81.087407407
+1003000902,Family Practice,KY,1,99213,"Established patient office or other outpatient visit with low level od decision making, if using time, 20 minutes or more",N,O,124,177,177,172,87.072146893,60.247514124
+1003000902,Family Practice,KY,1,99214,"Established patient office or other outpatient visit with moderate level of decision making, if using time, 30 minutes or more",N,O,127,189,189,243,122.61544974,75.334232804
+1003000902,Family Practice,KY,1,99495,Transitional care management services for problem of at least moderate complexity,N,O,18,19,19,388,199.24789474,157.41210526
+1003000902,Family Practice,KY,1,G0008,Administration of influenza virus vaccine,N,O,31,32,32,60.71875,30.1,30.1
+1003000902,Family Practice,KY,1,G0439,"Annual wellness visit, includes a personalized prevention plan of service (pps), subsequent visit",N,O,142,142,142,248,126.88985915,126.88985915
+1003001256,Family Practice,CO,1,99213,"Established patient office or other outpatient visit with low level od decision making, if using time, 20 minutes or more",N,O,36,36,36,263,65.716111111,41.348888889
+1003001256,Family Practice,CO,1,99214,"Established patient office or other outpatient visit with moderate level of decision making, if using time, 30 minutes or more",N,O,18,26,26,388,84.993846154,53.577307692
+1003003856,Family Practice,NY,1,36415,Insertion of needle into vein for collection of blood sample,N,O,116,248,248,10,8.65,8.65
+1003003856,Family Practice,NY,1,80061,"Blood test, lipids (cholesterol and triglycerides)",N,O,84,164,164,30,13.12,13.12
+1003003856,Family Practice,NY,1,81002,"Urinalysis, manual test",N,O,26,27,27,10,3.41,3.41
+1003003856,Family Practice,NY,1,81003,Automated urinalysis test,N,O,16,34,34,10,2.2,2.2
+1003003856,Family Practice,NY,1,82044,Urine microalbumin (protein) analysis,N,O,15,34,34,15,6.11,6.11
+1003003856,Family Practice,NY,1,82570,Creatinine level to test for kidney function or muscle injury,N,O,15,33,33,15,5.08,5.08
+1003003856,Family Practice,NY,1,82947,Blood glucose (sugar) level,N,O,15,34,34,20,3.85,3.85
+1003003856,Family Practice,NY,1,83036,Hemoglobin a1c level,N,O,15,34,34,30,9.52,9.52
+1003003856,Family Practice,NY,1,90662,"Influenza vaccine split virus, preservative free",Y,O,116,118,118,94.491525424,81.568559322,81.568559322
+1003003856,Family Practice,NY,1,92587,Placement of ear probe for computerized measurement of sound with interpretation and report,N,O,154,154,154,35,24.183766234,15.427987013
+1003003856,Family Practice,NY,1,93000,Routine electrocardiogram (ecg) using at least 12 leads with interpretation and report,N,O,253,463,461,50,16.671274298,11.579136069
+1003003856,Family Practice,NY,1,99212,"Established patient office or other outpatient visit with straightforward medical decision making, if using time, 10 minutes or more",N,O,45,45,45,75,65.399111111,51.011555556
+1003003856,Family Practice,NY,1,99213,"Established patient office or other outpatient visit with low level od decision making, if using time, 20 minutes or more",N,O,119,202,202,120,104.11054455,73.40029703
+1003003856,Family Practice,NY,1,99214,"Established patient office or other outpatient visit with moderate level of decision making, if using time, 30 minutes or more",N,O,250,446,446,165,146.45959641,105.24443946
+1003003856,Family Practice,NY,1,99497,"Advance care planning, first 30 minutes",N,O,65,65,65,110,92.063076923,91.774153846
+1003003856,Family Practice,NY,1,G0008,Administration of influenza virus vaccine,N,O,119,121,121,34.834710744,34.138016529,34.138016529
+1003003856,Family Practice,NY,1,G0402,"Initial preventive physical examination; face-to-face visit, services limited to new beneficiary during the first 12 months of medicare enrollment",N,O,13,13,13,200,188.35230769,188.35230769
+1003003856,Family Practice,NY,1,G0403,"Electrocardiogram, routine ecg with 12 leads; performed as a screening for the initial preventive physical examination with interpretation and report",N,O,12,12,12,50,16.7875,5.55
+1003003856,Family Practice,NY,1,G0439,"Annual wellness visit, includes a personalized prevention plan of service (pps), subsequent visit",N,O,230,230,230,175,148.15173913,148.15173913
+1003003856,Family Practice,NY,1,G2211,Visit complexity inherent to evaluation and management associated with medical care services that serve as the continuing focal point for all needed health care services and/or with medical care services that are part of ongoing care related to a patient's,N,O,228,390,390,25,18.289153846,13.616230769
+1003006149,Family Practice,NC,1,92960,External shock to heart to regulate heart beat,N,F,16,16,16,212,98.580625,79.38125
+1003006149,Family Practice,NC,1,93010,Routine electrocardiogram (ecg) using at least 12 leads with interpretation and report only,N,F,185,196,193,16,7.8009183673,6.1723469388
+1003006149,Family Practice,NC,1,99283,Emergency department visit with low level of medical decision making,N,F,13,13,13,142,68.353076923,50.800769231
+1003006149,Family Practice,NC,1,99284,Emergency department visit with moderate level of medical decision making,N,F,72,72,72,240,116.13555556,85.235555556
+1003006149,Family Practice,NC,1,99285,Emergency department visit with high level of medical decision making,N,F,267,274,274,349,167.6870073,126.08313869
+1003006149,Family Practice,NC,1,99291,"Critical care, first 30-74 minutes",N,F,44,44,44,426,204.51909091,162.13590909
+1003006552,Family Practice,FL,2,90661,"Influenza vaccine, trivalent derived from cell cultures",Y,O,25,25,25,30,29.4,29.4
+1003006552,Family Practice,FL,2,96372,Injection of drug or substance under skin or into muscle,N,O,16,37,24,25,13.699189189,9.7340540541
+1003006552,Family Practice,FL,2,99213,"Established patient office or other outpatient visit with low level od decision making, if using time, 20 minutes or more",N,O,44,82,82,120,88.248170732,67.439634146
+1003006552,Family Practice,FL,2,99214,"Established patient office or other outpatient visit with moderate level of decision making, if using time, 30 minutes or more",N,O,115,343,343,160,121.65061224,67.83180758
+1003006552,Family Practice,FL,2,G0008,Administration of influenza virus vaccine,N,O,25,25,25,25,24.5,24.5
+1003000936,Cardiology,SC,5,36415,Insertion of needle into vein for collection of blood sample,N,O,283,543,542,17,8.634640884,8.634640884
+1003000936,Cardiology,SC,5,93000,Routine electrocardiogram (ecg) using at least 12 leads with interpretation and report,N,O,134,156,156,66,13.805320513,9.5133333333
+1003000936,Cardiology,SC,5,93010,Routine electrocardiogram (ecg) using at least 12 leads with interpretation and report only,N,F,310,358,327,34,7.9952793296,6.162877095
+1003000936,Cardiology,SC,5,93228,Electrocardiogram (ecg) up to 30 days continuous with review and report by health care professional,N,O,48,56,56,50,24.189464286,19.535892857
+1003000936,Cardiology,SC,5,93280,Programming of dual lead pacemaker system,N,O,22,29,29,147,75.871724138,59.239655172
+1003000936,Cardiology,SC,5,93291,Evaluation of cardiac rhythm monitor system,N,O,12,18,18,92,46.534444444,35.583333333
+1003000936,Cardiology,SC,5,93294,"Evaluation of single, dual, multiple lead or leadless pacemaker system, remote up to 90 days",N,O,14,15,15,71,29.19,23.58
+1003000936,Cardiology,SC,5,93296,"Evaluation of single, dual, multiple lead or leadless pacemaker system or implantable defibrillator system, remote up to 90 days",N,O,15,16,16,66,20.21,16.33
+1003000936,Cardiology,SC,5,93298,"Evaluation of cardiac rhythm monitor system, remote up to 30 days",N,O,13,30,30,57,59.31,47.91
+1003000936,Cardiology,SC,5,93306,"Ultrasound of heart with color-depicted blood flow, rate, direction and valve function",N,F,252,259,259,178,67.674401544,54.478957529
+1003000936,Cardiology,SC,5,93306,"Ultrasound of heart with color-depicted blood flow, rate, direction and valve function",N,O,124,133,133,495,183.36616541,136.28112782
+1003000936,Cardiology,SC,5,93308,"Ultrasound of heart, follow-up",N,F,18,18,18,100,24.515555556,19.24
+1003000936,Cardiology,SC,5,93321,"Ultrasound of heart blood flow, valves and chambers, follow-up",N,F,11,11,11,42,7.0227272727,5.6709090909
+1003000936,Cardiology,SC,5,93325,"Ultrasound of heart with color-depicted blood flow, rate and valve function",N,F,19,20,20,47,3.045,2.458
+1003000936,Cardiology,SC,5,93356,Heart muscle strain imaging,N,O,22,22,22,86,35.76,28.89
+1003000936,Cardiology,SC,5,93454,Insertion of tube in coronary artery for diagnosis with review by radiologist,N,F,19,19,19,864,223.41578947,172.44526316
+1003000936,Cardiology,SC,5,99152,"Use of a drug to induce depression of consciousness by physician performing a procedure (5 years or older), initial 15 minutes",N,F,21,21,21,87,11.53,8.9066666667
+1003000936,Cardiology,SC,5,99203,"New patient office or other outpatient visit with low level of medical decision making, if using time, 30 minutes or more",N,O,32,32,32,208,109.71375,84.1303125
+1003000936,Cardiology,SC,5,99204,"New patient office or other outpatient visit with moderate level of medical decision making, if using time, 45 minutes or more",N,O,22,22,22,315,165.13181818,127.63363636
+1003000936,Cardiology,SC,5,99213,"Established patient office or other outpatient visit with low level od decision making, if using time, 20 minutes or more",N,O,26,28,28,168,89.150357143,66.283571429
+1003000936,Cardiology,SC,5,99214,"Established patient office or other outpatient visit with moderate level of decision making, if using time, 30 minutes or more",N,O,332,844,844,238,123.71845972,90.109016588
+1003000936,Cardiology,SC,5,99215,"Established patient office or other outpatient visit with high level of medical decision making, if using time, 40 minutes or more",N,O,81,118,118,334,174.4479661,132.15872881
+1003000936,Cardiology,SC,5,99222,"Initial hospital care with straightforward or low-level medical decision making, if using time, at least 55 minutes",N,F,13,13,13,277,129.59846154,104.68923077
+1003000936,Cardiology,SC,5,99232,"Subsequent hospital care with moderate levelof medical decision making, if using time, at least 35 minutes",N,F,13,14,14,149,78.215714286,63.181428571
+1003006107,Cardiology,TX,1,93000,Routine electrocardiogram (ecg) using at least 12 leads with interpretation and report,N,O,24,34,34,27,14.450294118,11.166176471
+1003006107,Cardiology,TX,1,93010,Routine electrocardiogram (ecg) using at least 12 leads with interpretation and report only,N,F,77,80,78,13.4625,8.00725,6.388
+1003006107,Cardiology,TX,1,93306,"Ultrasound of heart with color-depicted blood flow, rate, direction and valve function",N,F,59,59,59,134.94915254,66.57440678,51.252711864
+1003006107,Cardiology,TX,1,99214,"Established patient office or other outpatient visit with moderate level of decision making, if using time, 30 minutes or more",N,O,25,41,41,168,129.0897561,97.828292683
+1003006107,Cardiology,TX,1,99223,"Initial hospital care with moderate level of medical decision making, if using time, at least 75 minutes",N,F,53,53,53,313,173.05415094,137.88169811
+1003006107,Cardiology,TX,1,99232,"Subsequent hospital care with moderate levelof medical decision making, if using time, at least 35 minutes",N,F,58,134,134,150,78.299253731,61.932686567
+1003007170,Cardiology,IL,1,36415,Insertion of needle into vein for collection of blood sample,N,O,64,81,81,22,8.1160493827,8.1160493827
+1003007170,Cardiology,IL,1,75574,Ct scan of blood vessels and grafts of heart with contrast,N,F,195,195,195,395,113.52989744,83.51825641
+1003007170,Cardiology,IL,1,75580,"Analysis of data from ct study of heart blood vessels to assess severity of heart artery disease, with interpretation and report",N,F,28,28,28,72,35.263928571,26.065714286
+1003007170,Cardiology,IL,1,76376,3d radiographic procedure,N,F,81,83,83,39,9.3409638554,7.011686747
+1003007170,Cardiology,IL,1,76376,3d radiographic procedure,N,O,58,58,58,171.67241379,25.32862069,20.137586207
+1003007170,Cardiology,IL,1,78452,Nuclear medicine studies of heart muscle at rest and with stress and spect,N,F,14,14,14,350,70.395714286,48.222142857
+1003007170,Cardiology,IL,1,78452,Nuclear medicine studies of heart muscle at rest and with stress and spect,N,O,36,36,36,1607,429.77388889,343.15305556
+1003007170,Cardiology,IL,1,93000,Routine electrocardiogram (ecg) using at least 12 leads with interpretation and report,N,O,34,34,34,82,14.430882353,11.500294118
+1003007170,Cardiology,IL,1,93010,Routine electrocardiogram (ecg) using at least 12 leads with interpretation and report only,N,F,90,106,97,31,7.836509434,6.1246226415
+1003007170,Cardiology,IL,1,93015,Exercise or drug-induced heart stress test with electrocardiogram (ecg) with supervision and review by physician,N,O,38,38,38,343,62.838684211,50.204210526
+1003003153,Dermatology,WA,1,11102,"Biopsy of related skin growth, first growth",N,O,92,103,103,266.06,85.462330097,59.858543689
+1003003153,Dermatology,WA,1,11103,"Biopsy of related skin growth, each additional growth",N,O,15,17,15,135.21,50.876470588,35.735882353
+1003003153,Dermatology,WA,1,17000,"Destruction of precancer skin growth, 1 growth",N,O,161,216,216,168.36,50.226203704,34.286203704
+1003003153,Dermatology,WA,1,17003,"Destruction of precancer skin growth, 2-14 growths",N,O,113,579,141,16.57,6.6989464594,5.063955095
+1003003153,Dermatology,WA,1,17110,"Destruction of skin growth, 1-14 growths",N,O,94,121,121,290.49,113.98677686,80.164049587
+1003003153,Dermatology,WA,1,99203,"New patient office or other outpatient visit with low level of medical decision making, if using time, 30 minutes or more",N,O,31,31,31,285,111.43709677,80.439032258
+1003003153,Dermatology,WA,1,99212,"Established patient office or other outpatient visit with straightforward medical decision making, if using time, 10 minutes or more",N,O,50,57,57,145,56.790701754,33.953859649
+1003003153,Dermatology,WA,1,99213,"Established patient office or other outpatient visit with low level od decision making, if using time, 20 minutes or more",N,O,168,222,222,230,88.780630631,59.263423423
+1003003153,Dermatology,WA,1,99214,"Established patient office or other outpatient visit with moderate level of decision making, if using time, 30 minutes or more",N,O,74,121,121,330,126.02760331,83.805702479
+1003010687,Dermatology,TX,1.1,11102,"Biopsy of related skin growth, first growth",N,O,2031,2509,2509,200,93.331921084,63.883001196
+1003010687,Dermatology,TX,1.1,11103,"Biopsy of related skin growth, each additional growth",N,O,138,150,144,65,49.952066667,36.130733333
+1003010687,Dermatology,TX,1.1,11402,"Removal of noncancer skin growth of body, arms, or legs, 1.1-2.0 cm",N,O,12,12,12,250,86.625,69.928333333
+1003010687,Dermatology,TX,1.1,11403,"Removal of noncancer skin growth of body, arms, or legs, 2.1-3.0 cm",N,O,119,120,120,350,99.025583333,74.922
+1003010687,Dermatology,TX,1.1,11603,"Removal of cancer skin growth of body, arms, or legs, 2.1-3.0 cm",N,O,113,130,130,530,139.83084615,109.417
+1003010687,Dermatology,TX,1.1,11623,"Removal of cancer skin growth of scalp, neck, hands, feet, or genitals, 2.1-3.0 cm",N,O,26,26,26,560,148.28153846,113.21461538
+1003010687,Dermatology,TX,1.1,11643,"Removal of cancer skin growth of face, ears, eyelids, nose, lips, or mouth, 2.1-3.0 cm",N,O,17,17,17,600,288.53529412,228.95529412
+1003010687,Dermatology,TX,1.1,12032,"Intermediate repair of wound of scalp, underarms, trunk, arms, or legs, 2.6-7.5 cm",N,O,249,276,276,570,299.43583333,238.55235507
+1003010687,Dermatology,TX,1.1,12042,"Intermediate repair of wound of neck, hands, feet, or genitals, 2.6-7.5 cm",N,O,38,40,40,570,291.19525,233.434
+1003010687,Dermatology,TX,1.1,12052,"Intermediate repair of wound of face, ears, eyelids, nose, lips, or mouth, 2.6-5.0 cm",N,O,17,19,19,560,183.24631579,148.16157895
+1003010687,Dermatology,TX,1.1,17000,"Destruction of precancer skin growth, 1 growth",N,O,1388,2004,2004,150,47.015878244,32.217879242
+1003010687,Dermatology,TX,1.1,17003,"Destruction of precancer skin growth, 2-14 growths",N,O,991,5406,1358,15,6.5480188679,4.6106400296
+1003010687,Dermatology,TX,1.1,17004,"Destruction of precancer skin growth, 15 or more growths",N,O,59,72,72,320,166.815,118.41083333
+1003010687,Dermatology,TX,1.1,17110,"Destruction of skin growth, 1-14 growths",N,O,591,655,655,210,111.91387786,75.965526718
+1003010687,Dermatology,TX,1.1,17111,"Destruction of skin growth, 15 or more growths",N,O,15,16,16,250,133.105625,101.158125
+1003010687,Dermatology,TX,1.1,99202,"New patient office or other outpatient visit with straightforward medical decision making, if using time, 15 minutes or more",N,O,276,276,276,140,72.350942029,50.770471014
+1003010687,Dermatology,TX,1.1,99203,"New patient office or other outpatient visit with low level of medical decision making, if using time, 30 minutes or more",N,O,256,256,256,199.74609375,110.82203125,69.326054688
+1003010687,Dermatology,TX,1.1,99212,"Established patient office or other outpatient visit with straightforward medical decision making, if using time, 10 minutes or more",N,O,34,35,35,80,56.487142857,44.836
+1003010687,Dermatology,TX,1.1,99213,"Established patient office or other outpatient visit with low level od decision making, if using time, 20 minutes or more",N,O,2436,3404,3404,135,90.952032902,64.641222092
+1003011404,Dermatology,CO,1,11102,"Biopsy of related skin growth, first growth",N,O,125,159,159,208.47169811,85.747798742,65.616100629
+1003011404,Dermatology,CO,1,11103,"Biopsy of related skin growth, each additional growth",N,O,39,76,46,103.94736842,51.194210526,40.79
+1003011404,Dermatology,CO,1,11200,"Removal of skin tag, 1-15 skin tags",N,O,14,14,14,191.35714286,63.978571429,42.493571429
+1003011404,Dermatology,CO,1,11602,"Removal of cancer skin growth of body, arms, or legs, 1.1-2.0 cm",N,O,19,21,21,505.23809524,124.31571429,99.045714286
+1003011404,Dermatology,CO,1,11900,"Injection into skin growth, 1-7 growths",N,O,14,21,21,118.61904762,40.288571429,30.247142857
+1003011404,Dermatology,CO,1,12032,"Intermediate repair of wound of scalp, underarms, trunk, arms, or legs, 2.6-7.5 cm",N,O,49,57,57,627.77192982,197.78333333,154.23017544
+1003011404,Dermatology,CO,1,12042,"Intermediate repair of wound of neck, hands, feet, or genitals, 2.6-7.5 cm",N,O,14,18,18,639.77777778,157.34333333,125.36222222
+1003011404,Dermatology,CO,1,12052,"Intermediate repair of wound of face, ears, eyelids, nose, lips, or mouth, 2.6-5.0 cm",N,O,17,17,17,648.64705882,178.48882353,142.21176471
+1003011404,Dermatology,CO,1,12053,"Intermediate repair of wound of face, ears, eyelids, nose, lips, or mouth, 5.1-7.5 cm",N,O,14,15,15,748.4,196.38933333,156.47133333
+1003011404,Dermatology,CO,1,13121,"Complicated repair of wound of scalp, arms, or legs, 2.6-7.5 cm",N,O,32,33,33,874.15151515,241.26151515,192.22787879
+1003011404,Dermatology,CO,1,13131,"Complicated repair of wound of forehead, cheeks, chin, mouth, neck, underarms, genitals, hands, or feet, 1.1-2.5 cm",N,O,22,22,22,796.63636364,195.87818182,156.06636364
+1003011404,Dermatology,CO,1,13132,"Complicated repair of wound of forehead, cheeks, chin, mouth, neck, underarms, genitals, hands, or feet, 2.6-7.5 cm",N,O,60,64,64,964.75,241.0603125,192.06796875
+1003012949,Podiatry,GA,1,11721,"Removal of fingernails or toenails, 6 or more nails",N,O,12,19,19,132,42.597368421,33.94
+1003012949,Podiatry,GA,1,73630,"X-ray of foot, minimum of 3 views",N,O,53,74,62,97.297297297,32.54972973,23.508648649
+1003012949,Podiatry,GA,1,99203,"New patient office or other outpatient visit with low level of medical decision making, if using time, 30 minutes or more",N,O,51,51,51,317,108.46960784,66.968627451
+1003012949,Podiatry,GA,1,99204,"New patient office or other outpatient visit with moderate level of medical decision making, if using time, 45 minutes or more",N,O,57,57,57,484,159.58122807,108.5577193
+1003012949,Podiatry,GA,1,99213,"Established patient office or other outpatient visit with low level od decision making, if using time, 20 minutes or more",N,O,58,88,88,213,86.693068182,61.734431818
+1003012949,Podiatry,GA,1,99214,"Established patient office or other outpatient visit with moderate level of decision making, if using time, 30 minutes or more",N,O,59,117,117,313,117.87606838,86.141196581
+1003013632,Podiatry,SC,1,11305,"Shaving of skin growth of scalp, neck, hands, feet, or genitals, 0.5 cm or less",N,O,36,81,53,130,69.103209877,50.277901235
+1003013632,Podiatry,SC,1,11306,"Shaving of skin growth of scalp, neck, hands, feet, or genitals, 0.6-1.0 cm",N,O,102,329,218,150,80.13100304,56.75112462
+1003013632,Podiatry,SC,1,11307,"Shaving of skin growth of scalp, neck, hands, feet, or genitals, 1.1-2.0 cm",N,O,233,873,513,180,100.85312715,68.165784651
+1003013632,Podiatry,SC,1,11720,"Removal of fingernails or toenails, 1-5 nails",N,O,12,15,15,55,30.326666667,22.551333333
+1003013632,Podiatry,SC,1,11721,"Removal of fingernails or toenails, 6 or more nails",N,O,356,770,770,65,41.381883117,30.16061039
+1003013632,Podiatry,SC,1,11755,Biopsy of fingernail or toenail,N,O,33,33,33,190,102.63939394,72.208484848
+1003013632,Podiatry,SC,1,20550,Injection into tendon or ligament,N,O,15,17,17,150,53.774117647,40.318235294
+1003013632,Podiatry,SC,1,99203,"New patient office or other outpatient visit with low level of medical decision making, if using time, 30 minutes or more",N,O,161,161,161,150,104.15763975,74.382546584
+1003013632,Podiatry,SC,1,99212,"Established patient office or other outpatient visit with straightforward medical decision making, if using time, 10 minutes or more",N,O,21,21,21,80,52.421428571,36.514761905
+1003013632,Podiatry,SC,1,99213,"Established patient office or other outpatient visit with low level od decision making, if using time, 20 minutes or more",N,O,460,1067,1067,120,84.74004686,60.339690722
+1003013632,Podiatry,SC,1,99214,"Established patient office or other outpatient visit with moderate level of decision making, if using time, 30 minutes or more",N,O,15,16,16,180,119.85,74.805
+1003014077,Podiatry,OK,4,11055,"Removal of noncancer thickened skin growth, 1 growth",N,O,22,28,28,63.71,14.6,11.63
+1003014077,Podiatry,OK,4,11056,"Removal of noncancer thickened skin growth, 2-4 growths",N,O,32,46,46,88.11,20.642826087,16.08673913
+1003014077,Podiatry,OK,4,11721,"Removal of fingernails or toenails, 6 or more nails",N,O,109,209,209,94.89,22.24354067,17.230334928
+1003014077,Podiatry,OK,4,99203,"New patient office or other outpatient visit with low level of medical decision making, if using time, 30 minutes or more",N,O,40,40,40,332.1,76.40175,52.72325
+1003014077,Podiatry,OK,4,99213,"Established patient office or other outpatient visit with low level od decision making, if using time, 20 minutes or more",N,O,158,222,222,266.15189189,61.380540541,45.078153153
+1003014077,Podiatry,OK,4,99214,"Established patient office or other outpatient visit with moderate level of decision making, if using time, 30 minutes or more",N,O,17,20,20,397.5645,90.3915,61.169
+1003028101,Podiatry,NY,1,10060,Simple or single drainage of skin abscess,N,O,59,85,85,162.94,137.466,104.55482353
+1003028101,Podiatry,NY,1,11420,"Removal of noncancer skin growth of scalp, neck, hands, feet, or genitals, 0.5 cm or less",N,O,21,39,39,162.66,137.24435897,104.23076923
+1003028101,Podiatry,NY,1,11721,"Removal of fingernails or toenails, 6 or more nails",N,O,121,444,444,56.32,47.549481982,35.770157658
+1003028101,Podiatry,NY,1,99342,"Residence visit for new patient with low level of medical decision making, per day, if using time, at least 30 minutes",N,O,27,27,27,94.73,80.265185185,57.923333333
+1003028101,Podiatry,NY,1,99347,"Residence visit for established patient with straightforward medical decision making, per day, if using time, at least 15 minutes",N,O,125,588,588,55.25,46.688945578,34.836547619
+1003043423,Podiatry,OK,4,11042,"Removal of skin and tissue, 20.0 sq cm or less",N,O,56,102,102,255,122.85431373,96.359901961
+1003043423,Podiatry,OK,4,11056,"Removal of noncancer thickened skin growth, 2-4 growths",N,O,198,449,449,162.04008909,77.001447661,59.068129176
+1003043423,Podiatry,OK,4,11720,"Removal of fingernails or toenails, 1-5 nails",N,O,11,12,12,65,31.886666667,25.805
+1003043423,Podiatry,OK,4,11721,"Removal of fingernails or toenails, 6 or more nails",N,O,339,771,771,87.953307393,43.317976654,32.322996109
+1003043423,Podiatry,OK,4,11750,Permanent removal fingernail or toenail,N,O,30,32,31,324.59375,152.6921875,114.981875
+1003043423,Podiatry,OK,4,11755,Biopsy of fingernail or toenail,N,O,12,12,12,240.5,117.16416667,89.096666667
+1003043423,Podiatry,OK,4,20551,Injection into tendon at attachment to bone or muscle,N,O,20,26,26,113.03846154,55.897307692,39.958846154
+1003043423,Podiatry,OK,4,20605,Aspiration and/or injection of fluid from medium joint,N,O,14,17,17,109,52.091764706,39.75
+1003043423,Podiatry,OK,4,28232,Incision to lengthen toe tendon,N,O,11,14,12,741,338.13357143,273.65071429
+1003043423,Podiatry,OK,4,28820,Amputation of toe at joint between forefoot and toes,N,F,16,19,17,521.42105263,120.56368421,97.571578947
+1003043423,Podiatry,OK,4,64455,Injection of anesthetic and/or steroid drug into foot nerve,N,O,14,20,20,102.9,51.616,39.8985
+1003043423,Podiatry,OK,4,73610,"X-ray of ankle, minimum of 3 views",N,O,25,41,41,72.073170732,34.675853659,27.683902439
+1003002106,Psychiatry,FL,1,90870,Therapy using electrical currents,N,F,18,105,105,382,104.462,83.228666667
+1003002106,Psychiatry,FL,1,99214,"Established patient office or other outpatient visit with moderate level of decision making, if using time, 30 minutes or more",N,O,35,183,183,250,128.88486339,97.293169399
+1003002106,Psychiatry,FL,1,99222,"Initial hospital care with straightforward or low-level medical decision making, if using time, at least 55 minutes",N,F,87,99,99,300,132.25272727,105.36828283
+1003002106,Psychiatry,FL,1,99223,"Initial hospital care with moderate level of medical decision making, if using time, at least 75 minutes",N,F,12,12,12,350,173.4,138.16
+1003002106,Psychiatry,FL,1,99233,"Subsequent hospital care with moderate levelof medical decision making, if using time, at least 50 minutes",N,F,53,98,98,200,119.51132653,95.223061224
+1003002106,Psychiatry,FL,1,99239,"Hospital discharge day management, more than 30 minutes",N,F,16,17,17,220,115.08,91.69
+1003007345,Psychiatry,MN,1,99222,"Initial hospital care with straightforward or low-level medical decision making, if using time, at least 55 minutes",N,F,16,16,16,546.0875,123.166875,98.311875
+1003007345,Psychiatry,MN,1,99232,"Subsequent hospital care with moderate levelof medical decision making, if using time, at least 35 minutes",N,F,38,234,234,360.36068376,74.803119658,58.89957265
+1003007345,Psychiatry,MN,1,99239,"Hospital discharge day management, more than 30 minutes",N,F,12,12,12,522.7,109.3825,80.07
+1003007345,Psychiatry,MN,1,99284,Emergency department visit with moderate level of medical decision making,N,F,23,26,26,417,111.64076923,68.233076923
+1003009077,Psychiatry,CA,1,90839,"Psychotherapy for crisis, first hour",N,F,65,73,73,1432.8608219,141.03452055,107.66986301
+1003012634,Psychiatry,MI,1,99221,"Initial hospital care with straightforward or low level of medical decision making, per day, if using time, at least 40 minutes",N,F,11,11,11,232.74545455,83.415454545,66.46
+1003012634,Psychiatry,MI,1,99222,"Initial hospital care with straightforward or low-level medical decision making, if using time, at least 55 minutes",N,F,75,81,81,447.61111111,131.71962963,104.95024691
+1003012634,Psychiatry,MI,1,99223,"Initial hospital care with moderate level of medical decision making, if using time, at least 75 minutes",N,F,71,72,72,573.83194444,173.13694444,137.94930556
+1003012634,Psychiatry,MI,1,99231,"Subsequent hospital care with straightforward or low level of medical decision making, per day, if using time, at least 25 minutes",N,F,13,18,18,107.41666667,49.597777778,39.520555556
+1003012634,Psychiatry,MI,1,99232,"Subsequent hospital care with moderate levelof medical decision making, if using time, at least 35 minutes",N,F,77,232,232,215.5387931,79.065043103,62.175086207
+1003012915,Psychiatry,GA,1,90833,"Psychotherapy with evaluation and management visit, 30 minutes",N,O,109,387,387,144.52,60.609534884,42.32870801
+1003012915,Psychiatry,GA,1,99213,"Established patient office or other outpatient visit with low level od decision making, if using time, 20 minutes or more",N,O,98,371,371,152.65183288,61.514663073,41.27083558
+1003012915,Psychiatry,GA,1,99214,"Established patient office or other outpatient visit with moderate level of decision making, if using time, 30 minutes or more",N,O,12,15,15,235.212,77.001333333,55.110666667
+1003017104,Psychiatry,OH,1,99214,"Established patient office or other outpatient visit with moderate level of decision making, if using time, 30 minutes or more",N,O,16,60,60,165,91.928333333,63.666333333
+1003017104,Psychiatry,OH,1,99232,"Subsequent hospital care with moderate levelof medical decision making, if using time, at least 35 minutes",N,F,11,59,59,115,75.708644068,56.453559322
+1003017302,Psychiatry,AR,4,99214,"Established patient office or other outpatient visit with moderate level of decision making, if using time, 30 minutes or more",N,O,35,130,130,120.86353846,110.42223077,84.432538462
+1003017369,Psychiatry,MO,1,99214,"Established patient office or other outpatient visit with moderate level of decision making, if using time, 30 minutes or more",N,O,16,36,36,159.44444444,115.84277778,79.599166667
+1003020496,Psychiatry,IA,4,99222,"Initial hospital care with straightforward or low-level medical decision making, if using time, at least 55 minutes",N,F,11,11,11,227,119.39909091,95.190909091
+1003020496,Psychiatry,IA,4,99223,"Initial hospital care with moderate level of medical decision making, if using time, at least 75 minutes",N,F,23,26,26,335,159.57115385,115.88538462
+1003020496,Psychiatry,IA,4,99232,"Subsequent hospital care with moderate levelof medical decision making, if using time, at least 35 minutes",N,F,33,182,182,144.85714286,72.553736264,57.840989011
+1003020496,Psychiatry,IA,4,99239,"Hospital discharge day management, more than 30 minutes",N,F,15,16,16,210,105.17125,83.8425
+1003020496,Psychiatry,IA,4,G0316,Prolonged hospital inpatient or observation care evaluation and management service(s) beyond the total time for the primary service (when the primary service has been selected using time on the date of the primary service); each additional 15 minutes by th,N,F,16,30,19,71,28.045666667,22.359666667
+1003036880,Psychiatry,FL,1,99214,"Established patient office or other outpatient visit with moderate level of decision making, if using time, 30 minutes or more",N,O,35,105,105,150,134.17009524,105.94552381
+1003036880,Psychiatry,FL,1,99215,"Established patient office or other outpatient visit with high level of medical decision making, if using time, 40 minutes or more",N,O,15,19,19,200,189.64157895,151.09736842
+1003036880,Psychiatry,FL,1,99305,"Initial nursing facility care with moderate level of medical decision making, per day, if using time, at least 35 minutes",N,F,94,95,95,261.05263158,138.93284211,110.69557895
+1003036880,Psychiatry,FL,1,99308,"Subsequent nursing facility care with straightforward level of medical decision making, per day, if using time, 20 minutes or more",N,F,58,181,181,150.27624309,77.429171271,59.542596685
+1003036880,Psychiatry,FL,1,99309,"Subsequent nursing facility care with moderate level of medical decision making, per day, if using time, at least 30 minutes",N,F,31,42,42,200,112.11547619,89.228809524
+1003038738,Psychiatry,FL,1,90792,Psychiatric diagnostic evaluation with medical services,N,O,56,56,56,225,200.43767857,135.46357143
+1003038738,Psychiatry,FL,1,96372,Injection of drug or substance under skin or into muscle,N,O,15,62,62,39,14.779193548,9.4175806452
+1003038738,Psychiatry,FL,1,99213,"Established patient office or other outpatient visit with low level od decision making, if using time, 20 minutes or more",N,F,28,52,52,120,69.702692308,42.225384615
+1003038738,Psychiatry,FL,1,99213,"Established patient office or other outpatient visit with low level od decision making, if using time, 20 minutes or more",N,O,142,435,435,138.83908046,95.318574713,63.104022989
+1003038738,Psychiatry,FL,1,99214,"Established patient office or other outpatient visit with moderate level of decision making, if using time, 30 minutes or more",N,O,39,86,86,200,134.35744186,98.520465116
+1003040320,Psychiatry,NY,1,90792,Psychiatric diagnostic evaluation with medical services,N,O,12,12,12,750,201.33666667,160.41083333
+1003041559,Psychiatry,CA,1,99232,"Subsequent hospital care with moderate levelof medical decision making, if using time, at least 35 minutes",N,F,14,129,129,306.18604651,74.814728682,59.454728682
+1003000720,Nurse Practitioner,FL,1,99204,"New patient office or other outpatient visit with moderate level of medical decision making, if using time, 45 minutes or more",N,O,15,15,15,520,142.96466667,94.683333333
+1003001678,Nurse Practitioner,NJ,1,77063,Screening 3d breast mammography,N,O,12,12,12,210,46.75,46.75
+1003001678,Nurse Practitioner,NJ,1,77067,Screening mammography,N,O,12,12,12,353,116.37,116.37
+1003001678,Nurse Practitioner,NJ,1,99212,"Established patient office or other outpatient visit with straightforward medical decision making, if using time, 10 minutes or more",N,O,14,17,17,129.88235294,51.039411765,33.414117647
+1003001678,Nurse Practitioner,NJ,1,99213,"Established patient office or other outpatient visit with low level od decision making, if using time, 20 minutes or more",N,O,26,27,27,200,81.490740741,60.113703704
+1003001678,Nurse Practitioner,NJ,1,99459,Pelvic exam,N,O,31,33,33,70,20.857575758,15.587272727
+1003001678,Nurse Practitioner,NJ,1,G0101,Cervical or vaginal cancer screening; pelvic and clinical breast examination,N,O,113,113,113,105.66371681,35.196814159,35.196814159
+1003001678,Nurse Practitioner,NJ,1,Q0091,"Screening papanicolaou smear; obtaining, preparing and conveyance of cervical or vaginal smear to laboratory",N,O,73,73,73,117.39726027,39.938219178,39.938219178
+1003006396,Nurse Practitioner,TN,1,99307,"Subsequent nursing facility care with straightforward level of medical decision making, per day, if using time, at least 10 minutes",N,F,23,136,136,79,30.95,24.55
+1003006396,Nurse Practitioner,TN,1,99307,"Subsequent nursing facility care with straightforward level of medical decision making, per day, if using time, at least 10 minutes",N,O,67,245,245,79,30.95,24.55
+1003006396,Nurse Practitioner,TN,1,99308,"Subsequent nursing facility care with straightforward level of medical decision making, per day, if using time, 20 minutes or more",N,O,23,33,33,150,57.29,45.45
+1003006610,Nurse Practitioner,IA,7,36415,Insertion of needle into vein for collection of blood sample,N,O,44,68,68,21.85,8.65,8.65
+1003006610,Nurse Practitioner,IA,7,81002,"Urinalysis, manual test",N,O,14,21,21,15,3.41,3.41
+1003006610,Nurse Practitioner,IA,7,90662,"Influenza vaccine split virus, preservative free",Y,O,16,16,16,87.89,81.82,81.82
+1003006610,Nurse Practitioner,IA,7,90677,"Pneumococcal conjugate vaccine, 20 valent (pcv20), for intramuscular use",Y,O,30,30,30,307.96866667,277.13633333,277.13633333
+1003006610,Nurse Practitioner,IA,7,99213,"Established patient office or other outpatient visit with low level od decision making, if using time, 20 minutes or more",N,O,40,53,53,98.9,71.280754717,53.455471698
+1003006610,Nurse Practitioner,IA,7,99214,"Established patient office or other outpatient visit with moderate level of decision making, if using time, 30 minutes or more",N,O,82,182,182,152.95,99.22967033,61.333021978
+1003006610,Nurse Practitioner,IA,7,G0008,Administration of influenza virus vaccine,N,O,18,20,20,44,29.94,29.94
+1003006610,Nurse Practitioner,IA,7,G0009,Administration of pneumococcal vaccine,N,O,29,29,29,44,28.907586207,28.907586207
+1003006610,Nurse Practitioner,IA,7,G0438,"Annual wellness visit; includes a personalized prevention plan of service (pps), initial visit",N,O,13,13,13,242,129.94,129.94
+1003007477,Nurse Practitioner,MA,1,99214,"Established patient office or other outpatient visit with moderate level of decision making, if using time, 30 minutes or more",N,O,170,811,811,300,105.5289889,68.606683107
+1003007477,Nurse Practitioner,MA,1,99215,"Established patient office or other outpatient visit with high level of medical decision making, if using time, 40 minutes or more",N,O,31,74,74,339.86486486,149.2927027,101.18824324
+1003007477,Nurse Practitioner,MA,1,99442,"Telephone medical discussion with physician, 11-20 minutes",N,O,57,63,63,300,74.966666667,55.85031746
+1003007477,Nurse Practitioner,MA,1,99443,"Telephone medical discussion with physician, 21-30 minutes",N,O,56,60,60,350,104.05266667,80.388
+1003008095,Nurse Practitioner,KY,4,96372,Injection of drug or substance under skin or into muscle,N,O,11,12,11,27,11.09,8.84
+1003008095,Nurse Practitioner,KY,4,99204,"New patient office or other outpatient visit with moderate level of medical decision making, if using time, 45 minutes or more",N,O,11,11,11,318,131.49090909,96.6
+1003008095,Nurse Practitioner,KY,4,99205,"New patient office or other outpatient visit with a high level of medical decision making, if using time, 60 minutes or more",N,O,11,11,11,421,173.69272727,138.38545455
+1003008095,Nurse Practitioner,KY,4,99214,"Established patient office or other outpatient visit with moderate level of decision making, if using time, 30 minutes or more",N,O,66,168,168,243,100.03767857,75.565119048
+1003008095,Nurse Practitioner,KY,4,99215,"Established patient office or other outpatient visit with high level of medical decision making, if using time, 40 minutes or more",N,O,16,17,17,347.58823529,142.01058824,106.48882353
+1003009135,Nurse Practitioner,WA,1,90792,Psychiatric diagnostic evaluation with medical services,N,O,14,15,15,467.66933333,163.392,130.17866667
+1003009135,Nurse Practitioner,WA,1,90833,"Psychotherapy with evaluation and management visit, 30 minutes",N,O,64,322,322,200,60.062080745,47.702080745
+1003009135,Nurse Practitioner,WA,1,99306,"Initial nursing facility care with high level of medical decision making, per day, if using time, 50 minutes or more",N,O,53,54,54,350,151.46611111,116.5487037
+1003009135,Nurse Practitioner,WA,1,99309,"Subsequent nursing facility care with moderate level of medical decision making, per day, if using time, at least 30 minutes",N,O,49,222,222,175,90.004324324,71.709189189
+1003009135,Nurse Practitioner,WA,1,99310,"Subsequent nursing facility care with high level of medical decision making, per day, if using time, at least 45 minutes",N,O,43,168,168,275,128.0514881,101.41625
+1003009135,Nurse Practitioner,WA,1,99452,"Telephone or internet referral service, 30 minutes",N,O,43,91,91,75,28.082197802,22.372637363
+1003009135,Nurse Practitioner,WA,1,99484,"Care management services for behavioral health conditions, 20 minutes or more clinical staff time directed by health care professional",N,O,22,32,32,100,46.53,37.07
+1003009580,Nurse Practitioner,TX,1,80307,"Testing for presence of drug, by chemistry analyzers",N,O,36,48,48,305,58.647291667,58.647291667
+1003009580,Nurse Practitioner,TX,1,98977,"Device supply with scheduled recording and transmission for remote monitoring of musculoskeletal system, per 30 days",N,O,13,68,68,170,39.648088235,29.473235294
+1003009580,Nurse Practitioner,TX,1,98980,"Remote therapeutic monitoring treatment management services by physician or other qualified health care professional, first 20 minutes per calendar month",N,O,11,63,63,300,42.419206349,32.718095238
+1003009580,Nurse Practitioner,TX,1,G0447,"Face-to-face behavioral counseling for obesity, 15 minutes",N,O,16,56,56,118,20.600357143,20.600357143
+1003000829,Physical Therapist in Private Practice,CO,1,97110,"Therapy procedure using exercise to develop strength, endurance, range of motion, and flexibility, each 15 minutes",N,O,16,367,213,40,22.947138965,17.298855586
+1003000829,Physical Therapist in Private Practice,CO,1,97112,"Therapy procedure to re-educate brain-to-nerve-to-muscle function, each 15 minutes",N,O,20,751,375,39.97816245,26.869933422,21.155006658
+1003000829,Physical Therapist in Private Practice,CO,1,97140,"Therapy procedure using manual technique, each 15 minutes",N,O,13,238,182,40,20.835294118,16.459201681
+1003000829,Physical Therapist in Private Practice,CO,1,97162,"Evaluation for physical therapy, typically 30 minutes",N,O,12,15,15,125,100.72466667,79.012666667
+1003000829,Physical Therapist in Private Practice,CO,1,97530,Therapy procedure using functional activities,N,O,18,380,257,45,33.506947368,25.835894737
+1003001140,Physical Therapist in Private Practice,NV,1,97012,Application of mechanical traction,N,O,14,42,42,60,10.080238095,7.8430952381
+1003001140,Physical Therapist in Private Practice,NV,1,97110,"Therapy procedure using exercise to develop strength, endurance, range of motion, and flexibility, each 15 minutes",N,O,174,687,553,66.087336245,20.235924309,14.713653566
+1003001140,Physical Therapist in Private Practice,NV,1,97112,"Therapy procedure to re-educate brain-to-nerve-to-muscle function, each 15 minutes",N,O,163,471,434,66.063694268,24.950870488,18.563524416
+1003001140,Physical Therapist in Private Practice,NV,1,97140,"Therapy procedure using manual technique, each 15 minutes",N,O,105,294,288,80,18.45755102,13.689829932
+1003001140,Physical Therapist in Private Practice,NV,1,97150,Therapy procedure in a group setting,N,O,134,305,305,65.93442623,12.528918033,9.4779344262
+1003001140,Physical Therapist in Private Practice,NV,1,97161,"Evaluation for physical therapy, typically 20 minutes",N,O,32,32,32,180,92.6965625,55.8890625
+1003001140,Physical Therapist in Private Practice,NV,1,97162,"Evaluation for physical therapy, typically 30 minutes",N,O,23,23,23,180,91.571304348,68.178695652
+1003001140,Physical Therapist in Private Practice,NV,1,97530,Therapy procedure using functional activities,N,O,166,490,438,66.079591837,30.293122449,22.104693878
+1003001249,Physical Therapist in Private Practice,IL,1,97110,"Therapy procedure using exercise to develop strength, endurance, range of motion, and flexibility, each 15 minutes",N,O,102,1786,730,75,23.64206047,18.395291153
+1003001249,Physical Therapist in Private Practice,IL,1,97116,"Therapy procedure for walking training, each 15 minutes",N,O,13,108,93,60,21.442037037,16.879259259
+1003001249,Physical Therapist in Private Practice,IL,1,97140,"Therapy procedure using manual technique, each 15 minutes",N,O,16,94,83,75,20.674255319,14.02606383
+1003001249,Physical Therapist in Private Practice,IL,1,97161,"Evaluation for physical therapy, typically 20 minutes",N,O,87,96,96,135,94.487083333,70.411770833
+1003001975,Physical Therapist in Private Practice,CA,1,97110,"Therapy procedure using exercise to develop strength, endurance, range of motion, and flexibility, each 15 minutes",N,O,13,121,109,40,18.671900826,14.517024793
+1003001975,Physical Therapist in Private Practice,CA,1,97112,"Therapy procedure to re-educate brain-to-nerve-to-muscle function, each 15 minutes",N,O,15,99,92,45,23.875858586,18.76
+1003001975,Physical Therapist in Private Practice,CA,1,97116,"Therapy procedure for walking training, each 15 minutes",N,O,13,48,48,35,20.631875,15.2975
+1003001975,Physical Therapist in Private Practice,CA,1,97140,"Therapy procedure using manual technique, each 15 minutes",N,O,28,300,266,35,19.459233333,14.895833333
+1003001975,Physical Therapist in Private Practice,CA,1,97162,"Evaluation for physical therapy, typically 30 minutes",N,O,27,29,29,105,93.313793103,66.594482759
+1003001975,Physical Therapist in Private Practice,CA,1,97530,Therapy procedure using functional activities,N,O,34,597,371,45,27.942328308,21.659681742
+1003001975,Physical Therapist in Private Practice,CA,1,G0283,"Electrical stimulation (unattended), to one or more areas for indication(s) other than wound care, as part of a therapy plan of care",N,O,20,216,216,20,8.2575462963,6.532037037
+1003001983,Physical Therapist in Private Practice,VA,1,97110,"Therapy procedure using exercise to develop strength, endurance, range of motion, and flexibility, each 15 minutes",N,O,17,544,314,35.21,21.159375,16.562150735
+1003001983,Physical Therapist in Private Practice,VA,1,97162,"Evaluation for physical therapy, typically 30 minutes",N,O,13,19,19,110.78,97.534736842,73.619473684
+1003001983,Physical Therapist in Private Practice,VA,1,97530,Therapy procedure using functional activities,N,O,19,2432,624,42.24,27.063104441,21.190896382
+1003003021,Physical Therapist in Private Practice,MI,3,97110,"Therapy procedure using exercise to develop strength, endurance, range of motion, and flexibility, each 15 minutes",N,O,27,215,191,43,19.314046512,14.488186047
+1003003021,Physical Therapist in Private Practice,MI,3,97112,"Therapy procedure to re-educate brain-to-nerve-to-muscle function, each 15 minutes",N,O,11,99,97,44,23.542121212,17.69979798
+1003003021,Physical Therapist in Private Practice,MI,3,97140,"Therapy procedure using manual technique, each 15 minutes",N,O,14,142,137,40,17.703802817,13.290985915
+1003003021,Physical Therapist in Private Practice,MI,3,97162,"Evaluation for physical therapy, typically 30 minutes",N,O,22,22,22,120,94.51,75.299090909
+1003003021,Physical Therapist in Private Practice,MI,3,97530,Therapy procedure using functional activities,N,O,23,174,174,45,29.70362069,22.24545977
+1003003021,Physical Therapist in Private Practice,MI,3,G0283,"Electrical stimulation (unattended), to one or more areas for indication(s) other than wound care, as part of a therapy plan of care",N,O,23,193,193,26,7.6346632124,5.8396891192
+1003003088,Physical Therapist in Private Practice,NJ,1,97110,"Therapy procedure using exercise to develop strength, endurance, range of motion, and flexibility, each 15 minutes",N,O,54,480,305,60,23.136833333,18.1410625
+1003003088,Physical Therapist in Private Practice,NJ,1,97112,"Therapy procedure to re-educate brain-to-nerve-to-muscle function, each 15 minutes",N,O,54,274,274,50,33.356459854,26.304087591
+1003003088,Physical Therapist in Private Practice,NJ,1,97140,"Therapy procedure using manual technique, each 15 minutes",N,O,52,313,312,55,21.775111821,16.995814696
+1003003088,Physical Therapist in Private Practice,NJ,1,97161,"Evaluation for physical therapy, typically 20 minutes",N,O,18,18,18,125,103.80444444,76.876111111
+1003003088,Physical Therapist in Private Practice,NJ,1,97530,Therapy procedure using functional activities,N,O,20,92,92,65,38.850978261,30.038152174
+1003003161,Physical Therapist in Private Practice,CA,1,97110,"Therapy procedure using exercise to develop strength, endurance, range of motion, and flexibility, each 15 minutes",N,O,164,4896,3488,60,23.828958333,18.48536969
+1003003161,Physical Therapist in Private Practice,CA,1,97112,"Therapy procedure to re-educate brain-to-nerve-to-muscle function, each 15 minutes",N,O,121,3625,2403,60,31.122162759,24.455205517
+1003002148,Diagnostic Radiology,LA,1,49083,Drainage of fluid from abdominal cavity using imaging guidance,N,F,21,31,31,117,98.230322581,78.263548387
+1003002148,Diagnostic Radiology,LA,1,70450,Ct scan head or brain without contrast,N,F,245,261,255,50.352490421,36.049693487,28.748927203
+1003002148,Diagnostic Radiology,LA,1,70486,Ct scan of face without contrast,N,F,15,15,15,73.466666667,32.248,25.816666667
+1003002148,Diagnostic Radiology,LA,1,70496,Ct scan of blood vessels of head with contrast,N,F,26,26,26,96.538461538,72.554615385,57.804615385
+1003002148,Diagnostic Radiology,LA,1,70498,Ct scan of blood vessels of neck with contrast,N,F,27,27,27,96.37037037,71.121481481,56.664074074
+1003002148,Diagnostic Radiology,LA,1,70551,Mri scan of brain without contrast,N,F,42,42,42,82.214285714,63.24,50.382857143
+1003002148,Diagnostic Radiology,LA,1,70553,Mri scan of brain before and after contrast,N,F,18,18,18,138.33333333,95.911111111,76.418333333
+1003002148,Diagnostic Radiology,LA,1,71045,"X-ray of chest, 1 view",N,F,508,587,574,11.275979557,7.8424701874,6.2345655877
+1003002148,Diagnostic Radiology,LA,1,71046,"X-ray of chest, 2 views",N,F,114,115,115,13.086956522,9.5211304348,7.5930434783
+1003002148,Diagnostic Radiology,LA,1,71250,Ct scan of chest without contrast,N,F,80,80,80,60.7125,46.909375,36.9375
+1003002148,Diagnostic Radiology,LA,1,71260,Ct scan of chest with contrast,N,F,85,88,88,70.943181818,49.210568182,39.294431818
+1003002148,Diagnostic Radiology,LA,1,71271,Low dose ct scan of chest for lung cancer screening,N,F,19,19,19,59.368421053,45.466315789,45.466315789
+1003002148,Diagnostic Radiology,LA,1,71275,Ct scan of blood vessels of chest with contrast,N,F,77,77,77,100.94805195,79.628441558,63.439480519
+1003002148,Diagnostic Radiology,LA,1,72040,"X-ray of upper spine, 2-3 views",N,F,18,18,18,14,10.120555556,8.0627777778
+1003002148,Diagnostic Radiology,LA,1,72100,"X-ray of lower and sacral spine, 2-3 views",N,F,30,30,30,14.8,9.864,7.8753333333
+1003002148,Diagnostic Radiology,LA,1,72125,Ct scan of upper spine without contrast,N,F,76,76,76,60.842105263,42.387894737,33.798815789
+1003002148,Diagnostic Radiology,LA,1,72131,Ct scan of lower spine without contrast,N,F,20,20,20,59,42.811,34.107
+1003002148,Diagnostic Radiology,LA,1,72148,Mri scan of lower spinal canal without contrast,N,F,13,13,13,89.230769231,61.153846154,48.727692308
+1003002148,Diagnostic Radiology,LA,1,72170,"X-ray of pelvis, 1-2 views",N,F,47,47,47,10.808510638,7.5953191489,6.0582978723
+1003002148,Diagnostic Radiology,LA,1,73030,"X-ray of shoulder, minimum of 2 views",N,F,54,57,54,12.350877193,8.3557894737,6.6592982456
+1003002148,Diagnostic Radiology,LA,1,73080,"X-ray of elbow, minimum of 3 views",N,F,12,12,12,11,7.8883333333,6.2833333333
+1003002148,Diagnostic Radiology,LA,1,73110,"X-ray of wrist, minimum of 3 views",N,F,27,29,28,11,7.9055172414,6.2965517241
+1003002148,Diagnostic Radiology,LA,1,73130,"X-ray of hand, minimum of 3 views",N,F,23,24,23,10,7.91,6.0375
+1003002148,Diagnostic Radiology,LA,1,73200,Ct scan of arm without contrast,N,F,26,26,26,56,43.958846154,35.022692308
+1003002148,Diagnostic Radiology,LA,1,73502,"X-ray of hip, 2-3 views",N,F,53,56,53,12.321428571,10.1025,7.905
+1003002148,Diagnostic Radiology,LA,1,73552,"X-ray of thigh bone, minimum 2 views",N,F,15,16,15,11.875,8.2225,6.555
+1003002148,Diagnostic Radiology,LA,1,73562,"X-ray of knee, 3 views",N,F,16,22,16,12,8.52,6.79
+1003002148,Diagnostic Radiology,LA,1,73564,"X-ray of knee, 4 or more views",N,F,33,40,33,13,10.3855,8.23175
+1003002148,Diagnostic Radiology,LA,1,73590,"X-ray of lower leg, 2 views",N,F,17,18,17,9,7.27,5.7933333333
+1003002148,Diagnostic Radiology,LA,1,73610,"X-ray of ankle, minimum of 3 views",N,F,12,14,12,11,7.8914285714,6.2857142857
+1003002148,Diagnostic Radiology,LA,1,73630,"X-ray of foot, minimum of 3 views",N,F,33,34,33,9.6470588235,7.3979411765,5.8952941176
+1003002148,Diagnostic Radiology,LA,1,73700,Ct scan of leg without contrast,N,F,39,41,40,59.024390244,43.786097561,33.142926829
+1003002148,Diagnostic Radiology,LA,1,74018,"X-ray of abdomen, 1 view",N,F,94,103,102,10.194174757,8.1477669903,6.4957281553
+1003002148,Diagnostic Radiology,LA,1,74019,"X-ray of abdomen, 2 views",N,F,13,13,13,13,10.16,8.09
+1003002148,Diagnostic Radiology,LA,1,74176,Ct scan of abdomen and pelvis without contrast,N,F,79,79,79,94,77.16835443,61.484303797
+1003002148,Diagnostic Radiology,LA,1,74177,Ct scan of abdomen and pelvis with contrast,N,F,132,135,135,98.666666667,79.77637037,63.646740741
+1003002148,Diagnostic Radiology,LA,1,74178,Ct scan of abdomen and pelvis before and after contrast,N,F,20,20,20,105,89.26,71.12
+1003002148,Diagnostic Radiology,LA,1,75635,Ct scan of abdominal aorta and both leg arteries with contrast,N,F,12,12,12,125,105.16,83.7875
+1003002148,Diagnostic Radiology,LA,1,76705,Limited ultrasound scan of abdomen,N,F,33,35,35,35.714285714,24.430285714,19.512
+1003002148,Diagnostic Radiology,LA,1,76770,Complete ultrasound scan behind abdominal cavity,N,F,30,30,30,40.8,31.747,25.297333333
+1003002932,Emergency Medicine,CA,1.1,99284,Emergency department visit with moderate level of medical decision making,N,F,37,39,39,235,115.34487179,87.145384615
+1003002932,Emergency Medicine,CA,1.1,99285,Emergency department visit with high level of medical decision making,N,F,46,47,47,347,166.82170213,131.27
+1003003963,Emergency Medicine,TX,2,93010,Routine electrocardiogram (ecg) using at least 12 leads with interpretation and report only,N,F,139,158,142,68.11,7.690443038,6.0579746835
+1003003963,Emergency Medicine,TX,2,99283,Emergency department visit with low level of medical decision making,N,F,14,14,14,497.2,68.475714286,49.523571429
+1003003963,Emergency Medicine,TX,2,99284,Emergency department visit with moderate level of medical decision making,N,F,42,42,42,942.18,116.77571429,77.75047619
+1003003963,Emergency Medicine,TX,2,99285,Emergency department visit with high level of medical decision making,N,F,167,172,172,1390.57,167.3994186,129.39738372
+1003003963,Emergency Medicine,TX,2,99291,"Critical care, first 30-74 minutes",N,F,12,13,13,1793.56,203.82769231,162.76923077
+1003007683,Emergency Medicine,PA,1,99284,Emergency department visit with moderate level of medical decision making,N,F,91,93,93,273.55913978,115.3988172,83.803978495
+1003007683,Emergency Medicine,PA,1,99285,Emergency department visit with high level of medical decision making,N,F,183,189,189,396.34920635,167.11243386,128.74529101
+1003007683,Emergency Medicine,PA,1,99291,"Critical care, first 30-74 minutes",N,F,21,21,21,627.04761905,201.22666667,160.33
+1003009283,Emergency Medicine,HI,1,99284,Emergency department visit with moderate level of medical decision making,N,F,15,15,15,542,116.15666667,85.939333333
+1003009283,Emergency Medicine,HI,1,99285,Emergency department visit with high level of medical decision making,N,F,21,22,22,786,168.07727273,116.35909091
+1003009630,Emergency Medicine,NY,4,93010,Routine electrocardiogram (ecg) using at least 12 leads with interpretation and report only,N,F,74,78,75,16,7.9201282051,6.2387179487
+1003009630,Emergency Medicine,NY,4,99283,Emergency department visit with low level of medical decision making,N,F,26,26,26,186.15384615,69.092307692,55.53
+1003009630,Emergency Medicine,NY,4,99284,Emergency department visit with moderate level of medical decision making,N,F,116,128,128,419.2578125,116.74664063,91.178359375
+1003009630,Emergency Medicine,NY,4,99285,Emergency department visit with high level of medical decision making,N,F,183,190,190,796.14736842,170.71494737,136.34842105
+1003009630,Emergency Medicine,NY,4,99291,"Critical care, first 30-74 minutes",N,F,38,38,38,500.05263158,207.19552632,166.52894737
+1003009804,Emergency Medicine,RI,1,99284,Emergency department visit with moderate level of medical decision making,N,F,30,31,31,706.90322581,118.27612903,87.441935484
+1003009804,Emergency Medicine,RI,1,99285,Emergency department visit with high level of medical decision making,N,F,129,131,131,1036.3969466,171.19587786,133.81740458
+1003009804,Emergency Medicine,RI,1,99291,"Critical care, first 30-74 minutes",N,F,13,13,13,1191.5384615,207.74769231,165.52230769
+1003010539,Emergency Medicine,KY,1,93010,Routine electrocardiogram (ecg) using at least 12 leads with interpretation and report only,N,F,186,194,189,39,7.7286082474,6.0121649485
+1003010539,Emergency Medicine,KY,1,99284,Emergency department visit with moderate level of medical decision making,N,F,119,121,121,582,116.3192562,85.982644628
+1003010539,Emergency Medicine,KY,1,99285,Emergency department visit with high level of medical decision making,N,F,261,267,267,843,169.18558052,129.85235955
+1003010539,Emergency Medicine,KY,1,99291,"Critical care, first 30-74 minutes",N,F,52,52,52,1016,203.66980769,158.60711538
+1003010844,Emergency Medicine,FL,1,99283,Emergency department visit with low level of medical decision making,N,F,14,15,15,777,72.632,53.936
+1003010844,Emergency Medicine,FL,1,99284,Emergency department visit with moderate level of medical decision making,N,F,45,46,46,1163.2826087,123.89173913,90.755434783
+1003010844,Emergency Medicine,FL,1,99285,Emergency department visit with high level of medical decision making,N,F,45,48,48,1736.3333333,179.211875,134.93770833
+1003011834,Emergency Medicine,OH,1,99283,Emergency department visit with low level of medical decision making,N,F,17,18,18,580,68.243333333,51.326666667
+1003011834,Emergency Medicine,OH,1,99284,Emergency department visit with moderate level of medical decision making,N,F,91,94,94,985.31914894,115.03734043,83.834680851
+1003011834,Emergency Medicine,OH,1,99285,Emergency department visit with high level of medical decision making,N,F,161,176,176,1439.9772727,168.22278409,127.99380682
+1003011834,Emergency Medicine,OH,1,99291,"Critical care, first 30-74 minutes",N,F,13,13,13,1743,202.94769231,161.77230769
+1003012154,Emergency Medicine,PA,1,93010,Routine electrocardiogram (ecg) using at least 12 leads with interpretation and report only,N,F,288,295,295,46.240677966,8.1512881356,6.3816271186
+1003012154,Emergency Medicine,PA,1,93042,Electrocardiogram (ecg) 1 to 3 leads with review by physician only,N,F,411,424,424,46.150943396,6.7869103774,5.3708018868
+1003012154,Emergency Medicine,PA,1,99283,Emergency department visit with low level of medical decision making,N,F,19,19,19,342.94736842,71.95,57.33
+1003012154,Emergency Medicine,PA,1,99284,Emergency department visit with moderate level of medical decision making,N,F,624,635,635,552.63307087,122.27193701,94.699858268
+1003012154,Emergency Medicine,PA,1,99285,Emergency department visit with high level of medical decision making,N,F,694,732,732,802.94262295,176.7429918,138.75782787
+1003012154,Emergency Medicine,PA,1,99291,"Critical care, first 30-74 minutes",N,F,157,158,158,1045.3037975,214.65006329,168.70689873
+1003012154,Emergency Medicine,PA,1,99292,"Critical care, each additional 30 minutes",N,F,19,19,19,529.26315789,108.29263158,86.280526316
+1003013921,Emergency Medicine,MI,1,93010,Routine electrocardiogram (ecg) using at least 12 leads with interpretation and report only,N,F,27,28,27,19,8.0575,5.2789285714
+1003013921,Emergency Medicine,MI,1,93308,"Ultrasound of heart, follow-up",N,F,20,20,20,217.75,24.3965,19.4745
+1003001785,Orthopedic Surgery,OK,1,20550,Injection into tendon or ligament,N,O,13,16,13,123,46.5875,37.1275
+1003001785,Orthopedic Surgery,OK,1,20610,Aspiration and/or injection of fluid from large joint,N,F,14,19,19,132,40.650526316,32.546315789
+1003001785,Orthopedic Surgery,OK,1,20610,Aspiration and/or injection of fluid from large joint,N,O,115,172,172,173.44186047,67.970290698,47.104302326
+1003001785,Orthopedic Surgery,OK,1,27236,Treatment of upper end of broken thigh bone with placement of stabilizing device or prosthetic replacement,N,F,15,15,15,2552,1102.5346667,877.04
+1003001785,Orthopedic Surgery,OK,1,27245,Treatment of broken neck of thigh bone with bone implant,N,F,14,14,14,2657,1132.3821429,886.83785714
+1003001785,Orthopedic Surgery,OK,1,73030,"X-ray of shoulder, minimum of 2 views",N,O,74,99,91,65,30.746767677,21.669292929
+1003001785,Orthopedic Surgery,OK,1,73080,"X-ray of elbow, minimum of 3 views",N,O,17,18,18,62,29.083333333,21.869444444
+1003001785,Orthopedic Surgery,OK,1,73110,"X-ray of wrist, minimum of 3 views",N,O,18,31,28,72.258064516,37.654193548,28.116451613
+1003001785,Orthopedic Surgery,OK,1,73130,"X-ray of hand, minimum of 3 views",N,O,11,15,14,60,32.677333333,24.824666667
+1003001785,Orthopedic Surgery,OK,1,73502,"X-ray of hip, 2-3 views",N,O,42,47,47,92,42.240851064,29.410425532
+1003001785,Orthopedic Surgery,OK,1,73564,"X-ray of knee, 4 or more views",N,O,43,58,45,79,40.727758621,24.421206897
+1003001785,Orthopedic Surgery,OK,1,73610,"X-ray of ankle, minimum of 3 views",N,O,15,27,27,68,32.440740741,21.997407407
+1003001785,Orthopedic Surgery,OK,1,77002,Fluoroscopic guidance for needle placement,N,F,14,19,19,73.052631579,23.566315789,18.781052632
+1003001785,Orthopedic Surgery,OK,1,99203,"New patient office or other outpatient visit with low level of medical decision making, if using time, 30 minutes or more",N,O,107,107,107,224,101.07803738,67.388971963
+1003001785,Orthopedic Surgery,OK,1,99213,"Established patient office or other outpatient visit with low level od decision making, if using time, 20 minutes or more",N,O,18,19,19,158,83.984736842,66.924210526
+1003001785,Orthopedic Surgery,OK,1,99214,"Established patient office or other outpatient visit with moderate level of decision making, if using time, 30 minutes or more",N,O,166,264,264,224,117.77708333,80.10780303
+1003001785,Orthopedic Surgery,OK,1,99222,"Initial hospital care with straightforward or low-level medical decision making, if using time, at least 55 minutes",N,F,14,14,14,293,121.84785714,69.350714286
+1003001785,Orthopedic Surgery,OK,1,J3301,"Injection, triamcinolone acetonide, not otherwise specified, 10 mg",Y,O,128,924,181,4,0.9653463203,0.7022727273
+1003002890,Orthopedic Surgery,CO,2,20610,Aspiration and/or injection of fluid from large joint,N,O,23,28,28,227.5,75.823571429,58.494285714
+1003002890,Orthopedic Surgery,CO,2,73030,"X-ray of shoulder, minimum of 2 views",N,O,16,20,17,102,35.804,25.614
+1003002890,Orthopedic Surgery,CO,2,73564,"X-ray of knee, 4 or more views",N,O,21,26,21,137,48.487307692,35.580769231
+1003002890,Orthopedic Surgery,CO,2,99204,"New patient office or other outpatient visit with moderate level of medical decision making, if using time, 45 minutes or more",N,O,38,38,38,500,167.32526316,127.48078947
+1003002890,Orthopedic Surgery,CO,2,J3301,"Injection, triamcinolone acetonide, not otherwise specified, 10 mg",Y,O,24,144,29,3.18,0.9654166667,0.7464583333
+1003010919,Orthopedic Surgery,CO,1,27236,Treatment of upper end of broken thigh bone with placement of stabilizing device or prosthetic replacement,N,F,17,17,17,2732,1190.7647059,950.08176471
+1003010919,Orthopedic Surgery,CO,1,27245,Treatment of broken neck of thigh bone with bone implant,N,F,14,14,14,2813,1259.1064286,1004.6078571
+1003010919,Orthopedic Surgery,CO,1,99213,"Established patient office or other outpatient visit with low level od decision making, if using time, 20 minutes or more",N,O,45,62,62,171.82258065,91.730322581,57.665645161
+1003012493,Orthopedic Surgery,NM,1,20610,Aspiration and/or injection of fluid from large joint,N,O,288,516,494,311.09253876,69.448294574,46.98872093
+1003012493,Orthopedic Surgery,NM,1,23472,"Prosthetic repair of shoulder joint, total shoulder",N,F,12,12,12,5926,1335.4141667,1076.8166667
+1003012493,Orthopedic Surgery,NM,1,27447,"Replacement of knee joint, both sides of knee",N,F,48,49,49,6065,1220.5691837,956.19857143
+1003012493,Orthopedic Surgery,NM,1,29826,Shaving of part of shoulder bone and repair of ligament using an endoscope,N,F,11,11,11,3030,164.96727273,131.37727273
+1003012493,Orthopedic Surgery,NM,1,73030,"X-ray of shoulder, minimum of 2 views",N,O,97,125,109,102,31.60912,21.43336
+1003012493,Orthopedic Surgery,NM,1,73221,Mri scan of arm joint without contrast,N,O,20,21,20,1602,129.09,92.985238095
+1003012493,Orthopedic Surgery,NM,1,73562,"X-ray of knee, 3 views",N,O,73,117,106,104,37.188034188,27.581623932
+1003012493,Orthopedic Surgery,NM,1,73564,"X-ray of knee, 4 or more views",N,O,115,153,120,118,42.253267974,25.718954248
+1003012493,Orthopedic Surgery,NM,1,73721,Mri scan of leg joint without contrast,N,O,20,21,20,1602,124.48761905,90.29
+1003012493,Orthopedic Surgery,NM,1,99203,"New patient office or other outpatient visit with low level of medical decision making, if using time, 30 minutes or more",N,O,91,91,91,216,104.21054945,70.420549451
+1003012493,Orthopedic Surgery,NM,1,99204,"New patient office or other outpatient visit with moderate level of medical decision making, if using time, 45 minutes or more",N,O,61,61,61,307,158.98606557,103.82229508
+1003012493,Orthopedic Surgery,NM,1,99213,"Established patient office or other outpatient visit with low level od decision making, if using time, 20 minutes or more",N,O,219,281,281,118,84.265053381,58.114697509
+1003012493,Orthopedic Surgery,NM,1,99214,"Established patient office or other outpatient visit with moderate level of decision making, if using time, 30 minutes or more",N,O,116,144,144,185,118.28881944,82.692083333
+1003012493,Orthopedic Surgery,NM,1,J3301,"Injection, triamcinolone acetonide, not otherwise specified, 10 mg",Y,O,291,2792,497,3,0.9769197708,0.6695272206
+1003017252,Clinical Laboratory,KS,1,81001,"Manual urinalysis test with examination using microscope, automated",N,O,20,22,22,46.2,3.11,3.11
+1003036237,Clinical Laboratory,FL,1,88304,"Pathology examination of tissue using a microscope, moderately low complexity",N,O,34,37,34,85.675675676,35.265405405,23.428378378
+1003036237,Clinical Laboratory,FL,1,88305,"Pathology examination of tissue using a microscope, intermediate complexity",N,O,1940,3858,2304,143.20995334,56.269696734,41.988346293
+1003036237,Clinical Laboratory,FL,1,88312,Special stained specimen slides to identify organisms including interpretation and report,N,O,172,225,173,218.70666667,94.622977778,75.206044444
+1003036237,Clinical Laboratory,FL,1,88313,Special stained specimen slides to examine tissue including interpretation and report,N,O,269,429,274,146.67132867,65.729067599,51.927226107
+1003036237,Clinical Laboratory,FL,1,88341,"Special stained specimen slides to examine tissue, each additional procedure",N,O,100,132,105,220.15151515,81.471666667,64.294772727
+1003036237,Clinical Laboratory,FL,1,88342,"Special stained specimen slides to examine tissue, initial procedure",N,O,376,524,388,200.72519084,77.048263359,61.196717557
+1003112145,Clinical Laboratory,AL,2,36415,Insertion of needle into vein for collection of blood sample,N,O,226,352,352,10.614232955,8.6436931818,8.6436931818
+1003112145,Clinical Laboratory,AL,2,80053,"Blood test, comprehensive group of blood chemicals",N,O,40,41,41,43.86097561,10.35,10.35
+1003112145,Clinical Laboratory,AL,2,80061,"Blood test, lipids (cholesterol and triglycerides)",N,O,36,37,37,53.233783784,13.12,13.12
+1003112145,Clinical Laboratory,AL,2,81003,Automated urinalysis test,N,O,62,99,99,25,2.2,2.2
+1003112145,Clinical Laboratory,AL,2,82043,Urine microalbumin (protein) level,N,O,15,15,15,68.06,5.66,5.66
+1003112145,Clinical Laboratory,AL,2,82570,Creatinine level to test for kidney function or muscle injury,N,O,15,15,15,61.09,5.08,5.08
+1003112145,Clinical Laboratory,AL,2,83036,Hemoglobin a1c level,N,O,108,167,167,30,9.52,9.52
+1003112145,Clinical Laboratory,AL,2,85025,"Complete blood cell count (red cells, white blood cell, platelets), automated test and automated differential white blood cell count",N,O,22,22,22,31,7.61,7.61
+1003112145,Clinical Laboratory,AL,2,85027,"Complete blood cell count (red cells, white blood cell, platelets), automated test",N,O,217,294,294,23.141530612,6.34,6.34
+1003174772,Clinical Laboratory,NC,1,36415,Insertion of needle into vein for collection of blood sample,N,O,18,22,22,26.193181818,8.65,8.65
+1003174772,Clinical Laboratory,NC,1,81001,"Manual urinalysis test with examination using microscope, automated",N,O,54,76,76,32.468421053,3.11,3.11
+1003174772,Clinical Laboratory,NC,1,81003,Automated urinalysis test,N,O,30,36,36,32.55,2.2,2.2
+1003174772,Clinical Laboratory,NC,1,82044,Urine microalbumin (protein) analysis,N,O,87,94,94,70.242446809,6.11,6.11
+1003174772,Clinical Laboratory,NC,1,82570,Creatinine level to test for kidney function or muscle injury,N,O,87,94,94,58.907553191,5.08,5.08
+1003174772,Clinical Laboratory,NC,1,83036,Hemoglobin a1c level,N,O,57,115,115,69.3,9.52,9.52
+1003174772,Clinical Laboratory,NC,1,87081,Screening test for pathogenic organisms,N,O,11,11,11,51.45,6.5,6.5
+1003174772,Clinical Laboratory,NC,1,87210,Smear for infectious agents,N,O,12,15,15,51.45,5.7,5.7
+1003174772,Clinical Laboratory,NC,1,87804,Detection test by immunoassay with direct visual observation for influenza virus,N,O,13,32,16,144.0375,16.22,16.22
+1003174772,Clinical Laboratory,NC,1,87880,"Detection test by immunoassay with direct visual observation for streptococcus, group a (strep)",N,O,11,11,11,48.3,16.2,16.2
+1003232158,Clinical Laboratory,CA,1,81479,Molecular pathology procedure,N,O,89,91,91,8455,3178.9301099,3178.9301099
+1003237819,Clinical Laboratory,WV,4,87804,Detection test by immunoassay with direct visual observation for influenza virus,N,O,13,28,14,48.5,16.22,16.22
+1003245317,Clinical Laboratory,TX,1,81445,Genomic sequence analysis panel of dna or combined dna and rna of 5-50 genes associated with solid organ abnormal growth of tissue,N,O,201,201,201,4400,585.95,585.95
+1003245317,Clinical Laboratory,TX,1,81450,Genomic sequence analysis panel of dna or combined dna and rna of 5-50 genes associated with blood and lymphatic system disorders,N,O,24,26,26,800,744.34,744.34
+1003245317,Clinical Laboratory,TX,1,85097,"Bone marrow, smear interpretation",N,O,133,141,141,130,68.170851064,54.34106383
+1003245317,Clinical Laboratory,TX,1,88120,"Cell examination of urine, manual",N,F,35,37,35,103,55.717297297,43.19027027
+1003245317,Clinical Laboratory,TX,1,88120,"Cell examination of urine, manual",N,O,1806,2050,2041,859.96390244,514.8510878,407.83945366
+1003245317,Clinical Laboratory,TX,1,88121,"Cell examination of urine, computer-assisted",N,O,27,27,27,884.7037037,373.87555556,287.86296296
+1003245317,Clinical Laboratory,TX,1,88184,"Flow cytometry technique for dna or cell analysis, first marker",N,O,172,185,185,119,76.904486486,60.610864865
+1003245317,Clinical Laboratory,TX,1,88185,"Flow cytometry technique for dna or cell analysis, each additional marker",N,O,171,3974,182,70,23.252594363,18.493993457
+1003245317,Clinical Laboratory,TX,1,88187,"Flow cytometry technique for dna or cell analysis, 2 to 8 markers",N,O,63,64,64,153,35.08875,27.064375
+1003245317,Clinical Laboratory,TX,1,88188,"Flow cytometry technique for dna or cell analysis, 9 to 15 markers",N,O,177,178,178,153,60.539157303,46.601910112
+1003245317,Clinical Laboratory,TX,1,88189,"Flow cytometry technique for dna or cell analysis, 16 or more markers",N,O,2904,3051,3046,153,81.719259259,63.561543756
+1003245317,Clinical Laboratory,TX,1,88237,Tissue culture for tumor disorders of bone marrow and blood cells,N,O,97,161,99,238,140.87347826,140.87347826
