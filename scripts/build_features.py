@@ -42,6 +42,14 @@ def main() -> int:
     save_peer_stats(peer, store)
     (store / "feature_meta.json").write_text(json.dumps(meta, indent=2), encoding="utf-8")
 
+    # Provider-month table for ONLINE serving (the API's point-in-time provider lookup).
+    from src.features.provider_features import build_provider_month_features
+
+    provider_month = build_provider_month_features(
+        claims, ref["em_levels"], peer["code_stats"], peer["provider_month_peer"], providers, cfg
+    )
+    provider_month.to_parquet("data/processed/provider_month_features.parquet", index=False)
+
     if not args.skip_db:
         from src.data.db import write_df
 
