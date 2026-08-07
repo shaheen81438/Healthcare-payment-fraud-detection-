@@ -75,7 +75,7 @@ def main() -> int:
 
     dest = Path("docs/assets")
     dest.mkdir(parents=True, exist_ok=True)
-    (dest / "novel_scheme_results.json").write_text(json.dumps(out, indent=2))
+    (dest / "novel_scheme_results.json").write_text(json.dumps(out, indent=2), encoding="utf-8")
     print(json.dumps(out, indent=2))
     return 0
 

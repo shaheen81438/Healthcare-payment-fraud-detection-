@@ -77,7 +77,7 @@ def main() -> int:
         "dataset_version": bundle.dataset_version,
         **result.report,
     }
-    report_path.write_text(json.dumps(report, indent=2))
+    report_path.write_text(json.dumps(report, indent=2), encoding="utf-8")
     if not result.report["within_tolerance"]:
         print(f"FATAL: quarantine share {result.report['quarantine_share']} above tolerance")
         return 1
@@ -107,7 +107,7 @@ def main() -> int:
 
     # 7) Summary.
     stats_path = Path("data/interim/generation_stats.json")
-    stats_path.write_text(json.dumps(bundle.stats, indent=2, default=str))
+    stats_path.write_text(json.dumps(bundle.stats, indent=2, default=str), encoding="utf-8")
     print(
         json.dumps(
             {

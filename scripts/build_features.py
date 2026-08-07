@@ -40,7 +40,7 @@ def main() -> int:
     features.to_parquet("data/processed/features.parquet", index=False)
     store = Path("models/feature_store")
     save_peer_stats(peer, store)
-    (store / "feature_meta.json").write_text(json.dumps(meta, indent=2))
+    (store / "feature_meta.json").write_text(json.dumps(meta, indent=2), encoding="utf-8")
 
     if not args.skip_db:
         from src.data.db import write_df

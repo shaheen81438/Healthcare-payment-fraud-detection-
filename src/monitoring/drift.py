@@ -85,7 +85,7 @@ def evidently_drift_report(
     )
     snapshot.save_html(str(html_out))
     payload = json.loads(snapshot.json())
-    json_out.write_text(json.dumps(payload, indent=2))
+    json_out.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
     drifted_share, drifted_count = 0.0, 0
     per_column: dict[str, float] = {}
@@ -199,7 +199,7 @@ def run_monitoring(
         "alerts": alerts,
         "html_report": str(reports_dir / "drift_report.html"),
     }
-    (reports_dir / "monitoring_status.json").write_text(json.dumps(doc, indent=2))
+    (reports_dir / "monitoring_status.json").write_text(json.dumps(doc, indent=2), encoding="utf-8")
     logger.info(
         "monitoring_run_complete",
         extra={"status": status, "alerts": len(alerts), "score_psi": doc["score_psi"]},

@@ -48,8 +48,12 @@ def main() -> int:
         {"dataset_version": dataset_version, "generation_stats_rows": stats.get("rows_claims")}
     )
     bundle_dir = result.bundle.save(Path("models") / str(cfg["model_version"]))
-    (bundle_dir / "metrics.json").write_text(json.dumps(result.metrics, indent=2, default=str))
-    (bundle_dir / "rule_hit_counts.json").write_text(json.dumps(rule_hits, indent=2))
+    (bundle_dir / "metrics.json").write_text(
+        json.dumps(result.metrics, indent=2, default=str), encoding="utf-8"
+    )
+    (bundle_dir / "rule_hit_counts.json").write_text(
+        json.dumps(rule_hits, indent=2), encoding="utf-8"
+    )
 
     run_id = log_and_register(
         bundle_dir, result.metrics, cfg, dataset_version, register=not args.no_register

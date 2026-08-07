@@ -290,5 +290,5 @@ def build_report(
         "",
         _table(context["pattern_table"]),
     ]
-    out_md.write_text("\n".join(lines))
+    out_md.write_text("\n".join(lines), encoding="utf-8")
     logger.info("evaluation_report_written", extra={"path": str(out_md)})

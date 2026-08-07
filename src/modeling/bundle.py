@@ -98,7 +98,9 @@ class ScoringBundle:
             "peer_stats_tables": sorted(self.peer_stats),
             "metadata": self.metadata,
         }
-        (path / "metadata.json").write_text(json.dumps(config, indent=2, default=str))
+        (path / "metadata.json").write_text(
+            json.dumps(config, indent=2, default=str), encoding="utf-8"
+        )
         LATEST_POINTER.parent.mkdir(parents=True, exist_ok=True)
         LATEST_POINTER.write_text(
             json.dumps({"path": str(path), "model_version": self.model_version})
