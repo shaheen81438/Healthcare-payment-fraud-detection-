@@ -4,7 +4,7 @@ SHELL := /bin/bash
 -include .env
 export
 
-.PHONY: help install format lint typecheck test test-all compose-up compose-down compose-serve api clean data
+.PHONY: help install format lint typecheck test test-all compose-up compose-down compose-serve api clean data dashboard features train evaluate score monitor pipeline
 
 help: ## Show available targets
 	@grep -E '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-16s\033[0m %s\n", $$1, $$2}'
@@ -43,6 +43,26 @@ data: ## Build the dataset: ingest, generate, validate, clean, load Postgres
 
 api: ## Run the FastAPI app locally with reload
 	uvicorn app.api.main:app --reload --port $${API_PORT:-8000}
+
+dashboard: ## Run the Streamlit investigator dashboard
+	streamlit run app/dashboard/Home.py --server.port $${DASHBOARD_PORT:-8501} --server.headless true
+
+features: ## Build the feature matrix + frozen peer stats
+	python scripts/build_features.py
+
+train: ## Train models, log + register with MLflow
+	python scripts/train_model.py
+
+evaluate: ## Evaluate, select thresholds, build the report
+	python scripts/evaluate_model.py
+
+score: ## Batch-score the test window with SHAP reasons -> Postgres
+	python scripts/score_claims.py
+
+monitor: ## Run Evidently drift monitoring
+	python scripts/run_monitoring.py
+
+pipeline: data features train evaluate score ## Full pipeline end-to-end
 
 clean: ## Remove caches and build artifacts
 	rm -rf .pytest_cache .mypy_cache .ruff_cache htmlcov .coverage coverage.xml build dist *.egg-info

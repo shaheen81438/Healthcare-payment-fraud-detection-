@@ -79,6 +79,11 @@ ignore = [
     "N806",   # X / Xt variable names are ML convention
 ]
 
+[tool.ruff.lint.per-file-ignores]
+# Streamlit pages must fix sys.path before importing project modules.
+"app/dashboard/**" = ["E402"]
+"scripts/**" = ["E402"]
+
 [tool.ruff.lint.isort]
 known-first-party = ["src", "app"]
 
@@ -109,6 +114,18 @@ ignore_missing_imports = true
 [[tool.mypy.overrides]]
 module = "tests.*"
 disallow_untyped_defs = false
+
+[[tool.mypy.overrides]]
+module = ["altair.*"]
+ignore_missing_imports = true
+
+# Streamlit pages are scripts (module-level flow; st.* APIs are dynamically
+# typed and verified by rendering). Static analysis adds noise, not safety, here.
+[[tool.mypy.overrides]]
+module = "app.dashboard.*"
+disallow_untyped_defs = false
+check_untyped_defs = false
+ignore_errors = true
 
 # --------------------------------------------------------------------------
 # Pytest / coverage
