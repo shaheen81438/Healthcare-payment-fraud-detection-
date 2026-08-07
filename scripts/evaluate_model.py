@@ -80,7 +80,18 @@ def main() -> int:
         float(raw_costs["default_capacity"]),
     )
     bundle.threshold_policy = policy
-    bundle.save(Path("models") / bundle.model_version)
+    bundle_dir = bundle.save(Path("models") / bundle.model_version)
+    # Re-register so the MLflow production alias serves the bundle WITH its policy.
+    train_metrics_for_log = json.loads((bundle_dir / "metrics.json").read_text())
+    from src.modeling.registry import log_and_register
+
+    log_and_register(
+        bundle_dir,
+        train_metrics_for_log,
+        cfg,
+        str(bundle.metadata.get("dataset_version", "unknown")),
+        register=True,
+    )
 
     # ---- test-window sweeps + metrics
     args_test = (

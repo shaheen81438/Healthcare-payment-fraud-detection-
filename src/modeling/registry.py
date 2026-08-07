@@ -123,10 +123,14 @@ def load_production_bundle() -> ScoringBundle:
             "models:/claims-risk@production", dst_path="models/_registry_cache"
         )
         logger.info("bundle_loaded_from_registry", extra={"registry_version": version.version})
-        return ScoringBundle.load(local)
+        bundle = ScoringBundle.load(local)
+        bundle.metadata["source"] = "mlflow_registry"
+        return bundle
     except Exception as exc:
         logger.warning("registry_fallback_to_local", extra={"error": str(exc)[:200]})
-        return ScoringBundle.load_latest()
+        bundle = ScoringBundle.load_latest()
+        bundle.metadata["source"] = "local_bundle"
+        return bundle
 
 
 def local_bundle_info() -> dict[str, Any]:

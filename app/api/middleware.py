@@ -43,6 +43,11 @@ class RequestContextMiddleware(BaseHTTPMiddleware):
                     "duration_ms": duration_ms,
                 },
             )
+            from app.services.metrics_store import metrics_store
+
+            metrics_store.observe_request(
+                request.method, request.url.path, response.status_code, duration_ms
+            )
             return response
         except Exception:
             duration_ms = round((time.perf_counter() - start) * 1000, 2)

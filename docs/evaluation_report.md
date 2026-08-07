@@ -1,6 +1,6 @@
 # Evaluation Report — claims-risk claims-risk-v1.0.0
 
-Generated 2026-08-07 06:17 UTC · dataset `ds-7996bf5a94f9` · test window 2025-07 → 2026-01 (96,435 claims, 4.72% labeled improper).
+Generated 2026-08-07 06:36 UTC · dataset `ds-7996bf5a94f9` · test window 2025-07 → 2026-01 (96,435 claims, 4.72% labeled improper).
 
 > Labels are **synthetic injected patterns** (see `labeling.md`); every number below
 > measures detection of documented injections, not real-world fraud performance.
