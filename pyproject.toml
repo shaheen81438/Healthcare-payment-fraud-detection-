@@ -73,6 +73,7 @@ select = [
 ]
 ignore = [
     "E501",   # line length is handled by the formatter
+    "RUF001", # typographic minus/dash characters in UI strings are intentional
     "RUF002", # en-dashes / multiplication signs in docstrings are intentional
     "RUF003", # same, in comments
     "N803",   # X / y argument names are ML convention

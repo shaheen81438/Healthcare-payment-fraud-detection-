@@ -1,0 +1,37 @@
+# Drift-monitoring thresholds and monitored columns.
+
+# Feature columns watched for input drift (numeric unless listed as categorical).
+monitored_numeric:
+  - paid_amount
+  - paid_per_unit
+  - paid_vs_code_median
+  - units
+  - dup_max_sim
+  - bene_claims_30d
+  - prov_claims_3m
+  - prov_paid_vs_peer_3m
+  - prov_top_code_share_3m
+  - prov_new_bene_share_1m
+  - pos_atypicality
+  - dxproc_compat
+  - submit_lag_days
+monitored_categorical:
+  - specialty
+  - pos
+  - dx_group
+
+# Alert thresholds
+thresholds:
+  drift_share_warn: 0.30       # share of monitored columns drifted (Evidently)
+  drift_share_critical: 0.50
+  score_psi_warn: 0.20         # PSI on the risk-score distribution
+  score_psi_critical: 0.30
+  provider_mix_jsd_warn: 0.10  # Jensen-Shannon divergence on specialty mix
+  procedure_mix_jsd_warn: 0.10 # JSD on top-20 HCPCS mix
+  missing_share_increase_warn: 0.02  # +2pp missing values on any monitored column
+  volume_change_warn: 0.50     # |claims volume delta| vs reference
+
+# Delayed-label performance (from investigator decisions), evaluated when >= min_decisions
+delayed_labels:
+  min_decisions: 25
+  precision_warn: 0.50
