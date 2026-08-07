@@ -5,7 +5,7 @@
 ![XGBoost](https://img.shields.io/badge/model-XGBoost%20%2B%20IsolationForest-orange.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 
-**[▶ Live dashboard demo](https://healthcare-payment-integrity.streamlit.app)** — hosted on
+**[▶ Live dashboard demo](https://faridoon-payment-integrity.streamlit.app)** — hosted on
 Streamlit Community Cloud from the committed sample bundle; the full stack (scoring API, MLflow,
 Postgres) runs via the local or Azure setups below.
 
