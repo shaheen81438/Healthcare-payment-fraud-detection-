@@ -1,0 +1,55 @@
+# Maps model features (post-aggregation, pre-encoding names) to investigator-facing
+# reason codes. A feature contributes its code when its SHAP contribution is
+# positive (pushes risk up) and ranks among the claim's top contributors.
+
+reason_codes:
+  # Duplicates
+  exact_dup_prior:              {code: possible_duplicate, label: "Matches an earlier paid claim"}
+  dup_max_sim:                  {code: possible_duplicate, label: "Highly similar to an earlier claim"}
+  dup_cand_count:               {code: possible_duplicate, label: "Multiple similar earlier claims"}
+  # Amounts vs peer norms
+  paid_amount:                  {code: amount_above_peer_norm, label: "High paid amount"}
+  submitted_amount:             {code: amount_above_peer_norm, label: "High billed amount"}
+  paid_per_unit:                {code: amount_above_peer_norm, label: "High paid per unit"}
+  paid_vs_code_median:          {code: amount_above_peer_norm, label: "Paid far above code median"}
+  paid_vs_spec_code_median:     {code: amount_above_peer_norm, label: "Paid above specialty norm"}
+  # Units
+  units:                        {code: excessive_units, label: "High service units"}
+  units_vs_code_p95:            {code: excessive_units, label: "Units above code 95th percentile"}
+  # Service frequency
+  days_since_bene_same_hcpcs:   {code: unusual_service_frequency, label: "Same service repeated quickly"}
+  bene_claims_30d:              {code: unusual_service_frequency, label: "High recent patient utilization"}
+  bene_paid_30d:                {code: unusual_service_frequency, label: "High recent patient spend"}
+  # Provider volume behavior
+  prov_velocity_1v3:            {code: provider_volume_change, label: "Sudden provider volume change"}
+  prov_claims_1m:               {code: provider_volume_change, label: "Elevated provider volume"}
+  prov_claims_3m:               {code: provider_volume_change, label: "Elevated provider volume"}
+  prov_new_bene_share_1m:       {code: provider_volume_change, label: "Surge of new patients"}
+  # Provider vs peer group
+  prov_paid_vs_peer_3m:         {code: provider_above_peer_group, label: "Provider billing above peer group"}
+  prov_high_cost_share_3m:      {code: provider_above_peer_group, label: "High share of high-cost claims"}
+  prov_claims_per_bene_3m:      {code: provider_above_peer_group, label: "Many claims per patient"}
+  prov_top_code_share_3m:       {code: high_code_concentration, label: "Billing concentrated in one code"}
+  # Coding signals
+  dxproc_compat:                {code: unusual_dx_procedure_combination, label: "Diagnosis unusual for this procedure"}
+  pos_atypicality:              {code: unusual_place_of_service, label: "Atypical place of service"}
+  pos_office:                   {code: unusual_place_of_service, label: "Site-of-service pattern"}
+  unbundle_component_no_mod:    {code: potential_unbundling, label: "Component billed beside bundled service"}
+  em_level:                     {code: potential_upcoding, label: "High E/M level"}
+  em_gap_vs_specialty:          {code: potential_upcoding, label: "E/M level above specialty norm"}
+  prov_em_level_mean_3m:        {code: potential_upcoding, label: "Provider skews to high E/M levels"}
+  # Patient-provider activity
+  bene_provider_same_day_claims: {code: excessive_patient_provider_activity, label: "Many same-day claims for this patient"}
+  bene_same_day_claims:          {code: excessive_patient_provider_activity, label: "Busy same-day patient activity"}
+  bene_distinct_providers_prior: {code: suspicious_billing_cluster, label: "Patient seen by many providers"}
+  days_since_bene_last_claim:    {code: excessive_patient_provider_activity, label: "Very frequent visits"}
+  # Rule engine aggregate
+  rule_score:                   {code: multiple_rule_flags, label: "Multiple integrity rules triggered"}
+  n_rules_hit:                  {code: multiple_rule_flags, label: "Multiple integrity rules triggered"}
+  # Categorical context (low priority; usually outranked)
+  specialty:                    {code: peer_group_context, label: "Specialty peer-group context"}
+  pos:                          {code: peer_group_context, label: "Place-of-service context"}
+  dx_group:                     {code: peer_group_context, label: "Diagnosis-group context"}
+
+# Added by the scorer (not SHAP): fires when the anomaly path drives the score.
+anomaly_reason: {code: unusual_overall_pattern, label: "Unusual overall pattern vs typical claims"}
