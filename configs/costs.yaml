@@ -1,0 +1,15 @@
+# Financial thresholding framework — every parameter is a SCENARIO assumption,
+# adjustable here and live in the dashboard's threshold simulator. Because labels
+# are synthetic, these are planning numbers, not validated actuals.
+
+review_cost: 30.0          # fully-loaded cost of one investigator review (USD)
+recovery_rate: 0.62        # share of a confirmed improper payment actually recovered
+fp_extra_cost: 12.0        # additional cost of a false positive beyond the review
+                           # (provider abrasion, appeals, rework)
+
+# Review-capacity scenarios as a share of scored claims per period.
+capacity_grid: [0.005, 0.01, 0.02, 0.05, 0.10]
+default_capacity: 0.01
+
+min_risk_threshold: 0.20   # never queue claims below this risk, even with spare capacity
+monitor_fraction: 0.5      # scores >= monitor_fraction * review_threshold -> "monitor"

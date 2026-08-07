@@ -1,0 +1,19 @@
+{
+  "holdout_patterns": [
+    "F09_dx_mismatch",
+    "F11_collusion_cluster"
+  ],
+  "train_positives_removed": 953,
+  "novel_test_claims": 597,
+  "novel_recall_at_1pct_supervised": 0.0,
+  "novel_recall_at_1pct_ensemble": 0.0,
+  "novel_recall_at_1pct_anomaly": 0.005,
+  "novel_recall_at_5pct_supervised": 0.0184,
+  "novel_recall_at_5pct_ensemble": 0.0184,
+  "novel_recall_at_5pct_anomaly": 0.0938,
+  "novel_recall_at_10pct_supervised": 0.0821,
+  "novel_recall_at_10pct_ensemble": 0.1508,
+  "novel_recall_at_10pct_anomaly": 0.1826,
+  "mean_anomaly_pct_novel": 0.5884,
+  "mean_anomaly_pct_all_test": 0.5231
+}
