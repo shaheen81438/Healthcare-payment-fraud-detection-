@@ -1,5 +1,15 @@
 # Deployment Guide
 
+## 0. Hosted dashboard demo (free)
+
+The investigator dashboard deploys to **Streamlit Community Cloud** with zero infrastructure:
+the repo commits an 8 MB sampled bundle (`demo_data/`, built by `scripts/make_demo_data.py`)
+that the dashboard loaders fall back to when full artifacts are absent. Deploy: sign in at
+share.streamlit.io with GitHub → New app → this repo, branch `main`, entry point
+`app/dashboard/Home.py` (pick Python 3.11 under Advanced settings). Rebuild the bundle after any
+retrain with `python scripts/make_demo_data.py` and push. The hosted demo has no scoring API,
+MLflow, or Postgres — those belong to the tiers below.
+
 Three tiers, smallest to largest. The API and dashboard read their model bundle and
 serving stores from the image (baked at build time), and use Postgres when reachable —
 so every tier serves predictions even before wiring a database.

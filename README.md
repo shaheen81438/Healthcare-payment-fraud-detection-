@@ -5,6 +5,10 @@
 ![XGBoost](https://img.shields.io/badge/model-XGBoost%20%2B%20IsolationForest-orange.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 
+**[▶ Live dashboard demo](https://healthcare-payment-integrity.streamlit.app)** — hosted on
+Streamlit Community Cloud from the committed sample bundle; the full stack (scoring API, MLflow,
+Postgres) runs via the local or Azure setups below.
+
 An end-to-end, production-style platform that scores healthcare claims for fraud, waste, and
 abuse (FWA) risk and routes investigator attention where it pays: a rule engine, supervised ML,
 and unsupervised anomaly detection behind one calibrated risk score — with SHAP reason codes, a

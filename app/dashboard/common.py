@@ -31,6 +31,28 @@ ACTION_COLORS = {"manual_review": ORANGE, "monitor": BLUE, "auto_clear": AQUA}
 
 DECISIONS_PARQUET = Path("data/processed/review_decisions.parquet")
 
+#: Committed sampled artifacts for the hosted demo (see scripts/make_demo_data.py).
+#: Loaders fall back here when the full generated artifacts are absent (e.g. on
+#: Streamlit Community Cloud, which clones only the git repo).
+DEMO_DIR = Path("demo_data")
+
+
+def _resolve(path: str) -> Path:
+    """Prefer the full artifact; fall back to the committed demo bundle."""
+    full = Path(path)
+    if full.exists():
+        return full
+    demo = DEMO_DIR / full.name
+    return demo if demo.exists() else full
+
+
+def demo_mode() -> bool:
+    """True when running off the committed demo bundle rather than full artifacts."""
+    return (
+        not Path("data/processed/predictions.parquet").exists()
+        and (DEMO_DIR / "predictions.parquet").exists()
+    )
+
 
 def apply_theme() -> None:
     """Register + enable the project Altair theme."""
@@ -71,6 +93,13 @@ def synthetic_banner() -> None:
         "All claims, providers, and beneficiaries are **synthetic** (calibrated to real CMS "
         "distributions); risk scores are **review priorities, not fraud determinations**."
     )
+    if demo_mode():
+        st.caption(
+            "🛰️ Hosted demo running on the committed sample bundle — full artifacts, the "
+            "scoring API, and MLflow come with the repo's local/Azure setups "
+            "([github.com/FaridoonFarahi/healthcare-payment-integrity]"
+            "(https://github.com/FaridoonFarahi/healthcare-payment-integrity))."
+        )
 
 
 # ------------------------------------------------------------------ data access
@@ -94,7 +123,7 @@ def load_predictions() -> pd.DataFrame:
             return pd.read_sql("SELECT * FROM scoring.predictions", engine)
         except Exception:
             logger.warning("predictions_db_read_failed; falling back to parquet")
-    return pd.read_parquet("data/processed/predictions.parquet")
+    return pd.read_parquet(_resolve("data/processed/predictions.parquet"))
 
 
 @st.cache_data(ttl=300, show_spinner=False)
@@ -107,33 +136,43 @@ def load_explanations() -> pd.DataFrame:
             )
         except Exception:
             logger.warning("explanations_db_read_failed; falling back to parquet")
-    return pd.read_parquet("data/processed/explanations.parquet")
+    return pd.read_parquet(_resolve("data/processed/explanations.parquet"))
 
 
 @st.cache_data(ttl=600, show_spinner=False)
 def load_claims() -> pd.DataFrame:
-    return pd.read_parquet("data/processed/claims.parquet")
+    return pd.read_parquet(_resolve("data/processed/claims.parquet"))
 
 
 @st.cache_data(ttl=600, show_spinner=False)
 def load_labels_research_mode() -> pd.DataFrame:
     """Ground-truth injected labels — surfaced only behind the demo toggle."""
-    return pd.read_parquet("data/processed/labels.parquet")
+    return pd.read_parquet(_resolve("data/processed/labels.parquet"))
 
 
 @st.cache_data(ttl=600, show_spinner=False)
 def load_peer_stats() -> dict[str, pd.DataFrame]:
     from src.features.peer_stats import load_peer_stats as _load
 
-    return _load("models/feature_store")
+    base = Path("models/feature_store")
+    if not (base / "code_stats.parquet").exists() and (DEMO_DIR / "code_stats.parquet").exists():
+        base = DEMO_DIR
+    return _load(str(base))
 
 
 @st.cache_data(ttl=600, show_spinner=False)
 def load_policy() -> dict[str, Any]:
-    pointer = json.loads(Path("models/latest.json").read_text())
-    meta = json.loads((Path(pointer["path"]) / "metadata.json").read_text())
-    policy: dict[str, Any] = meta.get("threshold_policy", {})
-    return policy
+    pointer_path = Path("models/latest.json")
+    if pointer_path.exists():
+        pointer = json.loads(pointer_path.read_text(encoding="utf-8"))
+        meta = json.loads((Path(pointer["path"]) / "metadata.json").read_text(encoding="utf-8"))
+        policy: dict[str, Any] = meta.get("threshold_policy", {})
+        return policy
+    demo_policy = DEMO_DIR / "policy.json"
+    if demo_policy.exists():
+        loaded: dict[str, Any] = json.loads(demo_policy.read_text(encoding="utf-8"))
+        return loaded
+    return {}
 
 
 # ------------------------------------------------------------------ decisions

@@ -1,0 +1,14 @@
+{
+  "review_threshold": 0.9945,
+  "monitor_threshold": 0.4973,
+  "capacity_share": 0.01,
+  "capacity_implied_threshold": 0.9945,
+  "env_optimal_threshold": 0.73,
+  "expected_net_value_at_env_optimum": 74493.64,
+  "cost_params": {
+    "review_cost": 30.0,
+    "recovery_rate": 0.62,
+    "fp_extra_cost": 12.0,
+    "min_risk_threshold": 0.2
+  }
+}
