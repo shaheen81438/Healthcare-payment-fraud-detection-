@@ -1,0 +1,59 @@
+name: Deploy to Azure Container Apps
+
+# Deploys ONLY when triggered manually (or on a version tag) AND the Azure OIDC
+# secrets are configured. Safe to keep in a public repo: without secrets the
+# workflow fails fast at login and touches nothing.
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Target Container Apps environment suffix"
+        required: false
+        default: "prod"
+  push:
+    tags: ["v*"]
+
+permissions:
+  id-token: write # OIDC federated login — no stored cloud passwords
+  contents: read
+
+env:
+  AZURE_RESOURCE_GROUP: rg-payment-integrity
+  ACR_NAME: crpaymentintegrity
+  API_APP: pi-api
+  DASHBOARD_APP: pi-dashboard
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Azure login (OIDC)
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Build + push images in ACR
+        run: |
+          az acr build --registry $ACR_NAME --image pi-api:${{ github.sha }} --target api .
+          az acr build --registry $ACR_NAME --image pi-dashboard:${{ github.sha }} --target dashboard .
+
+      - name: Update Container Apps
+        run: |
+          az containerapp update -n $API_APP -g $AZURE_RESOURCE_GROUP \
+            --image $ACR_NAME.azurecr.io/pi-api:${{ github.sha }}
+          az containerapp update -n $DASHBOARD_APP -g $AZURE_RESOURCE_GROUP \
+            --image $ACR_NAME.azurecr.io/pi-dashboard:${{ github.sha }}
+
+      - name: Smoke-check API
+        run: |
+          FQDN=$(az containerapp show -n $API_APP -g $AZURE_RESOURCE_GROUP \
+                 --query properties.configuration.ingress.fqdn -o tsv)
+          for i in $(seq 1 30); do
+            curl -fsS "https://$FQDN/health" && exit 0 || sleep 5
+          done
+          echo "deployed API failed health check" >&2 && exit 1
