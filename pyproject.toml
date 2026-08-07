@@ -73,6 +73,8 @@ ignore = [
     "E501",   # line length is handled by the formatter
     "RUF002", # en-dashes / multiplication signs in docstrings are intentional
     "RUF003", # same, in comments
+    "N803",   # X / y argument names are ML convention
+    "N806",   # X / Xt variable names are ML convention
 ]
 
 [tool.ruff.lint.isort]

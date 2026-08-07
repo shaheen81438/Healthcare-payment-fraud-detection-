@@ -1,0 +1,77 @@
+# Rule-based baseline. Each rule is an AND of comparisons over feature columns.
+# Rules produce investigator-facing reason codes AND features for the ML models.
+# None of these conclusively establish fraud — they rank claims for human review.
+
+rules:
+  R001_exact_duplicate:
+    weight: 0.95
+    reason: possible_exact_duplicate
+    all:
+      - [exact_dup_prior, ">=", 1]
+  R002_near_duplicate:
+    weight: 0.75
+    reason: possible_near_duplicate
+    all:
+      - [dup_max_sim, ">=", 0.85]
+      - [exact_dup_prior, "<", 1]
+  R003_rapid_repeat:
+    weight: 0.55
+    reason: unusual_service_frequency
+    all:
+      - [days_since_bene_same_hcpcs, ">=", 1]
+      - [days_since_bene_same_hcpcs, "<=", 5]
+  R004_excessive_units:
+    weight: 0.8
+    reason: excessive_units_for_code
+    all:
+      - [units_vs_code_p95, ">=", 3]
+  R005_amount_above_norm:
+    weight: 0.7
+    reason: amount_far_above_code_norm
+    all:
+      - [paid_vs_code_median, ">=", 3]
+  R006_provider_volume_spike:
+    weight: 0.5
+    reason: sudden_provider_volume_change
+    all:
+      - [prov_velocity_1v3, ">=", 2.5]
+      - [prov_claims_1m, ">=", 30]
+  R007_dx_procedure_mismatch:
+    weight: 0.6
+    reason: unusual_diagnosis_procedure_combination
+    all:
+      - [dxproc_compat, "<=", 0.15]
+  R008_unusual_pos:
+    weight: 0.5
+    reason: unusual_place_of_service
+    all:
+      - [pos_atypicality, ">=", 0.85]
+  R009_unbundling:
+    weight: 0.8
+    reason: potential_unbundling
+    all:
+      - [unbundle_component_no_mod, ">=", 1]
+  R010_upcoding_indicator:
+    weight: 0.5
+    reason: potential_upcoding_pattern
+    all:
+      - [em_level, ">=", 4]
+      - [em_gap_vs_specialty, ">=", 1.2]
+  R011_code_concentration:
+    weight: 0.4
+    reason: high_code_concentration
+    all:
+      - [prov_top_code_share_3m, ">=", 0.65]
+      - [prov_claims_3m, ">=", 60]
+  R012_excessive_bene_activity:
+    weight: 0.45
+    reason: excessive_patient_provider_activity
+    any_of:
+      - [bene_provider_same_day_claims, ">=", 3]
+      - [bene_claims_30d, ">=", 12]
+  R013_patient_sharing:
+    weight: 0.4
+    reason: suspicious_billing_cluster
+    all:
+      - [bene_distinct_providers_prior, ">=", 6]
+      - [days_since_bene_last_claim, "<=", 3]

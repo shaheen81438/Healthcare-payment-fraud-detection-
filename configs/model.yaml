@@ -1,0 +1,37 @@
+# Model training configuration.
+
+model_name: claims-risk
+model_version: claims-risk-v1.0.0
+include_rule_features: true      # rule_score + n_rules_hit join the feature set
+
+logistic_regression:
+  C: 1.0
+  max_iter: 3000
+  class_weight: balanced
+
+xgboost:
+  n_estimators: 700
+  learning_rate: 0.06
+  max_depth: 6
+  min_child_weight: 5
+  subsample: 0.9
+  colsample_bytree: 0.8
+  reg_lambda: 2.0
+  tree_method: hist
+  early_stopping_rounds: 50
+  eval_metric: aucpr
+  # scale_pos_weight is computed from the train split at fit time
+
+isolation_forest:
+  n_estimators: 300
+  max_samples: 0.5
+  contamination: auto
+  # Fitted on the numeric behavioral subset (see train.py ISO_FEATURES)
+
+calibration:
+  method: isotonic          # fit on the validation split
+
+ensemble:
+  # final_risk = w * calibrated_supervised + (1 - w) * anomaly_percentile
+  weight_grid: [0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0]
+  selection_metric: pr_auc  # chosen on the validation split
