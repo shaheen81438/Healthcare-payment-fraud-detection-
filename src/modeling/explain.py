@@ -117,6 +117,8 @@ class ClaimExplainer:
             labels.setdefault(str(entry["code"]), str(entry["label"]))
         anomaly = self.reason_cfg["anomaly_reason"]
         labels.setdefault(str(anomaly["code"]), str(anomaly["label"]))
+        for code, label in self.reason_cfg.get("rule_reason_labels", {}).items():
+            labels.setdefault(str(code), str(label))
         return labels
 
     # ------------------------------------------------------------------ global

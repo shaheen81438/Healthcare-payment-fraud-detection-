@@ -53,3 +53,19 @@ reason_codes:
 
 # Added by the scorer (not SHAP): fires when the anomaly path drives the score.
 anomaly_reason: {code: unusual_overall_pattern, label: "Unusual overall pattern vs typical claims"}
+
+# Human labels for reason codes emitted directly by the rule engine (configs/rules.yaml).
+rule_reason_labels:
+  possible_exact_duplicate: "Exact duplicate of an earlier paid claim"
+  possible_near_duplicate: "Near-duplicate of an earlier claim"
+  unusual_service_frequency: "Service repeated at an unusual frequency"
+  excessive_units_for_code: "Units far above the norm for this code"
+  amount_far_above_code_norm: "Amount far above the code norm"
+  sudden_provider_volume_change: "Sudden change in provider volume"
+  unusual_diagnosis_procedure_combination: "Diagnosis unusual for this procedure"
+  unusual_place_of_service: "Unusual place of service for this code"
+  potential_unbundling: "Component billed alongside its bundled service"
+  potential_upcoding_pattern: "Provider pattern suggests possible upcoding"
+  high_code_concentration: "Billing concentrated in a single code"
+  excessive_patient_provider_activity: "Excessive patient-provider activity"
+  suspicious_billing_cluster: "Part of a suspicious billing cluster"
