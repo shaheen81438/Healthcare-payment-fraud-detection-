@@ -26,8 +26,8 @@ class HealthResponse(BaseModel):
 def health() -> HealthResponse:
     """Service liveness probe. ``model_loaded`` flips true once a scoring bundle is attached."""
     settings = get_settings()
-    # Imported lazily to avoid a hard dependency before the model service exists
-    # (wired in the prediction phase); the probe must never fail on import.
+    # Import lazily so the health probe has no hard dependency on the model
+    # service and can never fail on import.
     try:
         from app.services.model_service import model_is_loaded
 

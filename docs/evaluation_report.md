@@ -1,8 +1,8 @@
-# Evaluation Report — claims-risk claims-risk-v1.0.0
+# Evaluation report: claims-risk claims-risk-v1.0.0
 
-Generated 2026-08-07 06:36 UTC · dataset `ds-7996bf5a94f9` · test window 2025-07 → 2026-01 (96,435 claims, 4.72% labeled improper).
+Generated 2026-08-07 06:36 UTC · dataset `ds-7996bf5a94f9` · test window 2025-07 to 2026-01 (96,435 claims, 4.72% labeled improper).
 
-> Labels are **synthetic injected patterns** (see `labeling.md`); every number below
+> Labels are **synthetic injected patterns** (see `labeling.md`). Every number below
 > measures detection of documented injections, not real-world fraud performance.
 
 ## Model comparison (test window)
@@ -23,7 +23,7 @@ Generated 2026-08-07 06:36 UTC · dataset `ds-7996bf5a94f9` · test window 2025-
 
 Review threshold **τ = 0.9945** (max of ENV-optimal τ 0.73, capacity-implied τ 0.9945 at 1.0% capacity, and the 0.2 risk floor).
 
-Confusion matrix @ τ: TP 1,055 · FP 6 · FN 3,495 · TN 91,879 → precision 0.994, recall 0.232, F1 0.376.
+Confusion matrix at τ: TP 1,055, FP 6, FN 3,495, TN 91,879. Precision 0.994, recall 0.232, F1 0.376.
 
 ![Net value curve](assets/env_curve.png)
 
@@ -37,11 +37,11 @@ Confusion matrix @ τ: TP 1,055 · FP 6 · FN 3,495 · TN 91,879 → precision 0
 | 5.0%             |         4821 |       0.788 |    0.835 | $176,824            | $19,906     | $59,158                                | $137,601             |
 | 10.0%            |         4860 |       0.784 |    0.837 | $177,286            | $18,874     | $58,836                                | $136,483             |
 
-Cost assumptions: review $30.0/claim, recovery rate 62%, false-positive overhead $12.0/claim (configs/costs.yaml — scenario parameters, not validated actuals).
+Cost assumptions: review $30.0/claim, recovery rate 62%, false-positive overhead $12.0/claim (configs/costs.yaml; these are scenario parameters, not validated actuals).
 
 ## Calibration
 
-Brier 0.0119 · ECE 0.0013 (isotonic-calibrated supervised probability).
+Brier 0.0119, ECE 0.0013 (isotonic-calibrated supervised probability).
 
 ![Reliability](assets/reliability.png)
 
@@ -59,7 +59,7 @@ Retrained with F09 (dx mismatch) and F11 (collusion) removed from training label
 
 ![Novel scheme](assets/novel_scheme.png)
 
-The unsupervised path recovers a meaningful share of schemes the supervised model has never seen — and still misses most of them, which is the honest argument for layered controls and continuous rule development rather than for any single detector.
+The unsupervised path recovers part of the schemes the supervised model has never seen, but it still misses most of them. No single detector is enough, so layered controls and continuing rule development are still needed.
 
 ## Per-pattern detection (ensemble, test window)
 

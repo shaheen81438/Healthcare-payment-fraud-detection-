@@ -1,10 +1,10 @@
 """Data-contract validation for raw claims.
 
-Checks are explicit and versioned (V001–V010). Rows failing **error**-severity
-checks are quarantined (excluded from staging, kept for inspection); rows with
-**warning**-level issues pass through to cleaning, which repairs them; **info**
-checks are counted only. The full report is persisted as JSON so every pipeline
-run leaves an auditable data-quality trail.
+Checks are explicit and versioned (V001 to V010). Rows that fail an error-severity
+check are quarantined: left out of staging but kept for inspection. Rows with
+warning-level issues pass through to cleaning, which repairs them. Info checks
+are only counted. The full report is saved as JSON, so every pipeline run leaves
+a data-quality record that can be audited.
 """
 
 from __future__ import annotations

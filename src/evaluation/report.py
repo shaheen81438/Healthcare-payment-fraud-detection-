@@ -1,4 +1,4 @@
-"""Evaluation report generation: charts (project viz style) + markdown."""
+"""Build the evaluation report: charts in the project chart style, plus markdown."""
 
 from __future__ import annotations
 
@@ -195,10 +195,10 @@ def plot_novel_scheme(novel: dict[str, Any], out: Path) -> None:
     labels = ["Supervised only", "Ensemble", "Anomaly only"]
     values = [novel[f"novel_recall_at_10pct_{p}"] * 100 for p in paths]
     bars = ax.bar(labels, values, color=colors, width=0.55)
-    for rect, v in zip(bars, values, strict=True):
+    for rect, recall_pct in zip(bars, values, strict=True):
         ax.annotate(
-            f"{v:.1f}%",
-            (rect.get_x() + rect.get_width() / 2, v),
+            f"{recall_pct:.1f}%",
+            (rect.get_x() + rect.get_width() / 2, recall_pct),
             ha="center",
             va="bottom",
             fontsize=9,
@@ -221,22 +221,22 @@ def build_report(
     out_md: Path = Path("docs/evaluation_report.md"),
     assets_rel: str = "assets",
 ) -> None:
-    """Assemble docs/evaluation_report.md from computed context + saved charts."""
-    m = context["metrics_table"]
+    """Write docs/evaluation_report.md from the computed context and saved charts."""
+    metrics_table = context["metrics_table"]
     cm = context["confusion"]
     lines = [
-        "# Evaluation Report — claims-risk " + context["model_version"],
+        "# Evaluation report: claims-risk " + context["model_version"],
         "",
         f"Generated {context['generated_at']} · dataset `{context['dataset_version']}` · "
         f"test window {context['test_window']} ({context['n_test']:,} claims, "
         f"{context['test_positive_rate']:.2%} labeled improper).",
         "",
-        "> Labels are **synthetic injected patterns** (see `labeling.md`); every number below",
+        "> Labels are synthetic injected patterns (see `labeling.md`). Every number below",
         "> measures detection of documented injections, not real-world fraud performance.",
         "",
         "## Model comparison (test window)",
         "",
-        _table(m),
+        _table(metrics_table),
         "",
         f"![PR curves]({assets_rel}/pr_curves.png)",
         "",
@@ -251,7 +251,7 @@ def build_report(
         f"{context['policy']['cost_params']['min_risk_threshold']} risk floor).",
         "",
         f"Confusion matrix @ τ: TP {cm['tp']:,} · FP {cm['fp']:,} · FN {cm['fn']:,} · "
-        f"TN {cm['tn']:,} → precision {context['at_threshold']['precision']:.3f}, "
+        f"TN {cm['tn']:,}; precision {context['at_threshold']['precision']:.3f}, "
         f"recall {context['at_threshold']['recall']:.3f}, F1 {context['at_threshold']['f1']:.3f}.",
         "",
         f"![Net value curve]({assets_rel}/env_curve.png)",
@@ -261,8 +261,8 @@ def build_report(
         _table(context["capacity_table"]),
         "",
         "Cost assumptions: review ${review_cost}/claim, recovery rate {recovery_rate:.0%}, "
-        "false-positive overhead ${fp_extra_cost}/claim (configs/costs.yaml — scenario "
-        "parameters, not validated actuals).".format(**context["policy"]["cost_params"]),
+        "false-positive overhead ${fp_extra_cost}/claim (configs/costs.yaml). These are "
+        "scenario parameters, not validated actuals.".format(**context["policy"]["cost_params"]),
         "",
         "## Calibration",
         "",
@@ -282,9 +282,9 @@ def build_report(
         "",
         f"![Novel scheme]({assets_rel}/novel_scheme.png)",
         "",
-        "The unsupervised path recovers a meaningful share of schemes the supervised model has "
-        "never seen — and still misses most of them, which is the honest argument for layered "
-        "controls and continuous rule development rather than for any single detector.",
+        "The unsupervised path catches part of the schemes the supervised model has never "
+        "seen, but it still misses most of them. No single detector is enough; this argues "
+        "for layered controls and ongoing rule development.",
         "",
         "## Per-pattern detection (ensemble, test window)",
         "",

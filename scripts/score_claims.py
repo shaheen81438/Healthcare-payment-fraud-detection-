@@ -1,9 +1,9 @@
 #!/usr/bin/env python
-"""Batch scoring with explanations: writes scoring.predictions + scoring.explanations.
+"""Batch scoring with explanations: writes scoring.predictions and scoring.explanations.
 
 Scores the test window (the "current production traffic" in this project's
-timeline), computes SHAP-based reasons for every claim, persists to Postgres
-and parquet, and renders the global importance chart for the model card.
+timeline), computes SHAP-based reasons for every claim, saves them to Postgres
+and parquet, and draws the global importance chart for the model card.
 
 Usage: python scripts/score_claims.py [--skip-db] [--top-k 6]
 """
@@ -43,7 +43,7 @@ def main() -> int:
     explainer = ClaimExplainer(bundle)
     policy = bundle.threshold_policy
     if not policy:
-        raise SystemExit("bundle has no threshold policy — run scripts/evaluate_model.py first")
+        raise SystemExit("bundle has no threshold policy; run scripts/evaluate_model.py first")
 
     features = pd.read_parquet("data/processed/features.parquet")
     labels = pd.read_parquet("data/processed/labels.parquet")

@@ -2,7 +2,7 @@
 
 model_name: claims-risk
 model_version: claims-risk-v1.0.0
-include_rule_features: true      # rule_score + n_rules_hit join the feature set
+include_rule_features: true      # rule_score and n_rules_hit join the feature set
 
 logistic_regression:
   C: 1.0

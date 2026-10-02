@@ -1,9 +1,8 @@
 """Evaluation metrics for imbalanced ranking problems.
 
-Accuracy is deliberately absent: with ~4–5% positives it is uninformative.
-Primary metrics are PR-AUC and capacity-style ranking metrics (recall@top-k%),
-because investigators review a *budgeted queue*, not a threshold in the
-abstract.
+Accuracy is left out on purpose: with ~4 to 5% positives it says little.
+The primary metrics are PR-AUC and capacity-style ranking metrics (recall@top-k%),
+because investigators work through a queue sized by their review budget.
 """
 
 from __future__ import annotations
@@ -66,7 +65,7 @@ def precision_at_top_k(y_true: np.ndarray, scores: np.ndarray, k: int) -> float:
 
 
 def calibration_report(y_true: np.ndarray, probs: np.ndarray, n_bins: int = 10) -> dict[str, Any]:
-    """Brier score + reliability table (equal-width probability bins)."""
+    """Brier score and reliability table (equal-width probability bins)."""
     bins = np.clip((probs * n_bins).astype(int), 0, n_bins - 1)
     table = (
         pd.DataFrame({"bin": bins, "prob": probs, "actual": y_true})
@@ -94,7 +93,7 @@ def full_evaluation(
     threshold: float | None = None,
     probs: np.ndarray | None = None,
 ) -> dict[str, Any]:
-    """Convenience wrapper combining ranking, capacity, threshold, and calibration metrics."""
+    """Combine ranking, capacity, threshold, and calibration metrics in one dict."""
     out: dict[str, Any] = {}
     out.update(ranking_metrics(y_true, scores))
     out.update(recall_at_top_pct(y_true, scores))

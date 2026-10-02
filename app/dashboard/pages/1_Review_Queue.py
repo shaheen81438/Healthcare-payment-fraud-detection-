@@ -84,7 +84,7 @@ rows = selection.selection.rows if hasattr(selection, "selection") else []
 if rows:
     picked = queue.iloc[rows[0]]
     st.session_state["selected_claim_id"] = str(picked["claim_id"])
-    st.subheader(f"Decision — {picked['claim_id']}")
+    st.subheader(f"Decision: {picked['claim_id']}")
     d1, d2, d3 = st.columns([1, 1, 2])
     investigator = d1.text_input("Investigator", value=st.session_state.get("investigator", ""))
     note = d2.text_input("Note", value="")
@@ -125,5 +125,5 @@ with st.expander("Decision log"):
         counts = log["status"].value_counts()
         st.caption(
             " · ".join(f"{status}: {count}" for status, count in counts.items())
-            + " — these outcomes feed the delayed-performance monitoring report."
+            + ". These outcomes feed the delayed-performance monitoring report."
         )

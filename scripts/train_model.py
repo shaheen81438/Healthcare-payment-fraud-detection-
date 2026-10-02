@@ -38,7 +38,7 @@ def main() -> int:
     result = train_all(frame, numeric, cfg, feature_meta)
     result.rule_hit_counts = rule_hits
 
-    # Attach dataset version + persist bundle.
+    # Attach the dataset version and save the bundle.
     stats = json.loads(Path("data/interim/generation_stats.json").read_text())
     dataset_version = "unknown"
     meta_path = Path("data/interim/dataset_version.txt")

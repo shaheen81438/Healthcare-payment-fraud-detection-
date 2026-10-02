@@ -2,14 +2,14 @@
 
 Two modes:
 
-* **API mode** — pages the public ``data.cms.gov`` data-api (works anywhere with
-  open egress: your laptop, GitHub Actions). Handles paging, retries, and column
-  normalization.
-* **Snapshot mode** (default) — loads the committed calibration sample in
-  ``data/reference/`` so the pipeline is reproducible offline. Provenance for the
-  snapshot lives in ``data/reference/cms_snapshot_metadata.json``.
+* API mode pages the public ``data.cms.gov`` data-api. It works anywhere with
+  open egress (your laptop, GitHub Actions) and handles paging, retries, and
+  column normalization.
+* Snapshot mode (default) loads the committed calibration sample in
+  ``data/reference/`` so the pipeline runs the same way offline. Provenance for
+  the snapshot is in ``data/reference/cms_snapshot_metadata.json``.
 
-Source dataset (public, provider-level aggregates — no beneficiary data):
+Source dataset (public, provider-level aggregates, no beneficiary data):
 https://data.cms.gov/provider-summary-by-type-of-service/medicare-physician-other-practitioners/medicare-physician-other-practitioners-by-provider-and-service
 """
 

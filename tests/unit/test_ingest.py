@@ -1,4 +1,4 @@
-"""Ingestion normalization tests (snapshot + fixture based, no network)."""
+"""Ingestion normalization tests (snapshot and fixture based, no network)."""
 
 from __future__ import annotations
 

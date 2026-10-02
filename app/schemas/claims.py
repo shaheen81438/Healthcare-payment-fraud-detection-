@@ -13,7 +13,7 @@ HCPCS_PATTERN = r"^[A-Za-z0-9]\d{3}[A-Za-z0-9]$"
 
 
 class ClaimIn(BaseModel):
-    """A single claim to score. Field ranges mirror the data contract (V001–V010)."""
+    """A single claim to score. Field ranges match the data contract (V001 to V010)."""
 
     claim_id: str = Field(min_length=3, max_length=40, examples=["CLM-102849"])
     bene_id: str = Field(min_length=3, max_length=40, examples=["BEN-004521"])

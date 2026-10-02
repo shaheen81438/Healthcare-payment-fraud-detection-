@@ -75,7 +75,7 @@ def test_duplicate_features_backward_only(cfg: dict[str, Any]) -> None:
         ]
     )
     out = duplicate_features(df, cfg["duplicates"]).set_index("claim_id")
-    # The EARLIER claim is never flagged; the LATER one is.
+    # The earlier claim is never flagged; the later one is.
     assert out.loc["CLM-00000001", "exact_dup_prior"] == 0
     assert out.loc["CLM-00000001", "dup_cand_count"] == 0
     assert out.loc["CLM-00000002", "exact_dup_prior"] == 1

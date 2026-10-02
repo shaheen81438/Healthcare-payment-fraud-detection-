@@ -1,4 +1,4 @@
-"""API validation + error-path tests (no model artifacts required)."""
+"""API validation and error-path tests (no model artifacts required)."""
 
 from __future__ import annotations
 

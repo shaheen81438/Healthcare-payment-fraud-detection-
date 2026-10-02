@@ -1,10 +1,10 @@
-"""FWA pattern injectors (F01–F12).
+"""FWA pattern injectors (F01 to F12).
 
 Each injector mutates or appends claims and returns label records
-``(_rowid, pattern, improper_amount)``. Injection changes ONLY the claim fields a
-real bad actor could influence — no marker columns, no systematic artifacts
-beyond the behavior itself — so labels are recoverable only through the
-patterns, never through generation shortcuts. Prevalences and parameters come
+``(_rowid, pattern, improper_amount)``. Injection changes only the claim fields a
+real bad actor could influence. It adds no marker columns and no systematic
+artifacts beyond the behavior itself, so a model can recover the labels only
+from the patterns and never from generation shortcuts. Prevalences and parameters come
 from ``configs/data_generation.yaml``; assumptions are documented in
 ``docs/labeling.md``.
 """
@@ -227,7 +227,7 @@ def f07_unbundling(
     comp["hcpcs"] = claims.loc[idx, "hcpcs"].map(comp_map).to_numpy()
     for col in AMOUNT_COLS:
         comp[col] = np.round(comp[col].to_numpy(dtype=float) * ratios, 2)
-    comp["modifier"] = ""  # the tell: component billed same day WITHOUT a bypass modifier
+    comp["modifier"] = ""  # the signal: component billed the same day with no bypass modifier
     comp["units"] = 1
     records = [
         (int(r), "F07_unbundling", float(p))
@@ -350,7 +350,7 @@ def f11_collusion_cluster(
     frames: list[pd.DataFrame] = []
     n_months = int(ctx.cfg["n_months"])
     lo_m, hi_m = max(1, n_months // 4), n_months
-    # Scale-aware budget so small test datasets aren't swamped by cluster rows.
+    # Budget scales with data size so cluster rows don't swamp small test datasets.
     n_clusters = int(pcfg["n_clusters"])
     total_budget = max(30, int(0.005 * len(claims)))
     rows_per_provider_cap = max(10, total_budget // max(1, n_clusters * 3))
@@ -447,7 +447,7 @@ INJECTORS = {
 def inject_all(
     claims: pd.DataFrame, ctx: GenerationContext
 ) -> tuple[pd.DataFrame, list[LabelRecord]]:
-    """Run every configured injector; returns mutated claims + label records."""
+    """Run every configured injector; returns mutated claims and label records."""
     all_records: list[LabelRecord] = []
     for name, injector in INJECTORS.items():
         pcfg = ctx.cfg["patterns"].get(name)

@@ -1,6 +1,6 @@
-# Financial thresholding framework — every parameter is a SCENARIO assumption,
-# adjustable here and live in the dashboard's threshold simulator. Because labels
-# are synthetic, these are planning numbers, not validated actuals.
+# Financial thresholding framework. Every parameter is a scenario assumption that
+# you can change here or live in the dashboard's threshold simulator. Because the
+# labels are synthetic, these are planning numbers, not validated actuals.
 
 review_cost: 30.0          # fully-loaded cost of one investigator review (USD)
 recovery_rate: 0.62        # share of a confirmed improper payment actually recovered

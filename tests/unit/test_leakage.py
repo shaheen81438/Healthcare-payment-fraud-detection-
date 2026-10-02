@@ -1,4 +1,4 @@
-"""Leakage-prevention tests — the contract that features never see the future."""
+"""Leakage tests: features must never see the future."""
 
 from __future__ import annotations
 

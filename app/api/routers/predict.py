@@ -74,7 +74,7 @@ def batch_predict(batch: BatchPredictIn) -> BatchPredictOut:
 
 @router.post("/explain", response_model=ExplainOut, responses=RESPONSES)
 def explain(claim: ClaimIn) -> ExplainOut:
-    """Score a claim AND return SHAP contributions + labeled reason codes."""
+    """Score a claim and also return SHAP contributions and labeled reason codes."""
     service = _service_or_503()
     result = service.explain([claim])[0]
     metrics_store.observe_predictions([result.recommended_action])

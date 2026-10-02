@@ -20,7 +20,7 @@ def _clear_settings_cache() -> Iterator[None]:
 
 @pytest.fixture()
 def client(monkeypatch: pytest.MonkeyPatch) -> TestClient:
-    """A TestClient against a freshly built app WITHOUT loading model artifacts."""
+    """A TestClient against a freshly built app, without loading model artifacts."""
     monkeypatch.setenv("SKIP_MODEL_LOAD", "1")
     from app.api.main import create_app
 

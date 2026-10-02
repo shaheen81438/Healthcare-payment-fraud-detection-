@@ -1,4 +1,4 @@
-"""Validation + cleaning behavior on seeded defects."""
+"""Validation and cleaning behavior on seeded defects."""
 
 from __future__ import annotations
 
@@ -83,10 +83,10 @@ def test_cleaning_preserves_fraud_dups_removes_ingestion_dups(
     ref: dict[str, pd.DataFrame],
 ) -> None:
     df = _base_claims(6)
-    # Fraud-style duplicate: DIFFERENT claim_id, same content → must survive.
+    # Fraud-style duplicate: different claim_id, same content. It must survive.
     fraud_dup = df.iloc[[0]].copy()
     fraud_dup["claim_id"] = "CLM-00009999"
-    # Ingestion artifact: SAME claim_id repeated → must be collapsed.
+    # Ingestion artifact: the same claim_id repeated. It must be collapsed.
     ingest_dup = df.iloc[[1]].copy()
     df = pd.concat([df, fraud_dup, ingest_dup], ignore_index=True)
 

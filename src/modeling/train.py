@@ -1,4 +1,4 @@
-"""Training: rules baseline → logistic regression → XGBoost → IsolationForest → ensemble.
+"""Training, in order: rules baseline, logistic regression, XGBoost, IsolationForest, ensemble.
 
 All models share one temporal split (train / val / test) and one preprocessing
 contract. The validation window is used for early stopping, isotonic
@@ -73,7 +73,7 @@ class TrainResult:
 def prepare_training_frame(
     features: pd.DataFrame, labels: pd.DataFrame, include_rules: bool = True
 ) -> tuple[pd.DataFrame, list[str], dict[str, int]]:
-    """Join features+labels, evaluate rules, return (frame, numeric feature list, rule hits)."""
+    """Join features and labels, evaluate rules, return (frame, numeric feature list, rule hits)."""
     frame = features.merge(labels, on="claim_id", how="inner", validate="one_to_one")
     numeric = list(NUMERIC_FEATURES)
     hit_counts: dict[str, int] = {}

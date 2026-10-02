@@ -6,7 +6,7 @@ For each provider specialty present in the CMS snapshot we derive:
 * a state distribution,
 * a rough per-provider annual volume distribution (lognormal fit, then scaled).
 
-Only aggregates are used — no synthetic provider replicates any single real NPI.
+Only aggregates are used, so no synthetic provider copies any single real NPI.
 """
 
 from __future__ import annotations
@@ -35,7 +35,7 @@ def build_calibration(cms_df: pd.DataFrame) -> dict[str, SpecialtyCalibration]:
     """Build per-specialty calibrations from normalized CMS provider-service rows."""
     calibrations: dict[str, SpecialtyCalibration] = {}
     for specialty, group in cms_df.groupby("provider_type"):
-        # Aggregate per code across POS rows: volume-weighted amounts + facility share.
+        # Aggregate per code across POS rows: volume-weighted amounts and facility share.
         g = group.copy()
         g["svc"] = g["total_services"].clip(lower=1.0)
         agg = (
@@ -70,7 +70,7 @@ def build_calibration(cms_df: pd.DataFrame) -> dict[str, SpecialtyCalibration]:
                 "weight",
             ]
         ].reset_index(drop=True)
-        # Guard rails: paid <= allowed <= submitted must hold in calibration space.
+        # Keep paid <= allowed <= submitted in calibration space.
         codes["avg_allowed"] = np.minimum(codes["avg_allowed"], codes["avg_submitted"])
         codes["avg_paid"] = np.minimum(codes["avg_paid"], codes["avg_allowed"])
 

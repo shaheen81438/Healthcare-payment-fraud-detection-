@@ -1,8 +1,8 @@
 """Peer-group statistics, fit on the TRAIN window only and frozen as artifacts.
 
-Serving (batch scoring and the API) reads these frozen tables — peer norms are
-never recomputed on data the model is asked to score, which would leak the
-future into the past and shift benchmarks under drift.
+Serving (batch scoring and the API) reads these frozen tables. Peer norms are
+never recomputed on the data being scored, because that would leak the future
+into the past and move the benchmarks when the data drifts.
 """
 
 from __future__ import annotations
@@ -71,14 +71,14 @@ def fit_peer_stats(
         em.groupby("specialty").agg(spec_em_level_mean=("em_level", "mean")).reset_index()
     )
 
-    pm = (
+    provider_months = (
         df.assign(month=df["service_date"].dt.to_period("M").astype(str))
         .groupby(["specialty", "provider_id", "month"])
         .agg(claims=("claim_id", "size"), paid=("paid_amount", "sum"))
         .reset_index()
     )
     provider_month_peer = (
-        pm.groupby("specialty")
+        provider_months.groupby("specialty")
         .agg(
             peer_monthly_claims_median=("claims", "median"),
             peer_monthly_paid_median=("paid", "median"),
@@ -114,7 +114,7 @@ def load_peer_stats(in_dir: str | Path) -> dict[str, pd.DataFrame]:
 
 
 def peer_stats_fingerprint(stats: dict[str, pd.DataFrame]) -> str:
-    """Cheap fingerprint so tests can assert the artifacts were not refit."""
+    """Return a cheap fingerprint so tests can check that the artifacts were not refit."""
     parts = []
     for name in PEER_STATS_TABLES:
         frame = stats[name]

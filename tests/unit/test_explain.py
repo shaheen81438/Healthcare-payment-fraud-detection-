@@ -12,7 +12,7 @@ from src.modeling.explain import ClaimExplainer, load_reason_config
 
 @pytest.fixture(scope="module")
 def mapper() -> ClaimExplainer:
-    """An explainer with the SHAP machinery stubbed out — mapping logic only."""
+    """An explainer with the SHAP machinery stubbed out, for testing the mapping logic only."""
     explainer = ClaimExplainer.__new__(ClaimExplainer)
     explainer.reason_cfg = load_reason_config()
     explainer.bundle = SimpleNamespace(  # type: ignore[assignment]
@@ -88,7 +88,7 @@ def test_parent_map_folds_ohe_columns(mapper: ClaimExplainer) -> None:
     assert parents == [
         "paid_amount",
         "dup_max_sim",
-        "pos_office",  # numeric feature, NOT folded into 'pos'
+        "pos_office",  # numeric feature, not folded into 'pos'
         "specialty",
         "specialty",
         "pos",
@@ -97,7 +97,7 @@ def test_parent_map_folds_ohe_columns(mapper: ClaimExplainer) -> None:
 
 
 def test_every_numeric_feature_has_a_reason_mapping() -> None:
-    """Guards against adding features that silently produce no reason code."""
+    """Catch new features that would silently produce no reason code."""
     from src.features.builder import NUMERIC_FEATURES
     from src.modeling.train import RULE_FEATURES
 

@@ -27,7 +27,7 @@ def test_recall_at_top_pct_hand_case() -> None:
     y = np.array([1] * 10 + [0] * 90)
     scores = np.linspace(1.0, 0.0, 100)
     out = recall_at_top_pct(y, scores)
-    assert out["recall_at_1pct"] == pytest.approx(0.1)  # top-1 claim → 1 of 10 positives
+    assert out["recall_at_1pct"] == pytest.approx(0.1)  # top-1 claim catches 1 of 10 positives
     assert out["recall_at_5pct"] == pytest.approx(0.5)
     assert out["recall_at_10pct"] == pytest.approx(1.0)
 

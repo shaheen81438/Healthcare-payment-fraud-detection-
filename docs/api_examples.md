@@ -1,9 +1,9 @@
-# API Usage Examples
+# API usage examples
 
 Interactive docs at `http://localhost:8000/docs`. All responses carry an `X-Request-ID` header
 (echoed from the request when supplied) that matches the structured server logs.
 
-## Score one claim — `POST /predict`
+## Score one claim: `POST /predict`
 
 ```bash
 curl -s localhost:8000/predict -H 'Content-Type: application/json' -d '{
@@ -31,10 +31,10 @@ curl -s localhost:8000/predict -H 'Content-Type: application/json' -d '{
 }
 ```
 
-(A level-5 E/M paid at ~2× the specialty norm trips the upcoding rule; the calibrated model still
-reads the overall claim as low risk — the rule signal surfaces in `reason_codes` either way.)
+A level-5 E/M paid at ~2× the specialty norm trips the upcoding rule. The calibrated model still
+reads the overall claim as low risk, and the rule signal appears in `reason_codes` either way.
 
-## Explain a claim — `POST /explain`
+## Explain a claim: `POST /explain`
 
 Same payload as `/predict`; adds signed SHAP contributions and labeled reasons:
 
@@ -57,7 +57,7 @@ Same payload as `/predict`; adds signed SHAP contributions and labeled reasons:
 }
 ```
 
-## Batch scoring — `POST /batch-predict`
+## Batch scoring: `POST /batch-predict`
 
 ```bash
 curl -s localhost:8000/batch-predict -H 'Content-Type: application/json' \
@@ -65,9 +65,9 @@ curl -s localhost:8000/batch-predict -H 'Content-Type: application/json' \
 ```
 
 Returns `{count, model_version, results: [PredictionOut…]}` in request order. Oversized batches
-get **413** with the limit spelled out; an empty list gets **422**.
+get a 413 that states the limit; an empty list gets a 422.
 
-## Validation errors are actionable — `422`
+## Validation errors: `422`
 
 ```json
 {
@@ -78,10 +78,10 @@ get **413** with the limit spelled out; an empty list gets **422**.
 }
 ```
 
-Enforced: HCPCS format, POS/modifier enums, units 1–200, amounts ≥0 with
-`paid ≤ allowed ≤ submitted`, sane date ordering and windows.
+The API checks HCPCS format, POS/modifier enums, units 1-200, amounts ≥0 with
+`paid ≤ allowed ≤ submitted`, and sane date ordering and windows.
 
-## Model metadata — `GET /model-info`
+## Model metadata: `GET /model-info`
 
 ```json
 {
@@ -117,8 +117,8 @@ if result["recommended_action"] == "manual_review":
     )
 ```
 
-## Operational metrics — `GET /metrics` (Prometheus text)
+## Operational metrics: `GET /metrics` (Prometheus text)
 
-`api_requests_total{method,path,status}` · `api_request_latency_ms_sum/count{path}` ·
-`claims_scored_total` · `predictions_by_action_total{action}` · `model_loaded` ·
+`api_requests_total{method,path,status}`, `api_request_latency_ms_sum/count{path}`,
+`claims_scored_total`, `predictions_by_action_total{action}`, `model_loaded`,
 `model_info{version}`.

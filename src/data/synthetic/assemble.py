@@ -1,4 +1,4 @@
-"""End-to-end dataset assembly: simulate → inject patterns → label → add raw defects."""
+"""End-to-end dataset assembly: simulate, inject patterns, label, then add raw defects."""
 
 from __future__ import annotations
 
@@ -49,7 +49,7 @@ class DatasetBundle:
     """Everything the pipeline persists, with labels kept separate from claims."""
 
     claims: pd.DataFrame  # clean ground-truth claims (no label columns)
-    raw_claims: pd.DataFrame  # claims + injected data-quality defects (pipeline input)
+    raw_claims: pd.DataFrame  # claims with injected data-quality defects (pipeline input)
     providers: pd.DataFrame
     beneficiaries: pd.DataFrame
     labels: pd.DataFrame  # claim_id, is_improper, patterns, improper_amount
@@ -60,7 +60,7 @@ class DatasetBundle:
 def build_dataset(
     cfg: dict[str, Any], cms_df: pd.DataFrame, ref: dict[str, pd.DataFrame]
 ) -> DatasetBundle:
-    """Build the full synthetic dataset deterministically from config + seed."""
+    """Build the full synthetic dataset deterministically from the config and seed."""
     rng = np.random.default_rng(int(cfg["seed"]))
     calibrations = build_calibration(cms_df)
     providers = _sample_providers(cfg, calibrations, rng)
@@ -154,7 +154,7 @@ def inject_defects(
 ) -> pd.DataFrame:
     """Inject data-quality defects into a copy of the claims (the 'raw' pipeline input).
 
-    Defect classes are applied to disjoint row sets so each remains measurable:
+    Each defect class goes to a separate set of rows so each can be measured on its own:
     missing POS, `$`-formatted amount strings, impossible date order, same-ID
     ingestion duplicates, negative amounts, truncated HCPCS codes.
     """

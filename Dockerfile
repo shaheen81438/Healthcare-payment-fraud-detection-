@@ -30,7 +30,7 @@ RUN pip install --no-deps .
 
 # Bake serving artifacts when present (model bundle, frozen peer stats,
 # claim-history stores). A repo checkout without trained artifacts still
-# builds — the API then reports model_loaded=false until one is supplied.
+# builds; the API then reports model_loaded=false until a model is supplied.
 COPY models/ models/
 COPY data/reference/ data/reference/
 COPY data/processed/ data/processed/

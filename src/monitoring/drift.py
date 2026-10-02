@@ -1,4 +1,4 @@
-"""Drift monitoring core: Evidently report + PSI/JSD statistics + alert evaluation.
+"""Drift monitoring core: Evidently report, PSI/JSD statistics, and alert evaluation.
 
 Reference window = validation-period scored claims, frozen as an artifact.
 Current window = the latest scored claims. Thresholds live in
@@ -131,7 +131,7 @@ def run_monitoring(
     score_psi = psi(reference["risk_score"].to_numpy(), current["risk_score"].to_numpy())
     provider_mix = jsd(reference["specialty"], current["specialty"])
     procedure_mix = jsd(reference["hcpcs"], current["hcpcs"], top_k=20)
-    # Compare MONTHLY volumes (windows may span different numbers of months).
+    # Compare monthly volumes, since the windows can span different numbers of months.
     ref_months = max(1, pd.to_datetime(reference["service_date"]).dt.to_period("M").nunique())
     cur_months = max(1, pd.to_datetime(current["service_date"]).dt.to_period("M").nunique())
     volume_change = (len(current) / cur_months - len(reference) / ref_months) / max(
@@ -233,7 +233,7 @@ def _delayed_performance(
 
 # ------------------------------------------------------------------ simulation
 def simulate_drift(current: pd.DataFrame, rng_seed: int = 13) -> pd.DataFrame:
-    """Inject realistic drift for demos/tests: pricing shift, mix shift, missingness."""
+    """Inject drift for demos and tests: a pricing shift, a mix shift, and new missing values."""
     rng = np.random.default_rng(rng_seed)
     df = current.copy()
     # Payment inflation concentrated in one large specialty.
@@ -248,6 +248,6 @@ def simulate_drift(current: pd.DataFrame, rng_seed: int = 13) -> pd.DataFrame:
     df = df[~drop_mask].copy()
     # New missingness in POS.
     df.loc[rng.random(len(df)) < 0.05, "pos"] = np.nan
-    # Score drift follows the feature shift (recompute proxy: inflate scores mildly).
+    # Scores drift with the features. As a stand-in for rescoring, raise them slightly.
     df["risk_score"] = np.clip(df["risk_score"] * 1.25 + 0.02, 0, 1)
     return df

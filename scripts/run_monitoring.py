@@ -51,7 +51,7 @@ MONITOR_COLUMNS = [
 
 
 def _scored_frame(split: str) -> pd.DataFrame:
-    """Features + risk scores for a split (the monitoring view of traffic)."""
+    """Features and risk scores for a split (the monitoring view of traffic)."""
     cfg = load_model_config()
     bundle = ScoringBundle.load_latest()
     features = pd.read_parquet("data/processed/features.parquet")

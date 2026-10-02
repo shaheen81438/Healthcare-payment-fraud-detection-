@@ -1,4 +1,4 @@
-"""End-to-end API tests against the real trained bundle + feature stores.
+"""End-to-end API tests against the real trained bundle and feature stores.
 
 Requires artifacts from `make data`, `make features`, `make train`, `make evaluate`
 (skipped automatically when absent). Marked `integration`.
@@ -93,8 +93,8 @@ def test_batch_predict_preserves_order(live_client: TestClient) -> None:
 
 
 def test_duplicate_of_history_fires_dup_signals_and_raises_risk(live_client: TestClient) -> None:
-    """Copy a real historical claim under a new ID → duplicate signals must fire,
-    and risk must exceed the identical claim WITHOUT duplicate context.
+    """Copy a real historical claim under a new ID. Duplicate signals must fire,
+    and risk must be higher than for the same claim without duplicate context.
 
     (The absolute score stays moderate by design: an exact resubmission at an
     otherwise-clean provider resembles the benign corrected-claim confounder.)

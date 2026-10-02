@@ -1,4 +1,4 @@
-"""Model metadata + operational metrics endpoints."""
+"""Model metadata and operational metrics endpoints."""
 
 from __future__ import annotations
 

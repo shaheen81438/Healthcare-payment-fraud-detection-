@@ -22,8 +22,8 @@ API_DESCRIPTION = """
 Claim-level payment-integrity risk scoring for healthcare claims.
 
 Returns a calibrated risk score, a recommended action, estimated payment at
-risk, and explainable reason codes for every claim. Scores prioritize claims
-for human investigation — they are **not** determinations of fraud.
+risk, and explainable reason codes for every claim. Scores rank claims for
+human investigation. They are **not** determinations of fraud.
 """
 
 

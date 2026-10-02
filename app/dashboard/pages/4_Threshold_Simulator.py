@@ -28,7 +28,7 @@ page_setup("Threshold Simulator")
 synthetic_banner()
 st.caption(
     "All levers below are scenario assumptions. Realized values use the synthetic ground-truth "
-    "labels (research mode); a production deployment would substitute investigator outcomes."
+    "labels (research mode). A production deployment would use investigator outcomes instead."
 )
 
 preds = load_predictions()
@@ -134,10 +134,10 @@ with st.expander("How the recommended threshold is chosen"):
         """
 The production policy takes the **highest** of three cutoffs:
 
-1. **ENV-optimal τ** — where expected marginal review value turns negative
+1. **ENV-optimal τ**: where the expected marginal review value turns negative
    (`p·recovery·paid − review_cost − (1−p)·fp_cost < 0`);
-2. **capacity-implied τ** — the score of the last claim that fits the review budget;
-3. the configured **risk floor** — protecting precision even with spare capacity.
+2. **capacity-implied τ**: the score of the last claim that fits the review budget;
+3. the configured **risk floor**, which protects precision even when capacity is left over.
 
 Raising recovery rate or paid amounts pushes the ENV-optimal τ down (more claims are
 worth reviewing); tightening capacity pushes the operating τ up.
@@ -153,6 +153,6 @@ worth reviewing); tightening capacity pushes the operating τ up.
     )
     st.caption(
         f"At your capacity, the marginal (last) reviewed claim has expected value "
-        f"{money(float(marginal[-1] if len(marginal) else 0))} — negative means capacity "
-        "exceeds the economically-justified queue."
+        f"{money(float(marginal[-1] if len(marginal) else 0))}. A negative value means capacity "
+        "is larger than the queue the economics justify."
     )

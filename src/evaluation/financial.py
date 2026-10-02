@@ -5,12 +5,12 @@
         − investigation cost
         − false-positive operational cost
 
-Two views are computed everywhere:
+Every calculation has two views:
 
-* **Expected** — uses the calibrated probability (available in production).
-* **Realized** — uses ground-truth labels + injected improper amounts
-  (available here because labels are synthetic; in production this arrives
-  later from investigator outcomes).
+* Expected uses the calibrated probability, which exists in production.
+* Realized uses ground-truth labels and injected improper amounts. These exist
+  here because the labels are synthetic; in production they arrive later from
+  investigator outcomes.
 """
 
 from __future__ import annotations
@@ -158,10 +158,11 @@ def select_policy(
 ) -> dict[str, Any]:
     """Choose the operating point on validation data.
 
-    The review threshold is whichever is HIGHER: the score cutoff implied by
-    investigator capacity, the configured risk floor, or the τ that maximizes
-    expected net value — capacity binds spending, the floor binds precision,
-    and the ENV argmax stops reviewing where marginal value goes negative.
+    The review threshold is the highest of three values: the score cutoff implied
+    by investigator capacity, the configured risk floor, and the τ that maximizes
+    expected net value. Capacity limits spending, the floor limits how low
+    precision can go, and the ENV argmax stops review where the marginal value
+    turns negative.
     """
     sweep = threshold_sweep(val_scores, val_prob, val_paid, val_y, val_improper, params)
     best = sweep.loc[sweep["expected_net_value"].idxmax()]

@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 """Novel-scheme holdout experiment.
 
-Question: if a scheme family was NEVER in the training labels, does the
+Question: if a scheme family never appeared in the training labels, does the
 unsupervised leg still surface it? We drop all claims whose only patterns are
 F09 (dx mismatch) and/or F11 (collusion clusters) from the TRAIN split, retrain
-the full stack, and measure recall on exactly those claims in the TEST split —
-supervised-only vs the ensemble with its anomaly component.
+the full stack, and measure recall on exactly those claims in the TEST split.
+We compare supervised-only against the ensemble with its anomaly component.
 
 Output: docs/assets/novel_scheme_results.json (consumed by the evaluation report).
 """
@@ -42,7 +42,7 @@ def main() -> int:
     )
     holdout_mask = frame["patterns"].map(_only_holdout)
 
-    # Remove holdout-scheme positives from TRAIN only (they simply never happened).
+    # Remove holdout-scheme positives from TRAIN only, as if they never happened.
     train_drop = holdout_mask & (frame["split"] == "train") & frame["is_improper"]
     ablated = frame[~train_drop].copy()
     result = train_all(ablated, numeric, cfg)

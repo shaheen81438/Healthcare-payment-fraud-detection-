@@ -1,14 +1,14 @@
 """Ingestion of the OIG List of Excluded Individuals/Entities (LEIE).
 
 The LEIE is the real-world registry of providers excluded from federal health
-programs (fraud convictions, license actions, etc.). It provides *provider-level*
-context and a possible weak-label extension. Known limitations, documented in
-``docs/labeling.md``: few historical rows carry NPIs, excluded providers largely
+programs (fraud convictions, license actions, etc.). It adds provider-level
+context and could extend the weak labels. Known limitations, documented in
+``docs/labeling.md``: few historical rows carry NPIs, excluded providers mostly
 stop appearing in utilization data (survivorship bias), and exclusion dates
-rarely align with observed billing windows — which is why LEIE is **not** the
+rarely line up with observed billing windows. For these reasons LEIE is not the
 primary supervision source in this project.
 
-Modes: real download (open-egress environments) or a clearly-synthetic fixture
+Modes: real download (open-egress environments) or a clearly synthetic fixture
 (sandboxes/tests). Fixture NPIs use a reserved fake prefix and match nothing real.
 """
 
@@ -64,7 +64,7 @@ def fetch_from_source(timeout: int = 120) -> pd.DataFrame:
 
 
 def load_fixture(path: Path = FIXTURE_PATH) -> pd.DataFrame:
-    """Load the synthetic test fixture (NOT real exclusion records)."""
+    """Load the synthetic test fixture. These are not real exclusion records."""
     return _normalize(pd.read_csv(path, dtype=str))
 
 

@@ -1,5 +1,5 @@
 # MLflow tracking server with Postgres driver.
-# Built from the Python base image + PyPI (the ghcr.io/mlflow/mlflow tags don't
+# Built from the Python base image and PyPI (the ghcr.io/mlflow/mlflow tags don't
 # reliably exist for every patch release), keeping the server in the same 2.x
 # line as the client pin in requirements.txt.
 FROM python:3.11-slim

@@ -29,13 +29,13 @@ test: ## Run fast unit tests with coverage
 test-all: ## Run the full test suite (requires docker compose services)
 	pytest --cov=src --cov=app --cov-report=term-missing
 
-compose-up: ## Start Postgres + MLflow locally
+compose-up: ## Start Postgres and MLflow locally
 	docker compose up -d postgres mlflow
 
 compose-down: ## Stop all compose services
 	docker compose down
 
-compose-serve: ## Build and start the full stack (API + dashboard included)
+compose-serve: ## Build and start the full stack, including the API and dashboard
 	docker compose --profile serve up -d --build
 
 data: ## Build the dataset: ingest, generate, validate, clean, load Postgres
@@ -47,16 +47,16 @@ api: ## Run the FastAPI app locally with reload
 dashboard: ## Run the Streamlit investigator dashboard
 	streamlit run app/dashboard/Home.py --server.port $${DASHBOARD_PORT:-8501} --server.headless true
 
-features: ## Build the feature matrix + frozen peer stats
+features: ## Build the feature matrix and frozen peer stats
 	python scripts/build_features.py
 
-train: ## Train models, log + register with MLflow
+train: ## Train models, then log and register them with MLflow
 	python scripts/train_model.py
 
 evaluate: ## Evaluate, select thresholds, build the report
 	python scripts/evaluate_model.py
 
-score: ## Batch-score the test window with SHAP reasons -> Postgres
+score: ## Batch-score the test window with SHAP reasons and write to Postgres
 	python scripts/score_claims.py
 
 monitor: ## Run Evidently drift monitoring

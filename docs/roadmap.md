@@ -1,13 +1,13 @@
-# Implementation Roadmap
+# Implementation roadmap
 
-Thirteen sequential phases; each ships runnable code, tests, and docs. Exit criteria are the
-definition of done. (Live status is tracked in the build session; this file records the plan.)
+Thirteen sequential phases, each shipping runnable code, tests, and docs. Exit criteria are the
+definition of done. Live status was tracked in the build session; this file records the plan.
 
-| # | Phase | Key deliverables | Exit criteria |
+| # | Phase | Deliverables | Exit criteria |
 |---|-------|------------------|---------------|
 | 1 | Architecture & decisions | `docs/architecture.md`, `docs/roadmap.md` | Dataset strategy, stack, and deploy target locked |
 | 2 | Scaffold | Tooling, settings, JSON logging, health API, compose (Postgres+MLflow), CI skeleton | `ruff` + `mypy` + `pytest` green; `/health` serves |
-| 3 | Data layer | CMS/LEIE ingestion + committed reference snapshot, reference code sets, synthetic generator with injected F01–F12 patterns, separated `labels` schema, validation+quarantine, cleaning, Postgres load, `data_dictionary.md`, `labeling.md` | One command rebuilds the dataset deterministically; validation report emitted; unit tests pass |
+| 3 | Data layer | CMS/LEIE ingestion + committed reference snapshot, reference code sets, synthetic generator with injected F01-F12 patterns, separated `labels` schema, validation+quarantine, cleaning, Postgres load, `data_dictionary.md`, `labeling.md` | One command rebuilds the dataset deterministically; validation report emitted; unit tests pass |
 | 4 | Features | Claim + provider point-in-time features, duplicate similarity, frozen peer stats, temporal splits | Feature matrix built; leakage tests pass |
 | 5 | Models | Rule engine, LogReg, XGBoost, IsolationForest, calibrated ensemble; MLflow tracking; novel-scheme holdout | Models trained/logged/compared on identical splits |
 | 6 | Evaluation & thresholds | Metrics suite, financial ENV framework, capacity optimizer, evaluation report, CI quality gate | Report generated with ranking + financial metrics; gate wired |

@@ -1,30 +1,28 @@
-# Healthcare Claims Payment-Integrity & FWA Detection Platform
+# Healthcare claims payment-integrity and FWA detection platform
 
 [![CI](https://github.com/FaridoonFarahi/healthcare-payment-integrity/actions/workflows/ci.yml/badge.svg)](https://github.com/FaridoonFarahi/healthcare-payment-integrity/actions/workflows/ci.yml)
 ![Python](https://img.shields.io/badge/python-3.11+-blue.svg)
 ![XGBoost](https://img.shields.io/badge/model-XGBoost%20%2B%20IsolationForest-orange.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 
-**[▶ Live dashboard demo](https://faridoon-payment-integrity.streamlit.app)** — hosted on
-Streamlit Community Cloud from the committed sample bundle; the full stack (scoring API, MLflow,
-Postgres) runs via the local or Azure setups below.
+[Live dashboard demo](https://faridoon-payment-integrity.streamlit.app), hosted on Streamlit
+Community Cloud from the committed sample bundle. The full stack (scoring API, MLflow, Postgres)
+runs through the local or Azure setups below.
 
-An end-to-end, production-style platform that scores healthcare claims for fraud, waste, and
-abuse (FWA) risk and routes investigator attention where it pays: a rule engine, supervised ML,
-and unsupervised anomaly detection behind one calibrated risk score — with SHAP reason codes, a
+This platform scores healthcare claims for fraud, waste, and abuse (FWA) risk and sends
+investigators to the claims most worth reviewing. A rule engine, supervised ML, and unsupervised
+anomaly detection feed one calibrated risk score. Around that score sit SHAP reason codes, a
 cost-based review policy, a FastAPI scoring service, a Streamlit investigator dashboard, MLflow
 tracking, Evidently drift monitoring, CI/CD, and Azure deployment.
 
 | | |
 |---|---|
-| **Investigator dashboard** | ![Dashboard](docs/assets/screenshots/dashboard_home.png) |
-| **Claim-level explanation** | ![Claim detail](docs/assets/screenshots/dashboard_claim_detail.png) |
+| Investigator dashboard | ![Dashboard](docs/assets/screenshots/dashboard_home.png) |
+| Claim-level explanation | ![Claim detail](docs/assets/screenshots/dashboard_claim_detail.png) |
 
-> **Responsible-use note:** every output is a *review priority*, never a fraud determination.
-> Supervision labels are transparently **synthetic** (documented injections — see
-> [docs/labeling.md](docs/labeling.md)); no real provider is ever scored or displayed as risky.
-
----
+> Responsible use: every output is a *review priority*, never a fraud determination.
+> Supervision labels are **synthetic** (documented injections, see
+> [docs/labeling.md](docs/labeling.md)). No real provider is ever scored or displayed as risky.
 
 ## The business problem
 
@@ -32,20 +30,20 @@ CMS's CERT program estimated **[$28.8B of improper Medicare fee-for-service paym
 FY2025](https://www.fiercehealthcare.com/regulatory/cms-estimates-medicare-made-288b-improper-payments-fy2025)**
 ([CERT program](https://www.cms.gov/data-research/monitoring-programs/improper-payment-measurement-programs/comprehensive-error-rate-testing-cert)),
 and the [NHCAA](https://www.nhcaa.org/tools-insights/about-health-care-fraud/the-challenge-of-health-care-fraud/)
-conservatively puts health-care fraud at ~3% of spending (some estimates up to 10%). Payers attack
-this with **payment-integrity teams**: finite investigators reviewing a queue of suspect claims.
-The operational questions this platform answers:
+conservatively puts health-care fraud at ~3% of spending (some estimates up to 10%). Payers handle
+this with payment-integrity teams: a fixed number of investigators working a queue of suspect
+claims. The platform answers five operational questions:
 
-1. **Which claims should an investigator review?** — a calibrated ensemble risk score ranks a
+1. Which claims should an investigator review? A calibrated ensemble risk score ranks a
    capacity-constrained queue.
-2. **Why was each claim flagged?** — deterministic rule hits + SHAP feature contributions,
-   mapped to plain-language reason codes.
-3. **What is the estimated financial risk?** — `P(improper) × paid amount`, calibrated
+2. Why was each claim flagged? Deterministic rule hits and SHAP feature contributions, mapped to
+   plain-language reason codes.
+3. What is the estimated financial risk? `P(improper) × paid amount`, calibrated
    (Brier 0.012, ECE 0.001).
-4. **How should claims be prioritized under limited capacity?** — an expected-net-value
-   framework: `recoverable − review cost − false-positive cost`, optimized over thresholds and
-   capacities, with a live simulator.
-5. **Is the model drifting?** — Evidently drift reports + PSI/mix-divergence alerts + delayed
+4. How should claims be prioritized under limited capacity? An expected-net-value framework,
+   `recoverable − review cost − false-positive cost`, optimized over thresholds and capacities,
+   with a live simulator.
+5. Is the model drifting? Evidently drift reports, PSI and mix-divergence alerts, and delayed
    precision from investigator decisions.
 
 ## Results (test window: 6 months, 96,435 synthetic claims, 4.7% injected-improper)
@@ -58,12 +56,12 @@ The operational questions this platform answers:
 | Isolation Forest | 0.316 | 0.837 | 0.125 | 0.372 | 0.550 |
 | Ensemble (0.95·XGB + 0.05·anomaly) | 0.871 | 0.948 | 0.211 | 0.835 | 0.901 |
 
-Reviewing the **top 5%** of claims captures **83.6%** of injected improper claims. At the
-production operating point (1% capacity → τ = 0.9945): precision **0.994**, realized net value
-**$49.3k** on the window, ~$674k identified per 1,000 reviews. A **novel-scheme holdout**
-(retraining without two pattern families) shows the anomaly path recovering ~5× more unseen-scheme
-claims than the supervised path alone — and still missing most, the honest case for layered
-controls. Full analysis: [docs/evaluation_report.md](docs/evaluation_report.md).
+Reviewing the top 5% of claims captures 83.6% of injected improper claims. At the production
+operating point (1% capacity, τ = 0.9945), precision is 0.994, realized net value is $49.3k on
+the window, and about $674k is identified per 1,000 reviews. A novel-scheme holdout (retraining
+without two pattern families) shows the anomaly path recovering ~5× more unseen-scheme claims than
+the supervised path alone. It still misses most of them, which is why layered controls are needed.
+Full analysis: [docs/evaluation_report.md](docs/evaluation_report.md).
 
 ## Architecture
 
@@ -86,34 +84,33 @@ flowchart LR
   PRED & OPS --> MON[Evidently monitoring + alerts]
 ```
 
-Design details: [docs/architecture.md](docs/architecture.md) ·
-data contract: [docs/data_dictionary.md](docs/data_dictionary.md)
+Design details: [docs/architecture.md](docs/architecture.md). Data contract:
+[docs/data_dictionary.md](docs/data_dictionary.md).
 
-## The data story (read this before the metrics)
+## The data (read this before the metrics)
 
 Claim-level Medicare data with adjudicated fraud labels **does not exist publicly**. This project
-handles that honestly instead of pretending otherwise:
+says so and works around it:
 
-- **Real public CMS data** anchors everything: a committed snapshot of the *Medicare Physician &
+- Real public CMS data anchors the generator. A committed snapshot of the *Medicare Physician &
   Other Practitioners* provider-service file (12 specialties, real HCPCS mix, real payment
-  distributions) calibrates the generator and builds peer benchmarks; the OIG LEIE exclusion list
+  distributions) calibrates the generator and builds peer benchmarks. The OIG LEIE exclusion list
   ships with a loader as real-world context.
 - **Synthetic claim-level data** (~378k claims, 2k providers, 24 months) is generated from those
   real distributions, with **12 documented FWA patterns injected** (duplicates, upcoding,
-  unbundling, unit inflation, collusion clusters…) plus benign confounders (corrected
-  resubmissions, legit high-cost claims) so false-positive pressure is real.
-- **Labels live in a separate schema** and never enter features; every injection assumption is in
-  [docs/labeling.md](docs/labeling.md). Metrics measure *detection of documented injections* —
-  stated on every report.
+  unbundling, unit inflation, collusion clusters, and others). Benign confounders (corrected
+  resubmissions, legit high-cost claims) are added so the model faces real false-positive pressure.
+- Labels live in a separate schema and never enter features. Every injection assumption is in
+  [docs/labeling.md](docs/labeling.md). Metrics measure *detection of documented injections*, and
+  every report says so.
 
-## Leakage prevention (the part reviewers probe)
+## Leakage prevention
 
-Temporal splits with a burn-in window; every rolling feature strictly backward-looking
-(`closed='left'`); provider features at monthly grain **lagged one month**; peer statistics fit on
-the train window and **frozen as artifacts**; duplicates can only match *earlier* claims; label
-columns structurally rejected by the feature builder. All of it is enforced by
-`tests/unit/test_leakage.py` (future-append invariance, frozen-stats fingerprints, label
-isolation).
+Splits are temporal, with a burn-in window. Every rolling feature looks strictly backward
+(`closed='left'`). Provider features are at monthly grain and lagged one month. Peer statistics
+are fit on the train window and frozen as artifacts. Duplicates can only match *earlier* claims,
+and the feature builder rejects label columns. `tests/unit/test_leakage.py` enforces all of this
+(future-append invariance, frozen-stats fingerprints, label isolation).
 
 ## Quickstart
 
@@ -157,9 +154,9 @@ curl -s localhost:8000/predict -H 'Content-Type: application/json' -d '{
 }
 ```
 
-Endpoints: `GET /health` · `GET /model-info` · `POST /predict` · `POST /batch-predict` (≤1,000)
-· `POST /explain` (adds SHAP contributions + labeled reasons) · `GET /metrics` (Prometheus).
-More: [docs/api_examples.md](docs/api_examples.md).
+Endpoints: `GET /health`, `GET /model-info`, `POST /predict`, `POST /batch-predict` (≤1,000),
+`POST /explain` (adds SHAP contributions and labeled reasons), `GET /metrics` (Prometheus).
+More examples: [docs/api_examples.md](docs/api_examples.md).
 
 ## Repository map
 
@@ -176,37 +173,45 @@ tests/          unit (fast) · integration (live API) · slow (training invarian
 
 ## Engineering practices
 
-Ruff + MyPy clean · ~110 tests across unit/integration/slow suites · CI runs a **model-quality
-regression gate** (tiny-world pipeline must beat PR-AUC/recall floors and the rules baseline)
-before Docker build + health smoke · structured JSON logs with request IDs · registry-first model
-loading with local fallback · every chart follows a validated, CVD-safe palette.
+The code passes Ruff and MyPy, with ~110 tests across unit, integration, and slow suites. Before
+the Docker build and health smoke test, CI runs a model-quality regression gate: a tiny-world
+pipeline must beat PR-AUC and recall floors and the rules baseline. Logs are structured JSON with
+request IDs, the model loads from the registry first with a local fallback, and every chart uses a
+validated, CVD-safe palette.
 
 ## Monitoring
 
-Evidently drift preset over 16 monitored columns + in-house PSI (risk score), Jensen-Shannon
-divergence (provider/procedure mix), monthly-volume deltas, and missing-value tracking →
-`ok / warn / critical` status consumed by the dashboard; investigator decisions feed a delayed
-realized-precision report. Simulated drift (pricing shift + mix change + missingness) correctly
-escalates to **critical** (score PSI 3.81). Guide: [docs/monitoring.md](docs/monitoring.md).
+An Evidently drift preset covers 16 monitored columns. In-house checks add PSI on the risk score,
+Jensen-Shannon divergence on provider and procedure mix, monthly-volume deltas, and missing-value
+tracking. Together they produce an `ok / warn / critical` status that the dashboard reads, and
+investigator decisions feed a delayed realized-precision report. Simulated drift (pricing shift,
+mix change, missingness) escalates to **critical** (score PSI 3.81) as expected. Guide:
+[docs/monitoring.md](docs/monitoring.md).
 
-## Limitations & future work
+## Limitations and future work
 
-Synthetic labels bound external validity — results measure detection of documented injections
-([full discussion](docs/ethics_limitations.md)). Single-line professional claims only (no
-institutional/DRG structures). Peer stats and provider features refresh at batch cadence.
-Future: real NCCI PTP full-file loading, LEIE weak-label provider study, Alembic migrations,
-authN/authZ, champion-challenger deployment, graph features for collusion detection.
+Synthetic labels limit external validity: results measure detection of documented injections
+([full discussion](docs/ethics_limitations.md)). Only single-line professional claims are covered
+(no institutional or DRG structures). Peer stats and provider features refresh at batch cadence.
+Planned next: real NCCI PTP full-file loading, a LEIE weak-label provider study, Alembic
+migrations, authN/authZ, champion-challenger deployment, and graph features for collusion
+detection.
 
 ## Documentation index
 
-[Architecture](docs/architecture.md) · [Roadmap](docs/roadmap.md) ·
-[Data dictionary](docs/data_dictionary.md) · [Labeling](docs/labeling.md) ·
-[Evaluation report](docs/evaluation_report.md) · [Model card](docs/model_card.md) ·
-[API examples](docs/api_examples.md) · [Deployment](docs/deployment.md) ·
-[Monitoring](docs/monitoring.md) · [Ethics & limitations](docs/ethics_limitations.md) ·
-[3-minute demo script](docs/demo_script.md)
+- [Architecture](docs/architecture.md)
+- [Roadmap](docs/roadmap.md)
+- [Data dictionary](docs/data_dictionary.md)
+- [Labeling](docs/labeling.md)
+- [Evaluation report](docs/evaluation_report.md)
+- [Model card](docs/model_card.md)
+- [API examples](docs/api_examples.md)
+- [Deployment](docs/deployment.md)
+- [Monitoring](docs/monitoring.md)
+- [Ethics and limitations](docs/ethics_limitations.md)
+- [3-minute demo script](docs/demo_script.md)
 
 ## License
 
-MIT — see [LICENSE](LICENSE). CMS data used here is public; the committed sample retains its
+MIT, see [LICENSE](LICENSE). The CMS data used here is public, and the committed sample keeps its
 provenance metadata.

@@ -3,8 +3,8 @@
 
 Usage: python scripts/evaluate_model.py
 Outputs:
-  - docs/evaluation_report.md + docs/assets/*.png
-  - data/processed/scored_test.parquet (scores + actions for downstream phases)
+  - docs/evaluation_report.md and docs/assets/*.png
+  - data/processed/scored_test.parquet (scores and actions for downstream phases)
   - threshold policy persisted into the model bundle (models/<version>/metadata.json)
 """
 
@@ -81,7 +81,7 @@ def main() -> int:
     )
     bundle.threshold_policy = policy
     bundle_dir = bundle.save(Path("models") / bundle.model_version)
-    # Re-register so the MLflow production alias serves the bundle WITH its policy.
+    # Re-register so the MLflow production alias serves the bundle with its policy.
     train_metrics_for_log = json.loads((bundle_dir / "metrics.json").read_text())
     from src.modeling.registry import log_and_register
 

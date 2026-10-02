@@ -1,4 +1,4 @@
-"""SHAP explainability + reason-code mapping.
+"""SHAP explanations and reason-code mapping.
 
 Per claim we return signed SHAP contributions aggregated back to the raw
 feature level (one-hot columns fold into their parent categorical), the top
@@ -69,7 +69,7 @@ class ClaimExplainer:
         vals = agg.to_numpy()
         raw_values = {c: X[c].to_numpy() for c in cols if c in X.columns}
         k = min(top_k, vals.shape[1])
-        # Vectorized top-k by |contribution| (argpartition), then exact ordering.
+        # Pick the top k by |contribution| with argpartition, then sort those k exactly.
         part = np.argpartition(-np.abs(vals), k - 1, axis=1)[:, :k]
         results: list[list[dict[str, Any]]] = []
         for r in range(vals.shape[0]):
@@ -111,7 +111,7 @@ class ClaimExplainer:
         return deduped[:max_codes]
 
     def reason_labels(self) -> dict[str, str]:
-        """code -> human label lookup (for the API/dashboard)."""
+        """Map each reason code to its readable label (for the API and dashboard)."""
         labels: dict[str, str] = {}
         for entry in self.reason_cfg["reason_codes"].values():
             labels.setdefault(str(entry["code"]), str(entry["label"]))
@@ -137,7 +137,7 @@ def _serialize(value: Any) -> Any:
 
 
 def plot_global_importance(importance: pd.DataFrame, out_path: str, top_n: int = 15) -> None:
-    """Horizontal bar of mean |SHAP| — magnitude job → single sequential hue."""
+    """Horizontal bar chart of mean |SHAP|. It shows magnitude only, so it uses one sequential hue."""
     import matplotlib.pyplot as plt
 
     from src.utils.viz import INK_SECONDARY, SEQUENTIAL_BLUES, apply_mpl_style, style_axis
@@ -149,16 +149,16 @@ def plot_global_importance(importance: pd.DataFrame, out_path: str, top_n: int =
     ax.grid(axis="x", visible=True)
     ax.grid(axis="y", visible=False)
     ax.barh(top["feature"], top["mean_abs_shap"], color=SEQUENTIAL_BLUES[4], height=0.62)
-    for y_pos, v in enumerate(top["mean_abs_shap"]):
+    for y_pos, mean_abs in enumerate(top["mean_abs_shap"]):
         ax.annotate(
-            f"{v:.3f}",
-            (v, y_pos),
+            f"{mean_abs:.3f}",
+            (mean_abs, y_pos),
             textcoords="offset points",
             xytext=(4, -3),
             fontsize=8,
             color=INK_SECONDARY,
         )
     ax.set_xlabel("Mean |SHAP| (log-odds)")
-    ax.set_title("Global feature importance — claims-risk model")
+    ax.set_title("Global feature importance (claims-risk model)")
     fig.savefig(out_path)
     plt.close(fig)

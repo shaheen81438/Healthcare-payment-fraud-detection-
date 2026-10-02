@@ -1,4 +1,4 @@
-"""Monitoring statistics + alert-threshold tests."""
+"""Monitoring statistics and alert-threshold tests."""
 
 from __future__ import annotations
 

@@ -1,8 +1,8 @@
 """In-process request/prediction counters exposed at /metrics (Prometheus text format).
 
-Deliberately dependency-free: counters + a latency summary are enough for a
-single-process service; a multi-worker deployment would swap in prometheus-client
-with a shared registry (documented in docs/monitoring.md).
+This has no dependencies on purpose. Counters and a latency summary are enough
+for a single-process service. A multi-worker deployment would switch to
+prometheus-client with a shared registry (see docs/monitoring.md).
 """
 
 from __future__ import annotations

@@ -2,8 +2,8 @@
 
 All history-dependent features are strictly backward-looking (``closed='left'``
 rolling windows, shifted first-occurrence counts). Same-day context features
-(counts of other same-day claims) are legitimate in this platform's post-payment
-batch setting and are documented as such.
+(counts of other same-day claims) are valid here because scoring runs as a
+post-payment batch. The docs note this.
 """
 
 from __future__ import annotations
@@ -65,7 +65,7 @@ def amount_and_coding_features(
     df["mod_59"] = (df["modifier"] == "59").astype(int)
     df["mod_ltrt"] = df["modifier"].isin(["LT", "RT"]).astype(int)
 
-    # E/M level + upcoding gap vs specialty norm
+    # E/M level and upcoding gap vs specialty norm
     em = ref["em_levels"]
     em_map = dict(zip(em["hcpcs"], em["level"].astype(int), strict=True))
     df["em_level"] = df["hcpcs"].map(em_map).fillna(0).astype(int)
@@ -90,8 +90,8 @@ def amount_and_coding_features(
         (df["pos_office"] - df["code_office_share"].fillna(df["pos_office"])).abs().round(4)
     )
 
-    # Unbundling: component billed same bene/provider/day as its comprehensive code,
-    # WITHOUT a bypass modifier.
+    # Unbundling: a component code billed on the same bene/provider/day as its
+    # comprehensive code, with no bypass modifier.
     ptp = ref["ptp_pairs"]
     keys = ["bene_id", "provider_id", "service_date"]
     comp_claims = df[df["hcpcs"].isin(set(ptp["comprehensive_code"]))][[*keys, "hcpcs"]]

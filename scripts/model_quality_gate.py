@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 """CI model-quality regression gate.
 
-Generates a small fixture dataset, runs the full feature + training pipeline,
-and fails (exit 1) if quality drops below floors — catching silent regressions
-in features, injection, or training code before they merge.
+Generates a small fixture dataset, runs the full feature and training pipeline,
+and exits with code 1 if quality drops below the floors. This catches silent
+regressions in feature, injection, or training code before they merge.
 
 Usage: python scripts/model_quality_gate.py
 """
@@ -41,7 +41,7 @@ def main() -> int:
     parser.add_argument(
         "--save-artifacts",
         action="store_true",
-        help="persist the tiny-world bundle + serving stores so integration tests can run",
+        help="save the tiny-world bundle and serving stores so integration tests can run",
     )
     args = parser.parse_args()
     configure_logging("WARNING")

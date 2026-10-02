@@ -1,4 +1,4 @@
-"""Investigator dashboard — portfolio overview."""
+"""Investigator dashboard: portfolio overview."""
 
 from __future__ import annotations
 
@@ -33,13 +33,15 @@ flagged = preds[preds["recommended_action"] == "manual_review"]
 monitor = preds[preds["recommended_action"] == "monitor"]
 
 # ---- KPI row -------------------------------------------------------------
-c1, c2, c3, c4, c5 = st.columns(5)
-c1.metric("Claims scored", f"{len(preds):,}")
-c2.metric("Flagged for review", f"{len(flagged):,}")
-c3.metric("Estimated payment at risk", money(float(flagged["estimated_payment_at_risk"].sum())))
-c4.metric("Review threshold τ", f"{policy.get('review_threshold', '—')}")
+kpi_scored, kpi_flagged, kpi_at_risk, kpi_threshold, kpi_decisions = st.columns(5)
+kpi_scored.metric("Claims scored", f"{len(preds):,}")
+kpi_flagged.metric("Flagged for review", f"{len(flagged):,}")
+kpi_at_risk.metric(
+    "Estimated payment at risk", money(float(flagged["estimated_payment_at_risk"].sum()))
+)
+kpi_threshold.metric("Review threshold τ", f"{policy.get('review_threshold', 'n/a')}")
 decided = len(decisions)
-c5.metric("Decisions captured", f"{decided:,}")
+kpi_decisions.metric("Decisions captured", f"{decided:,}")
 
 st.divider()
 
@@ -101,7 +103,7 @@ line = (
 st.altair_chart(line, use_container_width=True)
 
 st.info(
-    "Work the **Review Queue** page to triage flagged claims; open **Claim Detail** for SHAP "
-    "explanations; use the **Threshold Simulator** to trade capacity against net value.",
+    "Triage flagged claims on the **Review Queue** page. **Claim Detail** shows SHAP "
+    "explanations, and the **Threshold Simulator** trades capacity against net value.",
     icon="🧭",
 )

@@ -177,9 +177,9 @@ else:
     )
 
 # ---- research mode -------------------------------------------------------
-with st.expander("🔬 Research mode — synthetic ground truth (demo only)"):
+with st.expander("Research mode: synthetic ground truth (demo only)"):
     st.caption(
-        "Labels exist because this dataset is synthetic; a production system would not have this."
+        "Labels exist only because this dataset is synthetic. A production system would not have them."
     )
     from app.dashboard.common import load_labels_research_mode
 
@@ -189,7 +189,7 @@ with st.expander("🔬 Research mode — synthetic ground truth (demo only)"):
         st.write("Ground truth: **not injected as improper**.")
     else:
         st.write(
-            f"Ground truth: **improper** — patterns `{truth.iloc[0]['patterns']}`, "
+            f"Ground truth: **improper**, patterns `{truth.iloc[0]['patterns']}`, "
             f"injected improper amount ${float(truth.iloc[0]['improper_amount']):,.2f}."
         )
     st.caption(f"Anomaly percentile: {claim['anomaly_percentile']:.3f}")

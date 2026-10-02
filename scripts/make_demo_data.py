@@ -41,7 +41,7 @@ def main() -> int:
         OUT / "labels.parquet", index=False
     )
 
-    # Explanations: everything the queue surfaces + the highest-risk auto-clears.
+    # Explanations: everything the queue shows, plus the highest-risk auto-clears.
     explanations = pd.read_parquet("data/processed/explanations.parquet")
     keep_ids = set(
         predictions.loc[predictions["recommended_action"] != "auto_clear", "claim_id"]
@@ -54,7 +54,7 @@ def main() -> int:
         OUT / "explanations.parquet", index=False
     )
 
-    # Frozen peer stats + the threshold policy (read from the bundle metadata).
+    # Frozen peer stats and the threshold policy (read from the bundle metadata).
     for stats_file in Path("models/feature_store").glob("*.parquet"):
         if stats_file.name != "monitoring_reference.parquet":
             shutil.copy(stats_file, OUT / stats_file.name)

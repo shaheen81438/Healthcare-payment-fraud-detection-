@@ -1,4 +1,4 @@
-# Synthetic claims generation — every knob that shapes the dataset.
+# Synthetic claims generation: every setting that shapes the dataset.
 # Full labeling assumptions are documented in docs/labeling.md.
 
 seed: 42
@@ -7,8 +7,8 @@ n_months: 24
 n_providers: 2000
 n_beneficiaries: 40000
 
-# Simulated volumes are scaled to a fraction of realistic Medicare panels for
-# tractability (~400k claims total). Relative peer comparisons are preserved.
+# Simulated volumes are scaled down from realistic Medicare panels to keep the
+# data manageable (~400k claims total). Relative peer comparisons still hold.
 volume_scale: 0.05
 annual_claims_clip: [60, 1200]
 
@@ -31,14 +31,15 @@ payer_share: 0.80          # Medicare Part B pays ~80% of allowed
 amount_noise_sigma: 0.12   # lognormal noise on claim amounts
 provider_multiplier_sigma: 0.08
 
-# Benign confounders (label = 0; create honest false-positive pressure)
+# Benign confounders (label = 0): legitimate claims that look suspicious, so the
+# detectors face realistic false positives.
 confounders:
   corrected_resubmission_rate: 0.006   # near-duplicate corrected claims
   legit_high_cost_rate: 0.003          # legitimately expensive claims (x2-3)
-  legit_unbundle_with_modifier_rate: 0.002  # PTP component billed WITH modifier 59
+  legit_unbundle_with_modifier_rate: 0.002  # PTP component billed with modifier 59
 
 # Injected FWA patterns. `provider_share`: fraction of providers assigned the
-# behavior. `claim_rate`: share of ALL claims affected (approximate target).
+# behavior. `claim_rate`: share of all claims affected (approximate target).
 patterns:
   F01_exact_duplicate:      {provider_share: 0.030, claim_rate: 0.0050}
   F02_near_duplicate:       {provider_share: 0.030, claim_rate: 0.0050}
@@ -53,11 +54,11 @@ patterns:
   F11_collusion_cluster:    {n_clusters: 3, providers_per_cluster: [3, 4], shared_benes: [20, 40]}
   F12_code_concentration:   {provider_share: 0.015, shift_share: [0.5, 0.7]}
 
-# Data-quality defects injected into the RAW file only (validation/cleaning must handle these).
+# Data-quality defects injected into the raw file only (validation and cleaning must handle these).
 defects:
   missing_pos_rate: 0.008
   amount_as_string_rate: 0.003     # e.g. "$1,234.56" in paid_amount
   impossible_date_rate: 0.001      # submit date before service date
-  ingestion_duplicate_rate: 0.0015 # same claim_id repeated (system artifact — NOT fraud)
+  ingestion_duplicate_rate: 0.0015 # same claim_id repeated (system artifact, not fraud)
   negative_amount_rate: 0.0005
   invalid_hcpcs_rate: 0.001

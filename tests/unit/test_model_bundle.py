@@ -1,4 +1,4 @@
-"""End-to-end model training + bundle roundtrip on a small dataset (marked slow)."""
+"""End-to-end model training and bundle roundtrip on a small dataset (marked slow)."""
 
 from __future__ import annotations
 

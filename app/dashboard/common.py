@@ -1,5 +1,5 @@
-"""Shared dashboard utilities: data access (Postgres → parquet fallback),
-Altair theme (project palette), and investigator-decision persistence."""
+"""Shared dashboard utilities: data access (Postgres, with parquet as fallback),
+the Altair theme (project palette), and saving investigator decisions."""
 
 from __future__ import annotations
 
@@ -15,7 +15,7 @@ import streamlit as st
 
 logger = logging.getLogger(__name__)
 
-# ---- palette (validated; see src/utils/viz.py + dataviz method) ----
+# ---- palette (same validated colors as src/utils/viz.py) ----
 SURFACE = "#fcfcfb"
 INK = "#0b0b0b"
 INK_2 = "#52514e"
@@ -55,7 +55,7 @@ def demo_mode() -> bool:
 
 
 def apply_theme() -> None:
-    """Register + enable the project Altair theme."""
+    """Register and enable the project Altair theme."""
 
     def _theme() -> dict[str, Any]:
         return {
@@ -91,12 +91,12 @@ def page_setup(title: str) -> None:
 def synthetic_banner() -> None:
     st.caption(
         "All claims, providers, and beneficiaries are **synthetic** (calibrated to real CMS "
-        "distributions); risk scores are **review priorities, not fraud determinations**."
+        "distributions). Risk scores are **review priorities, not fraud determinations**."
     )
     if demo_mode():
         st.caption(
-            "🛰️ Hosted demo running on the committed sample bundle — full artifacts, the "
-            "scoring API, and MLflow come with the repo's local/Azure setups "
+            "Hosted demo running on the committed sample bundle. The full artifacts, the "
+            "scoring API, and MLflow come with the repo's local and Azure setups "
             "([github.com/FaridoonFarahi/healthcare-payment-integrity]"
             "(https://github.com/FaridoonFarahi/healthcare-payment-integrity))."
         )
@@ -146,7 +146,7 @@ def load_claims() -> pd.DataFrame:
 
 @st.cache_data(ttl=600, show_spinner=False)
 def load_labels_research_mode() -> pd.DataFrame:
-    """Ground-truth injected labels — surfaced only behind the demo toggle."""
+    """Ground-truth injected labels, shown only behind the demo toggle."""
     return pd.read_parquet(_resolve("data/processed/labels.parquet"))
 
 

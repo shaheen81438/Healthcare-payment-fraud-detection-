@@ -1,4 +1,4 @@
-"""Vectorized rule engine: transparent baseline + reason codes + model features."""
+"""Vectorized rule engine. Its output is a transparent baseline, reason codes, and model features."""
 
 from __future__ import annotations
 
@@ -40,8 +40,8 @@ class RuleEngine:
                 raise KeyError(f"rule references unknown feature: {feature}")
             masks.append(_OPS[op](features[feature], value))
         combined = masks[0]
-        for m in masks[1:]:
-            combined = (combined & m) if mode == "all" else (combined | m)
+        for mask in masks[1:]:
+            combined = (combined & mask) if mode == "all" else (combined | mask)
         return combined
 
     def evaluate(self, features: pd.DataFrame) -> pd.DataFrame:

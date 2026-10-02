@@ -1,4 +1,4 @@
-"""Health endpoint + request-ID middleware tests."""
+"""Health endpoint and request-ID middleware tests."""
 
 from __future__ import annotations
 

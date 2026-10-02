@@ -1,14 +1,14 @@
-"""Online feature assembly — the SAME feature functions as the batch pipeline.
+"""Online feature assembly, using the same feature functions as the batch pipeline.
 
-Offline/online consistency is achieved by reusing ``src.features`` code against
-in-memory context stores loaded at startup:
+Online features match offline ones because this module reuses the ``src.features``
+code against in-memory context stores loaded at startup:
 
 * frozen peer stats (``models/feature_store``),
 * the provider-month feature table (lagged, point-in-time),
-* recent claim history per beneficiary (for duplicate + utilization features).
+* recent claim history per beneficiary (for duplicate and utilization features).
 
-Unknown providers/beneficiaries degrade gracefully to cold-start defaults and
-set ``insufficient_provider_history`` so consumers can see the difference.
+Unknown providers or beneficiaries fall back to cold-start defaults and set
+``insufficient_provider_history`` so consumers can see the difference.
 """
 
 from __future__ import annotations
@@ -99,8 +99,8 @@ class FeatureService:
         # Peer-normalized amount/coding features need no history.
         df = amount_and_coding_features(payload, self.ref, self.peer)
 
-        # Beneficiary history + duplicate features: run the batch functions over
-        # (stored history for these benes) ∪ (payload), then keep payload rows.
+        # Beneficiary history and duplicate features: run the batch functions over
+        # the stored history for these benes plus the payload, then keep payload rows.
         combined = self._with_history(payload)
         bene_feats = beneficiary_history_features(combined)
         dup_feats = duplicate_features(combined, self.cfg["duplicates"])

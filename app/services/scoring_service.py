@@ -1,4 +1,4 @@
-"""Scoring orchestration for the API: features → rules → ensemble → reasons."""
+"""Scoring for the API, in order: features, rules, ensemble, reasons."""
 
 from __future__ import annotations
 
@@ -25,7 +25,7 @@ logger = logging.getLogger(__name__)
 
 
 class ScoringService:
-    """Process-wide singleton wrapping the bundle + explainer + feature assembly."""
+    """Process-wide singleton that holds the bundle, the explainer, and feature assembly."""
 
     def __init__(self, bundle: ScoringBundle, source: str) -> None:
         self.bundle = bundle
@@ -54,7 +54,7 @@ class ScoringService:
             for c in self.bundle.numeric_features + self.bundle.categorical_features
             if c not in df.columns
         ]
-        if missing:  # defensive: feature drift between bundle and service code
+        if missing:  # bundle and service code disagree on the feature list
             raise RuntimeError(f"online features missing columns: {missing}")
         return df
 

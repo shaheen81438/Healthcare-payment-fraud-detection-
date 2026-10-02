@@ -16,11 +16,11 @@ def load_features_config(path: str = "configs/features.yaml") -> dict[str, Any]:
 
 def assign_split(claims: pd.DataFrame, cfg: dict[str, Any]) -> pd.DataFrame:
     """Add a ``split`` column based on service month boundaries."""
-    s = cfg["splits"]
+    bounds = cfg["splits"]
     month = claims["service_date"].dt.to_period("M").astype(str)
     out = claims.copy()
     out["split"] = "test"
-    out.loc[month <= s["val_end"], "split"] = "val"
-    out.loc[month <= s["train_end"], "split"] = "train"
-    out.loc[month <= s["burn_in_end"], "split"] = "burn_in"
+    out.loc[month <= bounds["val_end"], "split"] = "val"
+    out.loc[month <= bounds["train_end"], "split"] = "train"
+    out.loc[month <= bounds["burn_in_end"], "split"] = "burn_in"
     return out

@@ -1,11 +1,11 @@
 # Feature engineering configuration.
 
-# Temporal split by service month. The burn-in window provides feature history
-# only — its rows are never used as training examples.
+# Temporal split by service month. The burn-in window only provides feature
+# history; its rows are never used as training examples.
 splits:
   burn_in_end: "2024-03"     # months <= this are burn-in
   train_end: "2025-03"       # burn_in_end < train <= this
-  val_end: "2025-06"         # calibration + threshold tuning window
+  val_end: "2025-06"         # calibration and threshold tuning window
   # everything after val_end is test
 
 # Duplicate similarity (backward-looking only)
@@ -20,7 +20,7 @@ duplicates:
     date_proximity: 0.10     # scaled 1 - Δdays/window
   exact_amount_tolerance: 0.01
 
-# Peer statistics (fit on train window ONLY, then frozen)
+# Peer statistics (fit on the train window only, then frozen)
 peer_stats:
   min_code_n: 30             # fall back to global stats below this support
   min_spec_code_n: 20

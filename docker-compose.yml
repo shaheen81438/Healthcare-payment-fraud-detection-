@@ -11,7 +11,7 @@ services:
       - "${POSTGRES_PORT:-5432}:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
-      # Runs only on first initialization of the volume: creates app schemas + the mlflow database.
+      # Runs only when the volume is first initialized: creates app schemas and the mlflow database.
       - ./scripts/sql/init_db.sql:/docker-entrypoint-initdb.d/init_db.sql:ro
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]

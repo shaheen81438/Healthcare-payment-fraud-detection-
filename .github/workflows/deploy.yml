@@ -1,8 +1,8 @@
 name: Deploy to Azure Container Apps
 
-# Deploys ONLY when triggered manually (or on a version tag) AND the Azure OIDC
-# secrets are configured. Safe to keep in a public repo: without secrets the
-# workflow fails fast at login and touches nothing.
+# Deploys only when triggered manually (or on a version tag) and the Azure OIDC
+# secrets are configured. Safe to keep in a public repo: without the secrets the
+# workflow fails at login and changes nothing.
 
 on:
   workflow_dispatch:
@@ -15,7 +15,7 @@ on:
     tags: ["v*"]
 
 permissions:
-  id-token: write # OIDC federated login — no stored cloud passwords
+  id-token: write # OIDC federated login, so no cloud passwords are stored
   contents: read
 
 env:

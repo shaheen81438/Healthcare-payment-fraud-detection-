@@ -42,7 +42,7 @@ def main() -> int:
     save_peer_stats(peer, store)
     (store / "feature_meta.json").write_text(json.dumps(meta, indent=2), encoding="utf-8")
 
-    # Provider-month table for ONLINE serving (the API's point-in-time provider lookup).
+    # Provider-month table for online serving (the API's point-in-time provider lookup).
     from src.features.provider_features import build_provider_month_features
 
     provider_month = build_provider_month_features(

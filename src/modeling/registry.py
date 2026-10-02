@@ -1,10 +1,10 @@
-"""MLflow experiment tracking + model registry, with offline-tolerant fallbacks.
+"""MLflow experiment tracking and model registry, with fallbacks for when MLflow is offline.
 
 Every training run logs params, metrics, dataset/git provenance, and the full
 scoring-bundle directory. The chosen model is registered as ``claims-risk``
-with the ``production`` alias. Serving loads from the registry when reachable,
-otherwise from the local bundle pointer — the API never depends on MLflow
-being up.
+with the ``production`` alias. Serving loads from the registry when it is
+reachable and from the local bundle pointer otherwise, so the API keeps working
+when MLflow is down.
 """
 
 from __future__ import annotations
@@ -104,7 +104,7 @@ def log_and_register(
                 },
             )
         return str(run_id)
-    except Exception as exc:  # MLflow unreachable → training still succeeds
+    except Exception as exc:  # MLflow unreachable; training still succeeds
         logger.warning("mlflow_unavailable", extra={"error": str(exc)[:200]})
         return None
 

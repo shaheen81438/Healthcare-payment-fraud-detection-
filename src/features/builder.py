@@ -1,4 +1,4 @@
-"""Feature-matrix orchestration: splits → frozen peer stats → claim + provider features."""
+"""Build the feature matrix: assign splits, fit frozen peer stats, then add claim and provider features."""
 
 from __future__ import annotations
 
@@ -69,7 +69,7 @@ def build_features(
     """Build the full point-in-time feature matrix.
 
     Returns (features, frozen peer stats, feature metadata). ``claims`` must be
-    the cleaned staging frame — label columns are structurally rejected.
+    the cleaned staging frame. Any label column in it raises an error.
     """
     forbidden = LABEL_COLUMNS & set(claims.columns)
     if forbidden:

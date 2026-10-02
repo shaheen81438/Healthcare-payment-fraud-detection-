@@ -1,9 +1,10 @@
-"""Shared visualization tokens + matplotlib style (light mode).
+"""Shared color tokens and matplotlib style (light mode).
 
-Palette follows the project's data-viz method: categorical hues in FIXED slot
-order (validated for CVD-safe adjacency), sequential = one blue ramp, ink for
-text (never series colors), recessive grid, single axis. Charts that use
-sub-3:1 hues carry direct labels or an accompanying table (relief rule).
+Categorical hues use a fixed slot order, checked so neighboring colors stay
+distinct for color-vision deficiency. Sequential scales use one blue ramp. Text
+uses ink colors, never series colors. The grid stays light and charts use a
+single axis. Charts with hues below 3:1 contrast get direct labels or a table
+beside them (the relief rule).
 """
 
 from __future__ import annotations
@@ -17,7 +18,7 @@ INK_MUTED = "#898781"
 GRIDLINE = "#e1e0d9"
 BASELINE = "#c3c2b7"
 
-#: Fixed categorical slots — color follows the entity across every chart.
+#: Fixed categorical slots, so each model keeps the same color in every chart.
 MODEL_COLORS: dict[str, str] = {
     "ensemble": "#2a78d6",  # slot 1 blue
     "xgboost": "#eb6834",  # slot 2 orange
@@ -73,7 +74,7 @@ def apply_mpl_style() -> None:
 
 
 def style_axis(ax: Any) -> None:
-    """Recessive grid/axis treatment for a single axes object."""
+    """Apply the light grid and axis styling to one axes object."""
     ax.grid(axis="y", color=GRIDLINE, linewidth=0.8)
     ax.grid(axis="x", visible=False)
     ax.spines["bottom"].set_color(BASELINE)

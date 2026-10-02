@@ -2,12 +2,12 @@
 
 The simulator draws provider profiles, beneficiary panels, and 24 months of
 claim activity calibrated to real CMS specialty/code/payment distributions
-(``calibration.py``). Benign confounders — corrected-claim resubmissions,
-legitimately expensive claims, properly-modified component billing — are added
-so that downstream detectors face realistic false-positive pressure.
+(``calibration.py``). It also adds benign confounders (corrected-claim
+resubmissions, legitimately expensive claims, properly modified component
+billing) so the detectors have to deal with realistic false positives.
 
-Everything is driven by ``configs/data_generation.yaml`` and a single seeded
-``numpy`` Generator: identical config + seed ⇒ identical dataset.
+Everything is driven by ``configs/data_generation.yaml`` and one seeded
+``numpy`` Generator, so the same config and seed always give the same dataset.
 """
 
 from __future__ import annotations
@@ -237,7 +237,7 @@ def _month_starts(cfg: dict[str, Any]) -> np.ndarray:
 def _sample_days(month_start: np.datetime64, n: int, rng: np.random.Generator) -> np.ndarray:
     offsets = np.arange(28)
     days = (month_start + offsets).astype("datetime64[D]")
-    # Epoch day 0 (1970-01-01) was a Thursday → weekday index 3 with Monday=0.
+    # Epoch day 0 (1970-01-01) was a Thursday, which is weekday index 3 with Monday=0.
     weekdays = ((days.astype("datetime64[D]").view("int64") + 3) % 7).astype(int)
     w = np.array([WEEKDAY_WEIGHTS[int(d)] for d in weekdays])
     return days[rng.choice(28, size=n, p=w / w.sum())]
@@ -385,7 +385,7 @@ def add_confounders(claims: pd.DataFrame, ctx: GenerationContext) -> pd.DataFram
         claims.loc[claims.index[idx2], col] = np.round(claims.iloc[idx2][col].to_numpy() * mult, 2)
     ctx.stats["confounder_high_cost"] = k2
 
-    # Properly-modified component billing (modifier 59 present ⇒ allowed by edits).
+    # Properly modified component billing (modifier 59 present, so the edits allow it).
     ptp = ctx.ref["ptp_pairs"]
     comp_map = dict(zip(ptp["comprehensive_code"], ptp["component_code"], strict=True))
     ratio_map = dict(zip(ptp["comprehensive_code"], ptp["component_amount_ratio"], strict=True))

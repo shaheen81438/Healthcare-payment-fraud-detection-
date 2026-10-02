@@ -1,8 +1,8 @@
 """Provider-level behavioral features at monthly grain, lagged one month.
 
-A claim in month *m* joins provider features computed exclusively from months
-≤ *m−1* — the current month never contributes to its own features, which makes
-the features point-in-time correct even for batch scoring at month end.
+A claim in month *m* joins provider features computed only from months up to
+*m-1*. The current month never feeds its own features, so they stay
+point-in-time correct even for batch scoring at month end.
 """
 
 from __future__ import annotations
@@ -39,7 +39,7 @@ def build_provider_month_features(
     providers: pd.DataFrame,
     cfg: dict[str, Any],
 ) -> pd.DataFrame:
-    """Return one row per (provider_id, month) with trailing features from PRIOR months."""
+    """Return one row per (provider_id, month) with trailing features from prior months only."""
     trailing = int(cfg["provider_rolling"]["trailing_months"])
     df = claims.copy()
     df["month_p"] = df["service_date"].dt.to_period("M")
@@ -85,7 +85,7 @@ def build_provider_month_features(
     monthly = monthly.sort_values(["provider_id", "month_p"]).reset_index(drop=True)
 
     g = monthly.groupby("provider_id")
-    # Trailing sums over the PRIOR `trailing` months (shift(1) excludes current month).
+    # Trailing sums over the prior `trailing` months (shift(1) excludes the current month).
     for col in ["claims_1m", "paid_1m", "benes_1m", "em_sum_1m", "em_n_1m", "high_cost_1m"]:
         monthly[f"{col}_t"] = g[col].transform(
             lambda s: s.shift(1).rolling(trailing, min_periods=1).sum()
@@ -106,8 +106,8 @@ def build_provider_month_features(
     code_month["n_t"] = code_month.groupby(["provider_id", "hcpcs"])["n"].transform(
         lambda s: s.shift(1).rolling(trailing, min_periods=1).sum()
     )
-    # Reindex against the month grid is heavy; instead compute share within observed months
-    # and merge (missing = 0 → no prior activity for that code).
+    # Reindexing against the month grid is slow, so compute the share within observed
+    # months and merge (missing = 0 means no prior activity for that code).
     top_code = (
         code_month.groupby(["provider_id", "month_p"])["n_t"].max().rename("top_code_n_t")
     ).reset_index()

@@ -1,6 +1,6 @@
 # Rule-based baseline. Each rule is an AND of comparisons over feature columns.
-# Rules produce investigator-facing reason codes AND features for the ML models.
-# None of these conclusively establish fraud — they rank claims for human review.
+# Rules produce investigator-facing reason codes and also features for the ML models.
+# None of these prove fraud. They rank claims for human review.
 
 rules:
   R001_exact_duplicate:

@@ -1,6 +1,6 @@
 """The scoring bundle: everything needed to score a claim, versioned as one artifact.
 
-A bundle directory contains joblib artifacts + metadata.json + frozen peer stats,
+A bundle directory holds the joblib artifacts, metadata.json, and frozen peer stats,
 so the API and batch scorer can run with no database and no MLflow server.
 """
 
@@ -23,7 +23,7 @@ LATEST_POINTER = Path("models/latest.json")
 
 @dataclass
 class ScoringBundle:
-    """Fitted artifacts + config required to produce a risk score with reasons."""
+    """Fitted artifacts and config needed to produce a risk score with reasons."""
 
     model_version: str
     preprocessor: Any  # fitted ColumnTransformer (unscaled variant, for trees/SHAP)

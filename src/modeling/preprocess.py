@@ -13,7 +13,7 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler
 def make_preprocessor(
     numeric_features: list[str], categorical_features: list[str], scale_numeric: bool
 ) -> ColumnTransformer:
-    """Impute+optionally-scale numerics; one-hot encode low-cardinality categoricals."""
+    """Impute numerics (and scale them if asked); one-hot encode low-cardinality categoricals."""
     numeric_steps: list[tuple[str, object]] = [("impute", SimpleImputer(strategy="median"))]
     if scale_numeric:
         numeric_steps.append(("scale", StandardScaler()))

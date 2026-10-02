@@ -1,4 +1,4 @@
-"""Package version helper — single source of truth is pyproject.toml."""
+"""Package version helper. The version is defined once, in pyproject.toml."""
 
 from __future__ import annotations
 

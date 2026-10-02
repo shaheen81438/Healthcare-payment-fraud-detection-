@@ -77,14 +77,14 @@ if validation_path.exists():
     )
     st.dataframe(checks, use_container_width=True, hide_index=True)
 else:
-    st.caption("No validation report found — run `make data`.")
+    st.caption("No validation report found. Run `make data`.")
 
 # ---- delayed performance from investigator decisions --------------------
 st.subheader("Delayed performance (investigator outcomes)")
 decisions = load_decisions()
 if decisions.empty:
     st.caption(
-        "No investigator decisions yet — approve/dismiss claims in the Review Queue and this "
+        "No investigator decisions yet. Approve or dismiss claims in the Review Queue and this "
         "section becomes the realized-precision report."
     )
 else:

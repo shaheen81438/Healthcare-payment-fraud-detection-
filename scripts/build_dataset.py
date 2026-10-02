@@ -6,7 +6,7 @@ Usage:
     python scripts/build_dataset.py [--config configs/data_generation.yaml]
         [--cms-api] [--skip-db]
 
-Idempotent and deterministic for a given config + seed.
+Safe to rerun; the same config and seed give the same output.
 """
 
 from __future__ import annotations
@@ -53,7 +53,7 @@ def main() -> int:
         cms_df = ingest_cms(use_snapshot=not args.cms_api)
         ingest_leie(use_fixture=True)
 
-    # 2) Generate the synthetic dataset (claims + separated labels).
+    # 2) Generate the synthetic dataset (claims, with labels kept separate).
     bundle = build_dataset(cfg, cms_df, ref)
 
     # 3) Persist file artifacts.
@@ -67,7 +67,7 @@ def main() -> int:
     bundle.providers.to_parquet("data/processed/providers.parquet", index=False)
     bundle.beneficiaries.to_parquet("data/processed/beneficiaries.parquet", index=False)
 
-    # 4) Validate raw → quarantine + report.
+    # 4) Validate raw claims, quarantine failures, write the report.
     raw = pd.read_csv("data/raw/claims_raw.csv.gz", dtype={"hcpcs": str, "pos": str})
     result = validation.validate_claims(raw, ref["pos_codes"], ref["dx_groups"])
     result.quarantined.to_parquet("data/interim/quarantine.parquet", index=False)
@@ -82,7 +82,7 @@ def main() -> int:
         print(f"FATAL: quarantine share {result.report['quarantine_share']} above tolerance")
         return 1
 
-    # 5) Clean → staging.
+    # 5) Clean into staging.
     clean_df, clean_report = cleaning.clean_claims(result.passed)
     clean_df.to_parquet("data/processed/claims.parquet", index=False)
 

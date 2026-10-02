@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # One-time provisioning of the Azure footprint for the payment-integrity platform:
-#   Resource group + ACR + Postgres Flexible Server + Container Apps env + 2 apps.
-# Idempotent-ish: safe to re-run; existing resources are updated in place.
+#   resource group, ACR, Postgres Flexible Server, Container Apps env, and 2 apps.
+# Safe to re-run: existing resources are updated in place.
 #
 # Prereqs: azure-cli >= 2.60 logged in (`az login`), subscription selected.
 # Cost note: ~$25-40/month (B1ms Postgres + Consumption-plan Container Apps);

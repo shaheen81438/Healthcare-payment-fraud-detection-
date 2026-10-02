@@ -1,9 +1,9 @@
 """Cleaning of validated claims into typed staging form.
 
-Cleaning repairs *data-quality* problems only. It deliberately does **not**
-remove suspected fraud duplicates (different claim IDs, same content) — those
-are signal for the duplicate detectors. Only rows repeating the *same*
-``claim_id`` (ingestion artifacts) are collapsed.
+Cleaning fixes data-quality problems only. It keeps suspected fraud duplicates
+(different claim IDs, same content) because the duplicate detectors need them.
+It only collapses rows that repeat the same ``claim_id``, which are ingestion
+artifacts.
 """
 
 from __future__ import annotations
@@ -41,7 +41,7 @@ def clean_claims(passed: pd.DataFrame) -> tuple[pd.DataFrame, dict[str, Any]]:
     df["modifier"] = df["modifier"].fillna("").astype(str).str.strip().str.upper()
     df["units"] = pd.to_numeric(df["units"], errors="coerce").fillna(1).astype(int)
 
-    # Missing POS becomes an explicit category rather than a silent null.
+    # Missing POS gets an explicit "UNK" category instead of staying null.
     pos = df["pos"].astype(str).str.strip()
     missing_pos_filled = int((pos == "").sum())
     df["pos"] = pos.where(pos != "", "UNK")

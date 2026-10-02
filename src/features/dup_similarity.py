@@ -2,9 +2,9 @@
 
 For every claim, candidate duplicates are earlier claims for the same
 (beneficiary, HCPCS) within a lookback window. "Earlier" is defined by the
-strict ordering (service_date, submit_date, claim_id), so exact same-day
-duplicates flag the *later-submitted* claim — a claim can never be flagged as
-a duplicate of the future.
+strict ordering (service_date, submit_date, claim_id). Exact same-day
+duplicates therefore flag the later-submitted claim, and a claim is never
+flagged as a duplicate of a claim that comes after it.
 """
 
 from __future__ import annotations
@@ -22,9 +22,9 @@ DUP_FEATURES = ["dup_max_sim", "dup_cand_count", "exact_dup_prior"]
 
 def duplicate_features(claims: pd.DataFrame, dup_cfg: dict[str, Any]) -> pd.DataFrame:
     """Compute duplicate-similarity features; returns claim_id + DUP_FEATURES."""
-    w = dup_cfg["weights"]
+    weights = dup_cfg["weights"]
     window = int(dup_cfg["window_days"])
-    tol = float(dup_cfg["exact_amount_tolerance"])
+    tolerance = float(dup_cfg["exact_amount_tolerance"])
 
     cols = [
         "claim_id",
@@ -39,7 +39,7 @@ def duplicate_features(claims: pd.DataFrame, dup_cfg: dict[str, Any]) -> pd.Data
         "paid_amount",
     ]
     base = claims[cols].copy()
-    # Only blocks with >1 row can contain duplicates — huge cost saver.
+    # Only blocks with more than one row can hold duplicates, so skip the rest to save work.
     sizes = base.groupby(["bene_id", "hcpcs"])["claim_id"].transform("size")
     block = base[sizes > 1].copy()
 
@@ -73,18 +73,18 @@ def duplicate_features(claims: pd.DataFrame, dup_cfg: dict[str, Any]) -> pd.Data
     ) / np.maximum(max_paid, 0.01)
 
     sim = (
-        w["same_provider"] * (pairs["provider_id"] == pairs["provider_id_p"]).to_numpy()
-        + w["amount_close"] * (amount_rel <= 0.02)
-        + w["same_pos"] * (pairs["pos"] == pairs["pos_p"]).to_numpy()
-        + w["same_units"] * (pairs["units"] == pairs["units_p"]).to_numpy()
-        + w["same_modifier"] * (pairs["modifier"] == pairs["modifier_p"]).to_numpy()
-        + w["date_proximity"] * (1.0 - delta / window)
+        weights["same_provider"] * (pairs["provider_id"] == pairs["provider_id_p"]).to_numpy()
+        + weights["amount_close"] * (amount_rel <= 0.02)
+        + weights["same_pos"] * (pairs["pos"] == pairs["pos_p"]).to_numpy()
+        + weights["same_units"] * (pairs["units"] == pairs["units_p"]).to_numpy()
+        + weights["same_modifier"] * (pairs["modifier"] == pairs["modifier_p"]).to_numpy()
+        + weights["date_proximity"] * (1.0 - delta / window)
     )
     exact = (
         (pairs["provider_id"] == pairs["provider_id_p"]).to_numpy()
         & (delta == 0)
         & (pairs["units"] == pairs["units_p"]).to_numpy()
-        & (amount_rel <= tol)
+        & (amount_rel <= tolerance)
     )
 
     pairs = pairs.assign(sim=sim, exact=exact.astype(int))
