@@ -1,0 +1,8 @@
+dataset,classification,path,format,bytes,rows,columns,missing_cells,duplicate_rows,label_column,positive_rows,negative_rows,description
+demo claims,Synthetic development data,demo_data/claims.parquet,parquet,2836400,118229,15,0,0,,,,Synthetic development data
+demo labels,Synthetic injected-pattern labels,demo_data/labels.parquet,parquet,794469,118229,4,0,0,is_improper,5537,112692,Synthetic injected-pattern labels
+demo predictions,Synthetic evaluation scores,demo_data/predictions.parquet,parquet,3417736,96435,18,0,0,,,,Synthetic evaluation scores
+demo explanations,Synthetic-model SHAP explanation samples,demo_data/explanations.parquet,parquet,989057,8700,5,0,0,,,,Synthetic-model SHAP explanation samples
+CMS provider-service snapshot,"Real public, provider-service aggregate sample",data/reference/cms_provider_service_sample.csv,csv,77900,480,14,0,0,,,,"Real public, provider-service aggregate sample"
+review decisions,Local review feedback; provenance/label semantics not independently established,data/processed/review_decisions.parquet,parquet,4431,1,6,0,0,,,,Local review feedback; provenance/label semantics not independently established
+LEIE test fixture,Synthetic offline fixture; no real OIG records,tests/fixtures/leie_fixture.csv,csv,316,6,5,0,0,,,,Synthetic offline fixture; no real OIG records

@@ -1,0 +1,18 @@
+{
+  "evaluation_type": "frozen synthetic demonstration bundle matched to generated ground-truth labels",
+  "n_scored_and_matched": 96435,
+  "n_positive": 4550,
+  "n_negative": 91885,
+  "positive_rate": 0.047182039715870795,
+  "score_column": "risk_score",
+  "threshold": 0.9945,
+  "tp": 1055,
+  "tn": 91879,
+  "fp": 6,
+  "fn": 3495,
+  "false_negative_rate": 0.7681318681318682,
+  "service_date_min": "2025-07-01 00:00:00",
+  "service_date_max": "2026-01-18 00:00:00",
+  "model_version": "claims-risk-v1.0.0",
+  "synthetic_disclosure": "These results measure detection of generated pattern labels and are not verified Medicare fraud outcomes."
+}

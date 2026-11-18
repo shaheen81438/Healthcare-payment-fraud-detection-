@@ -1,0 +1,5 @@
+score_name,score_column,operating_threshold,roc_auc,pr_auc_average_precision,precision,recall,f1,evidence_note
+Ensemble,risk_score,0.9945,0.9481477503831532,0.8713491177945084,0.9943449575871819,0.23186813186813188,0.3760470504366423,score column evaluated on identical matched synthetic rows; not a fresh retraining or real-world validation
+Supervised probability,supervised_probability,0.5,0.9624241769005332,0.8724516561870026,0.9347705914870094,0.7432967032967033,0.8281096963761019,score column evaluated on identical matched synthetic rows; not a fresh retraining or real-world validation
+Anomaly percentile,anomaly_percentile,0.5,0.8366742649525476,0.3154933373654563,0.07902501108818481,0.9006593406593406,0.1453011151098268,score column evaluated on identical matched synthetic rows; not a fresh retraining or real-world validation
+Rule score,rule_score,0.5,0.7215404850903572,0.27340215458169315,0.48249485142689025,0.36043956043956044,0.4126305195622091,score column evaluated on identical matched synthetic rows; not a fresh retraining or real-world validation

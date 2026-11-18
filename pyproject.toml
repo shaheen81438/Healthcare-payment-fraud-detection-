@@ -25,9 +25,12 @@ dependencies = [
     "uvicorn[standard]>=0.30",
     "pydantic>=2.8,<3",
     "pydantic-settings>=2.4,<3",
-    "mlflow>=2.19,<3",
+    "mlflow>=3.17.2,<4",
     "evidently>=0.7,<0.8",
     "streamlit>=1.38",
+    "altair>=5.5,<6",
+    "plotly>=5.10,<6",
+    "pyarrow>=23.0.1,<24",
     "pyyaml>=6",
     "joblib>=1.4",
     "requests>=2.32",
@@ -45,6 +48,9 @@ dev = [
     "types-PyYAML",
     "types-requests",
     "pre-commit>=3.8",
+    "pip-tools>=7.5,<8",
+    "pip-audit>=2.10,<3",
+    "virtualenv>=21.14.9",
 ]
 
 [tool.setuptools.packages.find]

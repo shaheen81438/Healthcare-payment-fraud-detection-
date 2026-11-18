@@ -23,6 +23,7 @@ import pandas as pd
 import requests
 
 from src.data.db import write_df
+from src.data.provenance import record_dataset_provenance
 
 logger = logging.getLogger(__name__)
 
@@ -119,6 +120,21 @@ def ingest_cms(use_snapshot: bool = True, max_rows: int = 100_000) -> pd.DataFra
     """Load CMS provider-service data (snapshot or API) into ``raw.cms_provider_service``."""
     df = load_snapshot() if use_snapshot else fetch_from_api(max_rows=max_rows)
     write_df(df, "cms_provider_service", schema="raw")
+    record_dataset_provenance(
+        df,
+        source_name="CMS Medicare Physician & Other Practitioners by Provider and Service",
+        source_url=(
+            "https://data.cms.gov/provider-summary-by-type-of-service/medicare-physician-"
+            "other-practitioners/medicare-physician-other-practitioners-by-provider-and-service"
+            if use_snapshot
+            else API_URL
+        ),
+        source_identifier=str(SNAPSHOT_PATH) if use_snapshot else DATASET_UUID,
+        file_name=SNAPSHOT_PATH.name if use_snapshot else "CMS data API response",
+        file_format="CSV" if use_snapshot else "JSON",
+        classification="real_public_sample" if use_snapshot else "real_public",
+        validation_status="normalized",
+    )
     logger.info(
         "cms_ingested", extra={"rows": len(df), "mode": "snapshot" if use_snapshot else "api"}
     )

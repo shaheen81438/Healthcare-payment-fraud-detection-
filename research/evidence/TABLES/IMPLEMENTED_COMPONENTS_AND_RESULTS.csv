@@ -1,0 +1,5 @@
+component,input,rows,result,interpretation
+Improper payment indicators,demo_data/claims.parquet synthetic claim development sample,118229,0 rows triggered; required expected payment/documentation evidence fields are not present in this synthetic claims sample,No evidence of performance: rule inputs are not available in evaluated artifact.
+Provider anomaly ranking,CMS 480-row public provider-service aggregate snapshot,73,"6 high, 21 medium, 46 routine",Unsupervised review ranking only; there are no provider fraud labels.
+OIG LEIE matching,six-row synthetic offline test fixture,6,Not evaluated on official OIG records; fixture contains reserved synthetic NPIs only.,Fixture matching tests code paths and cannot estimate operational match accuracy.
+Combined risk aggregation,component aggregation function,Not applicable,Code supports availability-aware normalized signals; no eligible real adjudicated outcome set available.,"Combined score is an investigation priority, not a calibrated fraud probability."

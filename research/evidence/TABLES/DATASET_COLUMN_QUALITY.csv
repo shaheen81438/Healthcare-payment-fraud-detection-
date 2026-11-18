@@ -1,0 +1,68 @@
+dataset,column,dtype,missing_count,missing_pct,unique_count,classification
+demo claims,claim_id,object,0,0.0,118229,Synthetic development data
+demo claims,bene_id,object,0,0.0,26803,Synthetic development data
+demo claims,provider_id,object,0,0.0,2000,Synthetic development data
+demo claims,specialty,object,0,0.0,12,Synthetic development data
+demo claims,hcpcs,object,0,0.0,216,Synthetic development data
+demo claims,modifier,object,0,0.0,5,Synthetic development data
+demo claims,units,int64,0,0.0,27,Synthetic development data
+demo claims,dx_group,object,0,0.0,24,Synthetic development data
+demo claims,pos,object,0,0.0,7,Synthetic development data
+demo claims,service_date,datetime64[ns],0,0.0,232,Synthetic development data
+demo claims,service_end_date,datetime64[ns],0,0.0,237,Synthetic development data
+demo claims,submit_date,datetime64[ns],0,0.0,280,Synthetic development data
+demo claims,submitted_amount,float64,0,0.0,41690,Synthetic development data
+demo claims,allowed_amount,float64,0,0.0,21781,Synthetic development data
+demo claims,paid_amount,float64,0,0.0,18194,Synthetic development data
+demo labels,claim_id,object,0,0.0,118229,Synthetic injected-pattern labels
+demo labels,patterns,object,0,0.0,22,Synthetic injected-pattern labels
+demo labels,improper_amount,float64,0,0.0,4413,Synthetic injected-pattern labels
+demo labels,is_improper,bool,0,0.0,2,Synthetic injected-pattern labels
+demo predictions,claim_id,object,0,0.0,96435,Synthetic evaluation scores
+demo predictions,provider_id,object,0,0.0,2000,Synthetic evaluation scores
+demo predictions,bene_id,object,0,0.0,25546,Synthetic evaluation scores
+demo predictions,specialty,object,0,0.0,12,Synthetic evaluation scores
+demo predictions,hcpcs,object,0,0.0,215,Synthetic evaluation scores
+demo predictions,service_date,datetime64[ns],0,0.0,189,Synthetic evaluation scores
+demo predictions,month,object,0,0.0,7,Synthetic evaluation scores
+demo predictions,paid_amount,float64,0,0.0,17415,Synthetic evaluation scores
+demo predictions,risk_score,float64,0,0.0,50132,Synthetic evaluation scores
+demo predictions,supervised_probability,float32,0,0.0,174,Synthetic evaluation scores
+demo predictions,anomaly_percentile,float64,0,0.0,63520,Synthetic evaluation scores
+demo predictions,rule_score,float64,0,0.0,30,Synthetic evaluation scores
+demo predictions,rule_hits,object,0,0.0,75,Synthetic evaluation scores
+demo predictions,recommended_action,object,0,0.0,3,Synthetic evaluation scores
+demo predictions,estimated_payment_at_risk,float64,0,0.0,4696,Synthetic evaluation scores
+demo predictions,reason_codes,object,0,0.0,1221,Synthetic evaluation scores
+demo predictions,model_version,object,0,0.0,1,Synthetic evaluation scores
+demo predictions,scored_at,"datetime64[us, UTC]",0,0.0,1,Synthetic evaluation scores
+demo explanations,claim_id,object,0,0.0,8700,Synthetic-model SHAP explanation samples
+demo explanations,model_version,object,0,0.0,1,Synthetic-model SHAP explanation samples
+demo explanations,base_value,float64,0,0.0,1,Synthetic-model SHAP explanation samples
+demo explanations,shap_top,object,0,0.0,8700,Synthetic-model SHAP explanation samples
+demo explanations,scored_at,"datetime64[us, UTC]",0,0.0,1,Synthetic-model SHAP explanation samples
+CMS provider-service snapshot,Rndrng_NPI,int64,0,0.0,73,"Real public, provider-service aggregate sample"
+CMS provider-service snapshot,Rndrng_Prvdr_Type,object,0,0.0,12,"Real public, provider-service aggregate sample"
+CMS provider-service snapshot,Rndrng_Prvdr_State_Abrvtn,object,0,0.0,33,"Real public, provider-service aggregate sample"
+CMS provider-service snapshot,Rndrng_Prvdr_RUCA,float64,0,0.0,7,"Real public, provider-service aggregate sample"
+CMS provider-service snapshot,HCPCS_Cd,object,0,0.0,222,"Real public, provider-service aggregate sample"
+CMS provider-service snapshot,HCPCS_Desc,object,0,0.0,222,"Real public, provider-service aggregate sample"
+CMS provider-service snapshot,HCPCS_Drug_Ind,object,0,0.0,2,"Real public, provider-service aggregate sample"
+CMS provider-service snapshot,Place_Of_Srvc,object,0,0.0,2,"Real public, provider-service aggregate sample"
+CMS provider-service snapshot,Tot_Benes,int64,0,0.0,165,"Real public, provider-service aggregate sample"
+CMS provider-service snapshot,Tot_Srvcs,int64,0,0.0,213,"Real public, provider-service aggregate sample"
+CMS provider-service snapshot,Tot_Bene_Day_Srvcs,int64,0,0.0,205,"Real public, provider-service aggregate sample"
+CMS provider-service snapshot,Avg_Sbmtd_Chrg,float64,0,0.0,363,"Real public, provider-service aggregate sample"
+CMS provider-service snapshot,Avg_Mdcr_Alowd_Amt,float64,0,0.0,462,"Real public, provider-service aggregate sample"
+CMS provider-service snapshot,Avg_Mdcr_Pymt_Amt,float64,0,0.0,462,"Real public, provider-service aggregate sample"
+review decisions,claim_id,object,0,0.0,1,Local review feedback; provenance/label semantics not independently established
+review decisions,status,object,0,0.0,1,Local review feedback; provenance/label semantics not independently established
+review decisions,decided_by,object,0,0.0,1,Local review feedback; provenance/label semantics not independently established
+review decisions,note,object,0,0.0,1,Local review feedback; provenance/label semantics not independently established
+review decisions,decided_at,"datetime64[ns, UTC]",0,0.0,1,Local review feedback; provenance/label semantics not independently established
+review decisions,model_version,object,0,0.0,1,Local review feedback; provenance/label semantics not independently established
+LEIE test fixture,NPI,int64,0,0.0,6,Synthetic offline fixture; no real OIG records
+LEIE test fixture,EXCLTYPE,object,0,0.0,5,Synthetic offline fixture; no real OIG records
+LEIE test fixture,EXCLDATE,int64,0,0.0,6,Synthetic offline fixture; no real OIG records
+LEIE test fixture,SPECIALTY,object,0,0.0,6,Synthetic offline fixture; no real OIG records
+LEIE test fixture,STATE,object,0,0.0,6,Synthetic offline fixture; no real OIG records

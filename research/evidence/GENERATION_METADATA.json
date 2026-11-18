@@ -1,0 +1,13 @@
+{
+  "evaluation command": "C:\\Users\\dhill\\healthcare-payment-integrity\\.venv311\\Scripts\\python.exe scripts/generate_research_evidence.py",
+  "python": "3.11.9",
+  "pandas": "2.3.3",
+  "numpy": "2.4.6",
+  "scikit_learn": "1.9.1",
+  "Pillow": "13.0.0",
+  "evaluation rows": 96435,
+  "evaluation positives": 4550,
+  "CMS snapshot rows": 480,
+  "CMS duplicate rows": 0,
+  "model artifacts": "No usable trained model bundle found; models/latest.json points outside repository to a temporary test bundle."
+}

@@ -27,6 +27,16 @@ def test_database_url_assembly() -> None:
     assert settings.database_url == "postgresql+psycopg2://u:p@db.example.com:6543/claims"
 
 
+def test_production_rejects_development_database_password() -> None:
+    with pytest.raises(ValueError, match="POSTGRES_PASSWORD"):
+        Settings(_env_file=None, env="prod")
+
+
+def test_production_accepts_configured_database_password() -> None:
+    settings = Settings(_env_file=None, env="prod", postgres_password="deployment-secret")
+    assert settings.postgres_password == "deployment-secret"
+
+
 def test_env_override(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setenv("POSTGRES_HOST", "override-host")
     monkeypatch.setenv("LOG_LEVEL", "DEBUG")

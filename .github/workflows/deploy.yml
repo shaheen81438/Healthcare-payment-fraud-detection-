@@ -37,6 +37,30 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
+      - name: Verify Entra authentication is enforced before updating images
+        env:
+          ENTRA_ALLOWED_GROUP_ID: ${{ secrets.AZURE_ENTRA_ALLOWED_GROUP_ID }}
+        run: |
+          set -euo pipefail
+          if [[ -z "$ENTRA_ALLOWED_GROUP_ID" ]]; then
+            echo "AZURE_ENTRA_ALLOWED_GROUP_ID must be configured" >&2
+            exit 1
+          fi
+          for app in "$API_APP" "$DASHBOARD_APP"; do
+            action=$(az containerapp auth show -n "$app" -g "$AZURE_RESOURCE_GROUP" \
+              --query globalValidation.unauthenticatedClientAction -o tsv)
+            groups=$(az containerapp auth show -n "$app" -g "$AZURE_RESOURCE_GROUP" \
+              --query identityProviders.azureActiveDirectory.validation.defaultAuthorizationPolicy.allowedPrincipals.groups -o tsv)
+            if [[ "$action" == "AllowAnonymous" || -z "$action" || -z "$groups" ]]; then
+              echo "Authentication or group authorization is missing for $app" >&2
+              exit 1
+            fi
+            if ! grep -Fqi "$ENTRA_ALLOWED_GROUP_ID" <<<"$groups"; then
+              echo "Configured Entra group does not match the approved deployment group on $app" >&2
+              exit 1
+            fi
+          done
+
       - name: Build + push images in ACR
         run: |
           az acr build --registry $ACR_NAME --image pi-api:${{ github.sha }} --target api .
@@ -49,11 +73,20 @@ jobs:
           az containerapp update -n $DASHBOARD_APP -g $AZURE_RESOURCE_GROUP \
             --image $ACR_NAME.azurecr.io/pi-dashboard:${{ github.sha }}
 
-      - name: Smoke-check API
+      - name: Smoke-check protected endpoints
         run: |
-          FQDN=$(az containerapp show -n $API_APP -g $AZURE_RESOURCE_GROUP \
-                 --query properties.configuration.ingress.fqdn -o tsv)
+          API_FQDN=$(az containerapp show -n "$API_APP" -g "$AZURE_RESOURCE_GROUP" \
+            --query properties.configuration.ingress.fqdn -o tsv)
+          DASHBOARD_FQDN=$(az containerapp show -n "$DASHBOARD_APP" -g "$AZURE_RESOURCE_GROUP" \
+            --query properties.configuration.ingress.fqdn -o tsv)
           for i in $(seq 1 30); do
-            curl -fsS "https://$FQDN/health" && exit 0 || sleep 5
+            API_STATUS=$(curl -sS -o /dev/null -w '%{http_code}' "https://$API_FQDN/health" || true)
+            DASHBOARD_STATUS=$(curl -sS -o /dev/null -w '%{http_code}' "https://$DASHBOARD_FQDN/" || true)
+            if [[ "$API_STATUS" == "401" && "$DASHBOARD_STATUS" == "302" ]]; then
+              echo "Unauthenticated API and dashboard requests are denied or redirected."
+              exit 0
+            fi
+            sleep 5
           done
-          echo "deployed API failed health check" >&2 && exit 1
+          echo "Protected endpoint smoke check failed (API=$API_STATUS dashboard=$DASHBOARD_STATUS)" >&2
+          exit 1

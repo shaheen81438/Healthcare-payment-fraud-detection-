@@ -19,7 +19,9 @@ jobs:
           python-version: ${{ env.PYTHON_VERSION }}
           cache: pip
       - name: Install dependencies
-        run: pip install -e ".[dev]"
+        run: |
+          pip install --require-hashes -r requirements-dev.lock
+          pip install --no-deps -e .
       - name: Ruff format check
         run: ruff format --check .
       - name: Ruff lint
@@ -37,7 +39,9 @@ jobs:
           python-version: ${{ env.PYTHON_VERSION }}
           cache: pip
       - name: Install dependencies
-        run: pip install -e ".[dev]"
+        run: |
+          pip install --require-hashes -r requirements-dev.lock
+          pip install --no-deps -e .
       - name: Pytest (unit)
         run: pytest -m "not integration and not slow" --cov=src --cov=app --cov-report=term
 
@@ -62,7 +66,9 @@ jobs:
           python-version: ${{ env.PYTHON_VERSION }}
           cache: pip
       - name: Install dependencies
-        run: pip install -e ".[dev]"
+        run: |
+          pip install --require-hashes -r requirements-dev.lock
+          pip install --no-deps -e .
       - name: Create app schemas
         run: |
           sudo apt-get install -y -qq postgresql-client

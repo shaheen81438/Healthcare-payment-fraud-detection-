@@ -25,6 +25,11 @@ page_setup("Review Queue")
 synthetic_banner()
 
 preds = load_predictions()
+if preds.empty or not {"recommended_action", "risk_score", "claim_id"} <= set(preds.columns):
+    st.info(
+        "Scored claim data is unavailable. Build the dataset and run scoring to populate the review queue."
+    )
+    st.stop()
 policy = load_policy()
 status_map = decision_status_map()
 
@@ -116,8 +121,11 @@ with st.expander("Decision log"):
     if log.empty:
         st.write("No decisions captured yet.")
     else:
+        recent = log.sort_values("decided_at", ascending=False)
+        if len(recent) > 100:
+            st.caption(f"Showing 100 most recent decisions of {len(recent):,} total.")
         st.dataframe(
-            log.sort_values("decided_at", ascending=False),
+            recent.head(100),
             use_container_width=True,
             hide_index=True,
         )

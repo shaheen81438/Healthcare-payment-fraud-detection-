@@ -27,10 +27,21 @@ synthetic_banner()
 REPORTS = Path("monitoring/reports")
 status_path = REPORTS / "monitoring_status.json"
 
+
+def read_report(path: Path) -> dict:
+    if not path.is_file():
+        return {}
+    try:
+        loaded = json.loads(path.read_text(encoding="utf-8"))
+        return loaded if isinstance(loaded, dict) else {}
+    except (OSError, json.JSONDecodeError) as exc:
+        st.warning(f"Report `{path}` could not be read: {exc}")
+        return {}
+
+
 # ---- drift status --------------------------------------------------------
 st.subheader("Drift status")
-if status_path.exists():
-    status = json.loads(status_path.read_text())
+if status_path.exists() and (status := read_report(status_path)):
     level = str(status.get("status", "unknown")).lower()
     badge = {"ok": "good", "warn": "warning", "critical": "critical"}.get(level, "serious")
     st.markdown(
@@ -41,13 +52,28 @@ if status_path.exists():
         unsafe_allow_html=True,
     )
     cols = st.columns(4)
+    n_drifted = status.get("n_drifted_features")
+    n_checked = status.get("n_features_checked")
+    score_psi = status.get("score_psi")
+    provider_jsd = status.get("provider_mix_jsd")
+    missing_alerts = status.get("missing_value_alerts")
     cols[0].metric(
         "Drifted features",
-        f"{status.get('n_drifted_features', 0)}/{status.get('n_features_checked', 0)}",
+        f"{n_drifted}/{n_checked}"
+        if n_drifted is not None and n_checked is not None
+        else "Unavailable",
     )
-    cols[1].metric("Risk-score PSI", f"{status.get('score_psi', 0):.3f}")
-    cols[2].metric("Provider-mix divergence", f"{status.get('provider_mix_jsd', 0):.3f}")
-    cols[3].metric("Missing-value alerts", str(status.get("missing_value_alerts", 0)))
+    cols[1].metric(
+        "Risk-score PSI",
+        f"{score_psi:.3f}" if isinstance(score_psi, (int, float)) else "Unavailable",
+    )
+    cols[2].metric(
+        "Provider-mix divergence",
+        f"{provider_jsd:.3f}" if isinstance(provider_jsd, (int, float)) else "Unavailable",
+    )
+    cols[3].metric(
+        "Missing-value alerts", str(missing_alerts) if missing_alerts is not None else "Unavailable"
+    )
     if status.get("alerts"):
         for alert in status["alerts"]:
             st.warning(alert, icon="🚨")
@@ -66,8 +92,17 @@ else:
 # ---- data quality (latest validation run) -------------------------------
 st.subheader("Latest data-validation run")
 validation_path = REPORTS / "validation_report.json"
-if validation_path.exists():
-    report = json.loads(validation_path.read_text())
+report = read_report(validation_path) if validation_path.exists() else {}
+if report and not {
+    "rows_in",
+    "rows_quarantined",
+    "quarantine_share",
+    "within_tolerance",
+    "checks",
+} <= set(report):
+    st.warning("The validation report is incomplete or incompatible.")
+    report = {}
+if report:
     v1, v2, v3 = st.columns(3)
     v1.metric("Rows in", f"{report['rows_in']:,}")
     v2.metric("Quarantined", f"{report['rows_quarantined']:,} ({report['quarantine_share']:.2%})")
@@ -88,7 +123,13 @@ if decisions.empty:
         "section becomes the realized-precision report."
     )
 else:
-    preds = load_predictions()[["claim_id", "risk_score", "estimated_payment_at_risk"]]
+    predictions = load_predictions()
+    if predictions.empty or not {"claim_id", "risk_score", "estimated_payment_at_risk"} <= set(
+        predictions
+    ):
+        st.info("Scored claim data is unavailable for joining investigator outcomes.")
+        st.stop()
+    preds = predictions[["claim_id", "risk_score", "estimated_payment_at_risk"]]
     joined = decisions.merge(preds, on="claim_id", how="left")
     decided = joined[joined["status"].isin(["approved", "dismissed"])]
     if decided.empty:

@@ -46,6 +46,17 @@ def _resolve(path: str) -> Path:
     return demo if demo.exists() else full
 
 
+def _read_parquet_or_empty(path: str | Path, dataset_name: str) -> pd.DataFrame:
+    try:
+        return pd.read_parquet(path)
+    except Exception as exc:
+        logger.warning(
+            "dashboard_dataset_unavailable",
+            extra={"dataset": dataset_name, "path": str(path), "error": str(exc)},
+        )
+        return pd.DataFrame()
+
+
 def demo_mode() -> bool:
     """True when running off the committed demo bundle rather than full artifacts."""
     return (
@@ -85,6 +96,9 @@ def apply_theme() -> None:
 def page_setup(title: str) -> None:
     st.set_page_config(page_title=f"{title} · Payment Integrity", layout="wide")
     apply_theme()
+    st.sidebar.markdown("## MedIntegrity AI")
+    st.sidebar.caption("Healthcare payment-integrity review")
+    st.sidebar.divider()
     st.title(title)
 
 
@@ -123,7 +137,7 @@ def load_predictions() -> pd.DataFrame:
             return pd.read_sql("SELECT * FROM scoring.predictions", engine)
         except Exception:
             logger.warning("predictions_db_read_failed; falling back to parquet")
-    return pd.read_parquet(_resolve("data/processed/predictions.parquet"))
+    return _read_parquet_or_empty(_resolve("data/processed/predictions.parquet"), "predictions")
 
 
 @st.cache_data(ttl=300, show_spinner=False)
@@ -136,18 +150,18 @@ def load_explanations() -> pd.DataFrame:
             )
         except Exception:
             logger.warning("explanations_db_read_failed; falling back to parquet")
-    return pd.read_parquet(_resolve("data/processed/explanations.parquet"))
+    return _read_parquet_or_empty(_resolve("data/processed/explanations.parquet"), "explanations")
 
 
 @st.cache_data(ttl=600, show_spinner=False)
 def load_claims() -> pd.DataFrame:
-    return pd.read_parquet(_resolve("data/processed/claims.parquet"))
+    return _read_parquet_or_empty(_resolve("data/processed/claims.parquet"), "claims")
 
 
 @st.cache_data(ttl=600, show_spinner=False)
 def load_labels_research_mode() -> pd.DataFrame:
     """Ground-truth injected labels, shown only behind the demo toggle."""
-    return pd.read_parquet(_resolve("data/processed/labels.parquet"))
+    return _read_parquet_or_empty(_resolve("data/processed/labels.parquet"), "labels")
 
 
 @st.cache_data(ttl=600, show_spinner=False)
@@ -157,17 +171,25 @@ def load_peer_stats() -> dict[str, pd.DataFrame]:
     base = Path("models/feature_store")
     if not (base / "code_stats.parquet").exists() and (DEMO_DIR / "code_stats.parquet").exists():
         base = DEMO_DIR
-    return _load(str(base))
+    try:
+        return _load(str(base))
+    except Exception as exc:
+        logger.warning("peer_stats_unavailable", extra={"path": str(base), "error": str(exc)})
+        return {}
 
 
 @st.cache_data(ttl=600, show_spinner=False)
 def load_policy() -> dict[str, Any]:
     pointer_path = Path("models/latest.json")
     if pointer_path.exists():
-        pointer = json.loads(pointer_path.read_text(encoding="utf-8"))
-        meta = json.loads((Path(pointer["path"]) / "metadata.json").read_text(encoding="utf-8"))
-        policy: dict[str, Any] = meta.get("threshold_policy", {})
-        return policy
+        try:
+            pointer = json.loads(pointer_path.read_text(encoding="utf-8"))
+            meta = json.loads((Path(pointer["path"]) / "metadata.json").read_text(encoding="utf-8"))
+            policy: dict[str, Any] = meta.get("threshold_policy", {})
+            if policy:
+                return policy
+        except (OSError, KeyError, TypeError, json.JSONDecodeError) as exc:
+            logger.warning("model_policy_unavailable", extra={"error": str(exc)})
     demo_policy = DEMO_DIR / "policy.json"
     if demo_policy.exists():
         loaded: dict[str, Any] = json.loads(demo_policy.read_text(encoding="utf-8"))
@@ -184,7 +206,7 @@ def load_decisions() -> pd.DataFrame:
         except Exception:
             pass
     if DECISIONS_PARQUET.exists():
-        return pd.read_parquet(DECISIONS_PARQUET)
+        return _read_parquet_or_empty(DECISIONS_PARQUET, "review_decisions")
     return pd.DataFrame(
         columns=["claim_id", "status", "decided_by", "note", "decided_at", "model_version"]
     )
@@ -220,7 +242,11 @@ def record_decision(
             return
         except Exception:
             logger.warning("decision_db_write_failed; using parquet fallback")
-    existing = pd.read_parquet(DECISIONS_PARQUET) if DECISIONS_PARQUET.exists() else pd.DataFrame()
+    existing = (
+        _read_parquet_or_empty(DECISIONS_PARQUET, "review_decisions")
+        if DECISIONS_PARQUET.exists()
+        else pd.DataFrame()
+    )
     combined = pd.concat(
         [existing[existing.get("claim_id") != claim_id] if len(existing) else existing, row]
     )

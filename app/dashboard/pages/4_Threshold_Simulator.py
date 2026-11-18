@@ -24,6 +24,17 @@ from app.dashboard.common import (
 )
 from src.evaluation.financial import CostParams, capacity_sweep, threshold_sweep
 
+
+@st.cache_data(ttl=600, show_spinner=False)
+def cached_threshold_sweep(scores, probabilities, paid, labels, improper, params):
+    return threshold_sweep(scores, probabilities, paid, labels, improper, params, n_grid=60)
+
+
+@st.cache_data(ttl=600, show_spinner=False)
+def cached_capacity_sweep(scores, probabilities, paid, labels, improper, params, capacities):
+    return capacity_sweep(scores, probabilities, paid, labels, improper, params, list(capacities))
+
+
 page_setup("Threshold Simulator")
 synthetic_banner()
 st.caption(
@@ -32,11 +43,26 @@ st.caption(
 )
 
 preds = load_predictions()
+if preds.empty or not {"claim_id", "risk_score", "supervised_probability", "paid_amount"} <= set(
+    preds.columns
+):
+    st.info("Scored claims are unavailable. Run the scoring pipeline to use threshold analysis.")
+    st.stop()
 policy = load_policy()
 labels = load_labels_research_mode()
-frame = preds.merge(labels, on="claim_id", how="left")
-frame["is_improper"] = frame["is_improper"].fillna(False)
-frame["improper_amount"] = frame["improper_amount"].fillna(0.0)
+if labels.empty or not {"claim_id", "is_improper", "improper_amount"} <= set(labels.columns):
+    st.info("Matching research labels are unavailable; realized synthetic evaluation is disabled.")
+    st.stop()
+try:
+    frame = preds.merge(labels, on="claim_id", how="left", validate="one_to_one")
+except pd.errors.MergeError:
+    st.error("Duplicate claim IDs prevent a reliable score-to-label join.")
+    st.stop()
+if len(frame) != len(preds) or frame[["is_improper", "improper_amount"]].isna().any().any():
+    st.warning(
+        "Some scored claims lack valid matching research labels; threshold evaluation is unavailable."
+    )
+    st.stop()
 
 # ---- levers --------------------------------------------------------------
 c1, c2, c3, c4, c5 = st.columns(5)
@@ -63,7 +89,7 @@ args = (
 )
 
 # ---- chosen operating point ---------------------------------------------
-cap_row = capacity_sweep(*args, capacities=[capacity_pct / 100]).iloc[0]
+cap_row = cached_capacity_sweep(*args, capacities=(capacity_pct / 100,)).iloc[0]
 m1, m2, m3, m4, m5 = st.columns(5)
 m1.metric("Claims reviewed", f"{int(cap_row['n_reviewed']):,}")
 m2.metric("Precision", f"{cap_row['precision']:.1%}")
@@ -78,7 +104,7 @@ st.caption(
 )
 
 # ---- ENV curve -----------------------------------------------------------
-sweep = threshold_sweep(*args, n_grid=60)
+sweep = cached_threshold_sweep(*args)
 base = alt.Chart(sweep).encode(x=alt.X("threshold:Q", title="Review threshold τ"))
 env_line = base.mark_line(color=BLUE).encode(
     y=alt.Y("net_value:Q", title="Net value ($)"),
@@ -102,7 +128,7 @@ st.caption(
 
 # ---- capacity table ------------------------------------------------------
 st.subheader("Capacity scenarios")
-cap_grid = capacity_sweep(*args, capacities=[0.005, 0.01, 0.02, 0.05, 0.10])
+cap_grid = cached_capacity_sweep(*args, capacities=(0.005, 0.01, 0.02, 0.05, 0.10))
 display = cap_grid[
     ["capacity_share", "n_reviewed", "precision", "recall", "dollars_recovered", "net_value"]
 ].copy()

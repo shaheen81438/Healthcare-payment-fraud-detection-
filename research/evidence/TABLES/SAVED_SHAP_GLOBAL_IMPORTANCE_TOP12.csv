@@ -1,0 +1,13 @@
+feature,mean_abs_shap
+rule_score,0.84070957
+prov_paid_vs_peer_3m,0.80682087
+pos_atypicality,0.43294242
+days_since_bene_same_hcpcs,0.40202573
+prov_top_code_share_3m,0.38740626
+prov_claims_per_bene_3m,0.35429403
+paid_vs_spec_code_median,0.3447607
+paid_amount,0.3183932
+specialty,0.31776732
+prov_claims_3m,0.31215775
+prov_paid_3m,0.3091601
+prov_distinct_benes_3m,0.30792794

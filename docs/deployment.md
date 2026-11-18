@@ -17,6 +17,8 @@ every tier serves predictions even before a database is wired up.
 ## 1. Local (no containers)
 
 ```bash
+cp .env.example .env
+# Set POSTGRES_PASSWORD in .env before starting the local services.
 python -m venv .venv && source .venv/bin/activate
 make install
 make compose-up          # Postgres + MLflow (docker) — or point .env at your own Postgres
@@ -46,8 +48,28 @@ Container Apps environment with two apps (`pi-api`, `pi-dashboard`, scale-to-zer
 az login
 export PG_PASSWORD='<strong-password>'
 make pipeline                       # train artifacts locally first (baked into images)
-bash infra/azure/deploy.sh          # RG + ACR + Postgres + env + both apps; prints URLs
+bash infra/azure/deploy.sh          # creates both apps with internal-only ingress
+# Configure Entra app registrations, then run infra/azure/secure.sh to enable auth and external HTTPS ingress.
 ```
+
+Before running `secure.sh`, create two dedicated, single-tenant Microsoft Entra web app
+registrations (one for the dashboard and one for the API), create a security group containing
+authorized operators, and source the tenant ID, group object ID, client IDs, and client secrets
+from a secret manager into the script environment. Do not put those values in the repository or
+deployment logs. The script stores client secrets as Azure Container Apps secrets, configures
+group claims and an allowed-group policy, verifies the policy, and only then opens external
+HTTPS ingress. The dashboard redirects unauthenticated browsers to Entra; unauthenticated API
+requests receive HTTP 401. Grant app-registration administration only to the operator who
+provisions authentication. The registrations are dedicated because the script sets their web
+redirect URI to the Container Apps callback.
+
+The GitHub deploy workflow now refuses image updates unless both apps report a non-anonymous
+Entra policy restricted to `AZURE_ENTRA_ALLOWED_GROUP_ID`. Configure that repository secret to
+the same group object ID used during initial provisioning. The workflow also checks that
+unauthenticated dashboard and API requests are redirected/rejected after deployment.
+
+The Streamlit Community Cloud entrypoint remains a public synthetic-data demo; it is not an
+authenticated production deployment. Do not point it at production databases or real claims.
 
 ### Continuous deployment (GitHub Actions)
 
@@ -66,9 +88,9 @@ OIDC federated credentials (no cloud passwords in GitHub):
   back, redeploy the previous tag. The MLflow registry stays the system of record for
   experiments; images are the system of record for serving.
 - Scale-to-zero keeps the demo nearly free; the first request pays a ~15s cold start.
-- Security (demo scope): public ingress and no auth on either app. Put Azure Entra auth or API
-  keys and network restrictions in front before any real use. The dashboard exposes no PHI (all
-  data is synthetic) but should still be treated as internal.
+- Security: Azure ingress is opened only by the Entra setup step. Use conditional access and
+  network restrictions appropriate to your organization before any real use. The local Docker
+  profile and public Community Cloud demo are separate from the protected Azure deployment.
 - Postgres bootstrap: run `scripts/sql/init_db.sql` against the flexible server once
   (`psql "host=<server> user=pi_admin dbname=payment_integrity sslmode=require" -f scripts/sql/init_db.sql`),
   then load scored data with `python scripts/score_claims.py` pointed at it via `.env`.

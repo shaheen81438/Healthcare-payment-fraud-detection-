@@ -7,3 +7,6 @@ mypy>=1.11
 types-PyYAML
 types-requests
 pre-commit>=3.8
+pip-tools>=7.5,<8
+pip-audit>=2.10,<3
+virtualenv>=21.14.9

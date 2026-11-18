@@ -4,13 +4,18 @@ SHELL := /bin/bash
 -include .env
 export
 
-.PHONY: help install format lint typecheck test test-all compose-up compose-down compose-serve api clean data dashboard features train evaluate score monitor pipeline
+.PHONY: help install lock format lint typecheck test test-all compose-up compose-down compose-serve api clean data dashboard features train evaluate score monitor pipeline
 
 help: ## Show available targets
 	@grep -E '^[a-zA-Z_-]+:.*?## ' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-16s\033[0m %s\n", $$1, $$2}'
 
 install: ## Install the package with dev dependencies
-	pip install -e ".[dev]"
+	pip install --require-hashes -r requirements-dev.lock
+	pip install --no-deps -e .
+
+lock: ## Regenerate hash-locked runtime and development dependencies
+	pip-compile --resolver=backtracking --generate-hashes --allow-unsafe --output-file=requirements.lock requirements.txt
+	pip-compile --resolver=backtracking --generate-hashes --allow-unsafe --output-file=requirements-dev.lock requirements-dev.txt
 
 format: ## Auto-format code with Ruff
 	ruff format .

@@ -26,6 +26,7 @@ from src.data import validate as validation
 from src.data.db import write_df
 from src.data.ingest_cms import ingest_cms
 from src.data.ingest_leie import ingest_leie
+from src.data.provenance import record_dataset_provenance
 from src.data.reference import load_reference_frames, load_reference_tables
 from src.data.synthetic.assemble import build_dataset
 from src.data.synthetic.generate import load_generation_config
@@ -48,6 +49,16 @@ def main() -> int:
         from src.data.ingest_cms import load_snapshot
 
         cms_df = load_snapshot()
+        record_dataset_provenance(
+            cms_df,
+            source_name="CMS Medicare Physician & Other Practitioners by Provider and Service",
+            source_url="https://data.cms.gov/provider-summary-by-type-of-service/medicare-physician-other-practitioners/medicare-physician-other-practitioners-by-provider-and-service",
+            source_identifier="data/reference/cms_provider_service_sample.csv",
+            file_name="cms_provider_service_sample.csv",
+            file_format="CSV",
+            classification="real_public_sample",
+            validation_status="normalized",
+        )
     else:
         load_reference_tables()
         cms_df = ingest_cms(use_snapshot=not args.cms_api)
@@ -85,6 +96,15 @@ def main() -> int:
     # 5) Clean into staging.
     clean_df, clean_report = cleaning.clean_claims(result.passed)
     clean_df.to_parquet("data/processed/claims.parquet", index=False)
+    record_dataset_provenance(
+        clean_df,
+        source_name="MedIntegrity generated claim dataset",
+        source_identifier=bundle.dataset_version,
+        file_name="claims.parquet",
+        file_format="Parquet",
+        classification="synthetic",
+        validation_status="validated",
+    )
 
     # 6) Load Postgres.
     if not args.skip_db:

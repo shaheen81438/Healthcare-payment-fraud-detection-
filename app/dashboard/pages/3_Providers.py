@@ -8,6 +8,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
 
 import altair as alt
+import pandas as pd
 import streamlit as st
 
 from app.dashboard.common import (
@@ -20,23 +21,45 @@ from app.dashboard.common import (
     synthetic_banner,
 )
 
+
+@st.cache_data(ttl=600, show_spinner="Summarizing provider activity…")
+def summarize_providers(predictions: pd.DataFrame) -> pd.DataFrame:
+    return (
+        predictions.groupby(["provider_id", "specialty"], as_index=False)
+        .agg(
+            claims=("claim_id", "size"),
+            mean_risk=("risk_score", "mean"),
+            p95_risk=("risk_score", lambda values: values.quantile(0.95)),
+            flagged=("recommended_action", lambda values: int((values == "manual_review").sum())),
+            est_at_risk=("estimated_payment_at_risk", "sum"),
+            paid=("paid_amount", "sum"),
+        )
+        .assign(flag_rate=lambda frame: frame["flagged"] / frame["claims"])
+    )
+
+
 page_setup("Provider Risk")
 synthetic_banner()
 
 preds = load_predictions()
-
-providers = (
-    preds.groupby(["provider_id", "specialty"], as_index=False)
-    .agg(
-        claims=("claim_id", "size"),
-        mean_risk=("risk_score", "mean"),
-        p95_risk=("risk_score", lambda s: s.quantile(0.95)),
-        flagged=("recommended_action", lambda s: int((s == "manual_review").sum())),
-        est_at_risk=("estimated_payment_at_risk", "sum"),
-        paid=("paid_amount", "sum"),
+if preds.empty or not {
+    "provider_id",
+    "specialty",
+    "risk_score",
+    "claim_id",
+    "recommended_action",
+    "estimated_payment_at_risk",
+    "paid_amount",
+    "month",
+    "service_date",
+    "hcpcs",
+}.issubset(preds.columns):
+    st.info(
+        "Scored provider data is unavailable. Build the dataset and run scoring to view provider analytics."
     )
-    .assign(flag_rate=lambda d: d["flagged"] / d["claims"])
-)
+    st.stop()
+
+providers = summarize_providers(preds)
 
 f1, f2 = st.columns([1.4, 1])
 specialty = f1.multiselect("Specialty", sorted(providers["specialty"].unique().tolist()))
@@ -51,6 +74,9 @@ st.caption(
 )
 
 ranked = view.sort_values(["est_at_risk", "mean_risk"], ascending=False).head(25)
+if ranked.empty:
+    st.info("No providers match the selected specialty and minimum-claim filters.")
+    st.stop()
 st.subheader("Top providers by estimated payment at risk")
 bar = (
     alt.Chart(ranked)
@@ -109,8 +135,9 @@ d2.metric("Mean risk", f"{prow['mean_risk']:.3f}")
 d3.metric("Flag rate", f"{prow['flag_rate']:.1%}")
 d4.metric("Est. $ at risk", money(float(prow["est_at_risk"])))
 
-peer = load_peer_stats()["provider_month_peer"]
-peer_row = peer[peer["specialty"] == prow["specialty"]]
+peer_stats = load_peer_stats()
+peer = peer_stats.get("provider_month_peer")
+peer_row = peer[peer["specialty"] == prow["specialty"]] if isinstance(peer, pd.DataFrame) else []
 if len(peer_row):
     monthly_paid = float(prow["paid"]) / max(1, preds["month"].nunique())
     st.caption(

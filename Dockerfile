@@ -18,8 +18,8 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # Install dependencies first for layer caching
-COPY requirements.txt ./
-RUN pip install -r requirements.txt
+COPY requirements.lock ./
+RUN pip install --require-hashes -r requirements.lock
 
 # Install the application
 COPY pyproject.toml README.md ./

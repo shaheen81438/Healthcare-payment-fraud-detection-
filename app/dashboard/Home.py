@@ -26,6 +26,13 @@ page_setup("Payment-Integrity Portfolio")
 synthetic_banner()
 
 preds = load_predictions()
+if preds.empty or not {"recommended_action", "risk_score", "estimated_payment_at_risk"} <= set(
+    preds.columns
+):
+    st.info(
+        "Scored claim data is unavailable. Build the dataset and run scoring to populate the portfolio."
+    )
+    st.stop()
 policy = load_policy()
 decisions = load_decisions()
 

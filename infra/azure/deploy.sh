@@ -50,7 +50,7 @@ echo ">> API container app"
 az containerapp create -n "$API_APP" -g "$RG" --environment "$ENV_NAME" \
   --image "$ACR.azurecr.io/pi-api:boot" --registry-server "$ACR.azurecr.io" \
   --registry-identity system --system-assigned \
-  --target-port 8000 --ingress external --min-replicas 0 --max-replicas 2 \
+  --target-port 8000 --ingress internal --min-replicas 0 --max-replicas 2 \
   --cpu 1.0 --memory 2Gi \
   --secrets "pg-password=$PG_PASSWORD" \
   --env-vars "${COMMON_ENV[@]}" "POSTGRES_PASSWORD=secretref:pg-password" -o none
@@ -59,7 +59,7 @@ echo ">> dashboard container app"
 az containerapp create -n "$DASHBOARD_APP" -g "$RG" --environment "$ENV_NAME" \
   --image "$ACR.azurecr.io/pi-dashboard:boot" --registry-server "$ACR.azurecr.io" \
   --registry-identity system --system-assigned \
-  --target-port 8501 --ingress external --min-replicas 0 --max-replicas 1 \
+  --target-port 8501 --ingress internal --min-replicas 0 --max-replicas 1 \
   --cpu 1.0 --memory 2Gi \
   --secrets "pg-password=$PG_PASSWORD" \
   --env-vars "${COMMON_ENV[@]}" "POSTGRES_PASSWORD=secretref:pg-password" -o none
@@ -71,8 +71,5 @@ for APP in "$API_APP" "$DASHBOARD_APP"; do
   az role assignment create --assignee "$PRINCIPAL" --role AcrPull --scope "$ACR_ID" -o none || true
 done
 
-echo ">> done"
-az containerapp show -n "$API_APP" -g "$RG" --query properties.configuration.ingress.fqdn -o tsv \
-  | sed 's/^/API:        https:\/\//'
-az containerapp show -n "$DASHBOARD_APP" -g "$RG" --query properties.configuration.ingress.fqdn -o tsv \
-  | sed 's/^/Dashboard:  https:\/\//'
+echo ">> infrastructure is provisioned with internal-only app ingress"
+echo "   Configure Entra credentials and an allowed security group, then run infra/azure/secure.sh."

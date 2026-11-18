@@ -1,4 +1,4 @@
-# Healthcare claims payment-integrity and FWA detection platform
+# MedIntegrity AI – Healthcare Claims Fraud and Improper Payment Detection
 
 [![CI](https://github.com/FaridoonFarahi/healthcare-payment-integrity/actions/workflows/ci.yml/badge.svg)](https://github.com/FaridoonFarahi/healthcare-payment-integrity/actions/workflows/ci.yml)
 ![Python](https://img.shields.io/badge/python-3.11+-blue.svg)
@@ -9,7 +9,8 @@
 Community Cloud from the committed sample bundle. The full stack (scoring API, MLflow, Postgres)
 runs through the local or Azure setups below.
 
-This platform scores healthcare claims for fraud, waste, and abuse (FWA) risk and sends
+MedIntegrity AI is an independently maintained extension of an MIT-licensed technical reference.
+It scores healthcare claims for fraud, waste, and abuse (FWA) risk and sends
 investigators to the claims most worth reviewing. A rule engine, supervised ML, and unsupervised
 anomaly detection feed one calibrated risk score. Around that score sit SHAP reason codes, a
 cost-based review policy, a FastAPI scoring service, a Streamlit investigator dashboard, MLflow
@@ -17,12 +18,46 @@ tracking, Evidently drift monitoring, CI/CD, and Azure deployment.
 
 | | |
 |---|---|
+## Dashboard screenshots
+
+These are existing repository captures, not generated for this update.
+
 | Investigator dashboard | ![Dashboard](docs/assets/screenshots/dashboard_home.png) |
 | Claim-level explanation | ![Claim detail](docs/assets/screenshots/dashboard_claim_detail.png) |
 
 > Responsible use: every output is a *review priority*, never a fraud determination.
 > Supervision labels are **synthetic** (documented injections, see
-> [docs/labeling.md](docs/labeling.md)). No real provider is ever scored or displayed as risky.
+> [docs/labeling.md](docs/labeling.md)). Synthetic claim outcomes are not real-world results;
+> public CMS provider aggregates support peer analysis and are not claim-level fraud labels.
+
+## Core MedIntegrity engines
+
+In addition to the retained claim-scoring pipeline, the project now includes:
+
+- Dedicated payment-integrity indicators for potential overpayment, potential
+  underpayment, documentation gaps, and incorrect payment amounts.
+- Specialty-aware provider anomaly analysis using peer statistics and Isolation
+  Forest, with evidence and investigation-priority bands.
+- OIG LEIE screening with NPI-first matching, secondary normalized/fuzzy name
+  matching, date evidence, ambiguity warnings, and manual verification status.
+- A central risk-assessment service that keeps component scores separate and
+  reports unavailable signals rather than silently substituting zeros.
+
+Dashboard sections are **Executive Overview** (Home), **Claim Risk Analysis**
+(Review Queue), **Provider Analytics** (Providers and Provider Anomalies),
+**Improper Payment Analysis**, **OIG Exclusion Screening**, **Explainability**
+(Claim Detail), **Model Performance**, and **Data Quality**. Risk Assessment,
+Monitoring, and Threshold Simulator remain available as additional pages. Model
+metrics are calculated from matched score and label artifacts; without those
+artifacts the page reports “Not evaluated.” All outputs are investigative
+signals and not proof of fraud. See
+[ATTRIBUTION.md](ATTRIBUTION.md) for the
+upstream repository and retained/adapted components.
+
+Model Performance includes an adjustable score cutoff, confusion matrix,
+false-negative rate, threshold sweep, and ROC and precision-recall curves. The
+cutoff simulator changes predictions only; it never changes evaluation scores
+or ground-truth labels.
 
 ## The business problem
 
@@ -82,6 +117,9 @@ flowchart LR
   MLF --> API[FastAPI /predict /explain]
   PRED --> DASH[Streamlit investigator dashboard] --> OPS[(decisions)]
   PRED & OPS --> MON[Evidently monitoring + alerts]
+  ING --> PROV[Metadata-only provenance manifest]
+  PRED & LABELS --> EVAL[Artifact-backed dashboard evaluation]
+  CMS --> DQ[Aggregate data-quality checks]
 ```
 
 Design details: [docs/architecture.md](docs/architecture.md). Data contract:
@@ -112,6 +150,31 @@ are fit on the train window and frozen as artifacts. Duplicates can only match *
 and the feature builder rejects label columns. `tests/unit/test_leakage.py` enforces all of this
 (future-append invariance, frozen-stats fingerprints, label isolation).
 
+## Technology stack and methodology
+
+Python, pandas and NumPy handle ingestion and feature tables; scikit-learn and
+XGBoost provide the rules, supervised, and anomaly models; SHAP supplies local
+and global explanations; FastAPI serves scoring; Streamlit provides the review
+interface; Plotly and Altair render analytics; MLflow tracks model artifacts;
+Postgres and Parquet support persistence. CI, Docker Compose, Evidently, and
+Azure deployment scripts support development and operations.
+
+The dataset builder validates raw records, quarantines contract failures, and
+normalizes valid records before feature construction. `src/features/` creates
+temporal claim/provider behavior, frozen specialty/code peer statistics, and
+backward-looking duplicate signals. The supervised model uses temporal train,
+validation, and test windows; validation supports calibration and policy
+selection, while the held-out test window reports final synthetic-label metrics.
+See [the data dictionary](docs/data_dictionary.md), [labeling notes](docs/labeling.md),
+and [architecture](docs/architecture.md) for details.
+
+The Data Quality page reports observed missingness, duplicates, type/schema
+checks, configured invalid-value checks, IQR-based potential outliers, and
+metadata-only provenance for currently available datasets. The Claim Detail
+page uses stored per-claim SHAP contributions when present; those local
+contributions explain one record's model output. Global SHAP importance is a
+population summary and is not an individual claim explanation.
+
 ## Quickstart
 
 ```bash
@@ -126,6 +189,30 @@ make api                     # FastAPI :8000  →  /docs
 make dashboard               # Streamlit :8501
 make test                    # unit suite · make test-all for integration + slow
 ```
+
+### Windows PowerShell
+
+From the repository directory, create and activate an environment, install the
+declared project dependencies, and launch the dashboard:
+
+```powershell
+py -3.11 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install --require-hashes -r requirements-dev.lock
+python -m pip install --no-deps -e .
+streamlit run app/dashboard/Home.py --server.port 8501
+```
+
+Run the API in a second PowerShell window with the environment activated:
+
+```powershell
+uvicorn app.api.main:app --reload --port 8000
+```
+
+The full data and model pipeline also requires Docker services; see
+[docs/deployment.md](docs/deployment.md) and the Make targets. Streamlit pages
+requiring optional source data show an unavailable-data message when files are
+missing.
 
 Or fully containerized: `make pipeline && make compose-serve`
 (API :8000, dashboard :8501, MLflow :5001). Azure deployment:

@@ -7,6 +7,7 @@ from __future__ import annotations
 
 from functools import lru_cache
 
+from pydantic import model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -45,6 +46,16 @@ class Settings(BaseSettings):
     # Artifacts / data
     model_artifacts_dir: str = "models"
     cms_data_year: int = 2023
+
+    @model_validator(mode="after")
+    def require_production_database_secret(self) -> Settings:
+        """Reject the local development password in production environments."""
+        if self.env.lower() in {"prod", "production"} and self.postgres_password in {
+            "",
+            "pi_password_change_me",
+        }:
+            raise ValueError("POSTGRES_PASSWORD must be set to a non-default secret in production")
+        return self
 
     @property
     def database_url(self) -> str:
