@@ -1,304 +1,248 @@
-# MedIntegrity AI – Healthcare Claims Fraud and Improper Payment Detection
+# Healthcare Payment Integrity Using Explainable AI
 
-[![CI](https://github.com/FaridoonFarahi/healthcare-payment-integrity/actions/workflows/ci.yml/badge.svg)](https://github.com/FaridoonFarahi/healthcare-payment-integrity/actions/workflows/ci.yml)
-![Python](https://img.shields.io/badge/python-3.11+-blue.svg)
-![XGBoost](https://img.shields.io/badge/model-XGBoost%20%2B%20IsolationForest-orange.svg)
-![License](https://img.shields.io/badge/license-MIT-green.svg)
+An Explainable Multi-Engine Framework for Healthcare Payment Integrity: Improper Payment Rules, Provider Anomaly Detection, and OIG Exclusion Screening.
 
-[Live dashboard demo](https://faridoon-payment-integrity.streamlit.app), hosted on Streamlit
-Community Cloud from the committed sample bundle. The full stack (scoring API, MLflow, Postgres)
-runs through the local or Azure setups below.
+## Overview
 
-MedIntegrity AI is an independently maintained extension of an MIT-licensed technical reference.
-It scores healthcare claims for fraud, waste, and abuse (FWA) risk and sends
-investigators to the claims most worth reviewing. A rule engine, supervised ML, and unsupervised
-anomaly detection feed one calibrated risk score. Around that score sit SHAP reason codes, a
-cost-based review policy, a FastAPI scoring service, a Streamlit investigator dashboard, MLflow
-tracking, Evidently drift monitoring, CI/CD, and Azure deployment.
+Healthcare payment integrity is an important challenge involving the identification of potentially improper payments, unusual provider billing patterns, and compliance risks.
 
-| | |
+This project presents an AI-powered healthcare payment integrity framework that combines multiple analytical engines to support payment review and risk prioritization.
+
+The framework integrates rule-based detection, machine learning-based anomaly detection, exclusion screening, and explainable risk aggregation into a unified application.
+
+**Important:** This system is designed to support healthcare payment review and compliance analysis. Its outputs are risk indicators and should not be interpreted as confirmed fraud findings.
+
+## Key Features
+
+- **Improper Payment Detection:** Rule-based analysis to identify potentially improper payment patterns.
+- **Provider Anomaly Detection:** Identifies unusual provider-specialty patterns using anomaly detection techniques.
+- **OIG LEIE Screening:** Supports screening against exclusion-related records.
+- **Risk Aggregation:** Combines analytical signals to prioritize cases for human review.
+- **Explainable AI:** Provides interpretable risk indicators and supporting explanations.
+- **Interactive Dashboard:** Streamlit-based interface for exploring payment integrity results.
+- **Data Quality and Provenance:** Supports dataset auditing, missing-data assessment, and source documentation.
+
+## System Architecture
+
+The framework consists of four primary analytical engines:
+
+1. Improper Payment Detection Engine
+2. Provider Anomaly Detection Engine
+3. OIG LEIE Screening Engine
+4. Risk Aggregation and Explainability Engine
+
+These components contribute analytical signals to a unified review workflow.
+
+## Technologies Used
+
+| Category | Technologies |
 |---|---|
-## Dashboard screenshots
+| Programming | Python |
+| Data Processing | Pandas, NumPy |
+| Machine Learning | Scikit-learn, XGBoost |
+| Anomaly Detection | Isolation Forest |
+| Explainable AI | SHAP |
+| Database and Storage | SQLAlchemy, DuckDB |
+| Dashboard | Streamlit, Plotly |
+| API | FastAPI |
+| Testing | Pytest |
+| Code Quality | Ruff |
 
-These are existing repository captures, not generated for this update.
+## Model Evaluation
 
-| Investigator dashboard | ![Dashboard](docs/assets/screenshots/dashboard_home.png) |
-| Claim-level explanation | ![Claim detail](docs/assets/screenshots/dashboard_claim_detail.png) |
+The ensemble was evaluated using a frozen demonstration dataset containing generated synthetic labels.
 
-> Responsible use: every output is a *review priority*, never a fraud determination.
-> Supervision labels are **synthetic** (documented injections, see
-> [docs/labeling.md](docs/labeling.md)). Synthetic claim outcomes are not real-world results;
-> public CMS provider aggregates support peer analysis and are not claim-level fraud labels.
+| Metric | Result |
+|---|---:|
+| Evaluation records | 96,435 |
+| Synthetic positive labels | 4,550 |
+| ROC-AUC | 0.948148 |
+| Average Precision | 0.871349 |
 
-## Core MedIntegrity engines
+### Threshold Analysis
 
-In addition to the retained claim-scoring pipeline, the project now includes:
+The following results demonstrate the effect of changing the decision threshold.
 
-- Dedicated payment-integrity indicators for potential overpayment, potential
-  underpayment, documentation gaps, and incorrect payment amounts.
-- Specialty-aware provider anomaly analysis using peer statistics and Isolation
-  Forest, with evidence and investigation-priority bands.
-- OIG LEIE screening with NPI-first matching, secondary normalized/fuzzy name
-  matching, date evidence, ambiguity warnings, and manual verification status.
-- A central risk-assessment service that keeps component scores separate and
-  reports unavailable signals rather than silently substituting zeros.
+| Metric | Threshold 0.9945 | Threshold 0.2 |
+|---|---:|---:|
+| Recall | 0.231868 | 0.837143 |
+| False Negatives | 3,495 | 741 |
+| Review Rate | Not reported | 5.0397% |
+| Precision | Not reported | 0.783745 |
 
-Dashboard sections are **Executive Overview** (Home), **Claim Risk Analysis**
-(Review Queue), **Provider Analytics** (Providers and Provider Anomalies),
-**Improper Payment Analysis**, **OIG Exclusion Screening**, **Explainability**
-(Claim Detail), **Model Performance**, and **Data Quality**. Risk Assessment,
-Monitoring, and Threshold Simulator remain available as additional pages. Model
-metrics are calculated from matched score and label artifacts; without those
-artifacts the page reports “Not evaluated.” All outputs are investigative
-signals and not proof of fraud. See
-[ATTRIBUTION.md](ATTRIBUTION.md) for the
-upstream repository and retained/adapted components.
+The lower threshold improves recall on the synthetic benchmark while increasing the number of records requiring review.
 
-Model Performance includes an adjustable score cutoff, confusion matrix,
-false-negative rate, threshold sweep, and ROC and precision-recall curves. The
-cutoff simulator changes predictions only; it never changes evaluation scores
-or ground-truth labels.
+**Research interpretation:** These results represent performance against generated synthetic labels. They do not demonstrate validated performance on real Medicare claims or confirmed fraud cases.
 
-## The business problem
+## CMS Provider Anomaly Analysis
 
-CMS's CERT program estimated **[$28.8B of improper Medicare fee-for-service payments in
-FY2025](https://www.fiercehealthcare.com/regulatory/cms-estimates-medicare-made-288b-improper-payments-fy2025)**
-([CERT program](https://www.cms.gov/data-research/monitoring-programs/improper-payment-measurement-programs/comprehensive-error-rate-testing-cert)),
-and the [NHCAA](https://www.nhcaa.org/tools-insights/about-health-care-fraud/the-challenge-of-health-care-fraud/)
-conservatively puts health-care fraud at ~3% of spending (some estimates up to 10%). Payers handle
-this with payment-integrity teams: a fixed number of investigators working a queue of suspect
-claims. The platform answers five operational questions:
+The project also includes an analysis using a 480-row CMS provider-service aggregate dataset.
 
-1. Which claims should an investigator review? A calibrated ensemble risk score ranks a
-   capacity-constrained queue.
-2. Why was each claim flagged? Deterministic rule hits and SHAP feature contributions, mapped to
-   plain-language reason codes.
-3. What is the estimated financial risk? `P(improper) × paid amount`, calibrated
-   (Brier 0.012, ECE 0.001).
-4. How should claims be prioritized under limited capacity? An expected-net-value framework,
-   `recoverable − review cost − false-positive cost`, optimized over thresholds and capacities,
-   with a live simulator.
-5. Is the model drifting? Evidently drift reports, PSI and mix-divergence alerts, and delayed
-   precision from investigator decisions.
+The anomaly detection run generated:
 
-## Results (test window: 6 months, 96,435 synthetic claims, 4.7% injected-improper)
+- 73 provider-specialty review groups.
+- No verified fraud outcome labels.
+- Provider-level aggregate analysis rather than claim-level fraud classification.
 
-| Model | PR-AUC | ROC-AUC | Recall@1% | Recall@5% | Recall@10% |
-|---|---|---|---|---|---|
-| Rules baseline | 0.273 | 0.722 | 0.123 | 0.409 | 0.500 |
-| Logistic regression | 0.571 | 0.910 | 0.170 | 0.607 | 0.755 |
-| **XGBoost** | **0.881** | 0.963 | 0.212 | **0.836** | 0.907 |
-| Isolation Forest | 0.316 | 0.837 | 0.125 | 0.372 | 0.550 |
-| Ensemble (0.95·XGB + 0.05·anomaly) | 0.871 | 0.948 | 0.211 | 0.835 | 0.901 |
+CMS aggregate data should not be treated as claim-level ground truth.
 
-Reviewing the top 5% of claims captures 83.6% of injected improper claims. At the production
-operating point (1% capacity, τ = 0.9945), precision is 0.994, realized net value is $49.3k on
-the window, and about $674k is identified per 1,000 reviews. A novel-scheme holdout (retraining
-without two pattern families) shows the anomaly path recovering ~5× more unseen-scheme claims than
-the supervised path alone. It still misses most of them, which is why layered controls are needed.
-Full analysis: [docs/evaluation_report.md](docs/evaluation_report.md).
+## Dataset Information
 
-## Architecture
+The research implementation uses different types of data:
 
-```mermaid
-flowchart LR
-  subgraph Sources
-    CMS[data.cms.gov<br/>Part B utilization]
-    LEIE[OIG LEIE]
-    GEN[Calibrated synthetic<br/>claims generator]
-  end
-  CMS & LEIE & GEN --> ING[Ingestion] --> RAW[(raw / ref)]
-  RAW --> VAL[Validation +<br/>quarantine] --> CLN[Cleaning] --> STG[(staging + labels)]
-  STG --> FEAT[Point-in-time features] --> FST[(features + frozen<br/>peer stats)]
-  FST --> RUL[Rule engine R001-R013]
-  FST --> TRN[LogReg / XGBoost / IsolationForest<br/>+ isotonic calibration]
-  TRN --> MLF[MLflow tracking + registry]
-  MLF & RUL --> SCO[Batch scorer + SHAP reasons] --> PRED[(scoring)]
-  MLF --> API[FastAPI /predict /explain]
-  PRED --> DASH[Streamlit investigator dashboard] --> OPS[(decisions)]
-  PRED & OPS --> MON[Evidently monitoring + alerts]
-  ING --> PROV[Metadata-only provenance manifest]
-  PRED & LABELS --> EVAL[Artifact-backed dashboard evaluation]
-  CMS --> DQ[Aggregate data-quality checks]
-```
+- Synthetic demonstration data for model development and evaluation.
+- CMS provider-service aggregate data for provider anomaly analysis.
+- A six-row synthetic LEIE fixture for testing exclusion-screening functionality.
 
-Design details: [docs/architecture.md](docs/architecture.md). Data contract:
-[docs/data_dictionary.md](docs/data_dictionary.md).
+The repository does not currently contain an official OIG LEIE download.
 
-## The data (read this before the metrics)
+For operational screening, obtain the latest official exclusion data and account for exclusion dates, reinstatements, and matching ambiguity.
 
-Claim-level Medicare data with adjudicated fraud labels **does not exist publicly**. This project
-says so and works around it:
+## Installation
 
-- Real public CMS data anchors the generator. A committed snapshot of the *Medicare Physician &
-  Other Practitioners* provider-service file (12 specialties, real HCPCS mix, real payment
-  distributions) calibrates the generator and builds peer benchmarks. The OIG LEIE exclusion list
-  ships with a loader as real-world context.
-- **Synthetic claim-level data** (~378k claims, 2k providers, 24 months) is generated from those
-  real distributions, with **12 documented FWA patterns injected** (duplicates, upcoding,
-  unbundling, unit inflation, collusion clusters, and others). Benign confounders (corrected
-  resubmissions, legit high-cost claims) are added so the model faces real false-positive pressure.
-- Labels live in a separate schema and never enter features. Every injection assumption is in
-  [docs/labeling.md](docs/labeling.md). Metrics measure *detection of documented injections*, and
-  every report says so.
-
-## Leakage prevention
-
-Splits are temporal, with a burn-in window. Every rolling feature looks strictly backward
-(`closed='left'`). Provider features are at monthly grain and lagged one month. Peer statistics
-are fit on the train window and frozen as artifacts. Duplicates can only match *earlier* claims,
-and the feature builder rejects label columns. `tests/unit/test_leakage.py` enforces all of this
-(future-append invariance, frozen-stats fingerprints, label isolation).
-
-## Technology stack and methodology
-
-Python, pandas and NumPy handle ingestion and feature tables; scikit-learn and
-XGBoost provide the rules, supervised, and anomaly models; SHAP supplies local
-and global explanations; FastAPI serves scoring; Streamlit provides the review
-interface; Plotly and Altair render analytics; MLflow tracks model artifacts;
-Postgres and Parquet support persistence. CI, Docker Compose, Evidently, and
-Azure deployment scripts support development and operations.
-
-The dataset builder validates raw records, quarantines contract failures, and
-normalizes valid records before feature construction. `src/features/` creates
-temporal claim/provider behavior, frozen specialty/code peer statistics, and
-backward-looking duplicate signals. The supervised model uses temporal train,
-validation, and test windows; validation supports calibration and policy
-selection, while the held-out test window reports final synthetic-label metrics.
-See [the data dictionary](docs/data_dictionary.md), [labeling notes](docs/labeling.md),
-and [architecture](docs/architecture.md) for details.
-
-The Data Quality page reports observed missingness, duplicates, type/schema
-checks, configured invalid-value checks, IQR-based potential outliers, and
-metadata-only provenance for currently available datasets. The Claim Detail
-page uses stored per-claim SHAP contributions when present; those local
-contributions explain one record's model output. Global SHAP importance is a
-population summary and is not an individual claim explanation.
-
-## Quickstart
+Clone the repository:
 
 ```bash
-git clone https://github.com/FaridoonFarahi/healthcare-payment-integrity.git
-cd healthcare-payment-integrity
-python -m venv .venv && source .venv/bin/activate
-make install                 # deps
-make compose-up              # Postgres + MLflow (Docker)
-make pipeline                # data → features → train → evaluate → score   (~10 min)
-make monitor                 # Evidently drift run (add SIMULATE=--simulate-drift to demo alerts)
-make api                     # FastAPI :8000  →  /docs
-make dashboard               # Streamlit :8501
-make test                    # unit suite · make test-all for integration + slow
+git clone https://github.com/YOUR_USERNAME/YOUR_REPOSITORY.git
+cd YOUR_REPOSITORY
 ```
 
-### Windows PowerShell
+Create a virtual environment:
 
-From the repository directory, create and activate an environment, install the
-declared project dependencies, and launch the dashboard:
+```bash
+python -m venv .venv
+```
+
+Activate it on Windows:
 
 ```powershell
-py -3.11 -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install --require-hashes -r requirements-dev.lock
-python -m pip install --no-deps -e .
+.venv\Scripts\Activate.ps1
+```
+
+Install project dependencies using the repository's dependency files:
+
+```bash
+pip install -e .
+```
+
+If development and testing dependencies are required:
+
+```bash
+pip install -r requirements-dev.txt
+```
+
+## Run the Streamlit Application
+
+Start the dashboard:
+
+```bash
 streamlit run app/dashboard/Home.py --server.port 8501
 ```
 
-Run the API in a second PowerShell window with the environment activated:
+Open:
 
-```powershell
+```text
+http://localhost:8501
+```
+
+## Run the API
+
+In a separate terminal:
+
+```bash
 uvicorn app.api.main:app --reload --port 8000
 ```
 
-The full data and model pipeline also requires Docker services; see
-[docs/deployment.md](docs/deployment.md) and the Make targets. Streamlit pages
-requiring optional source data show an unavailable-data message when files are
-missing.
+## Run Tests
 
-Or fully containerized: `make pipeline && make compose-serve`
-(API :8000, dashboard :8501, MLflow :5001). Azure deployment:
-[docs/deployment.md](docs/deployment.md).
-
-## Scoring API
+Execute the automated test suite:
 
 ```bash
-curl -s localhost:8000/predict -H 'Content-Type: application/json' -d '{
-  "claim_id": "CLM-102849", "bene_id": "BEN-004521", "provider_id": "PRV-00042",
-  "specialty": "Internal Medicine", "hcpcs": "99215", "units": 1, "dx_group": "DXG02",
-  "pos": "11", "service_date": "2025-11-10", "submit_date": "2025-11-18",
-  "submitted_amount": 420.0, "allowed_amount": 210.0, "paid_amount": 168.0}'
+python -m pytest
 ```
 
-```json
-{
-  "claim_id": "CLM-102849",
-  "risk_score": 0.2263,
-  "recommended_action": "auto_clear",
-  "estimated_payment_at_risk": 32.94,
-  "reason_codes": ["potential_upcoding_pattern"],
-  "rule_hits": ["R010_upcoding_indicator"],
-  "model_version": "claims-risk-v1.0.0",
-  "scored_at": "2026-08-07T06:53:27Z"
-}
+Run code quality checks:
+
+```bash
+ruff check .
+ruff format --check .
 ```
 
-Endpoints: `GET /health`, `GET /model-info`, `POST /predict`, `POST /batch-predict` (≤1,000),
-`POST /explain` (adds SHAP contributions and labeled reasons), `GET /metrics` (Prometheus).
-More examples: [docs/api_examples.md](docs/api_examples.md).
+## Research Evidence
 
-## Repository map
+The project includes a dedicated research evidence package.
 
+```text
+research/
+│
+├── evidence/
+│   ├── RESEARCH_EVIDENCE_SUMMARY.md
+│   ├── PROJECT_TECHNICAL_AUDIT.md
+│   ├── DATASET_AUDIT.md
+│   ├── EXPERIMENTAL_RESULTS.md
+│   ├── MODEL_EVALUATION.csv
+│   ├── DATASET_SUMMARY.csv
+│   ├── REPRODUCIBILITY.md
+│   ├── LIMITATIONS_AND_THREATS.md
+│   ├── DEPENDENCY_AUDIT.md
+│   ├── FIGURES/
+│   └── TABLES/
+│
+└── RESEARCH_MANUSCRIPT_NOTES.md
 ```
-app/            FastAPI service · Streamlit dashboard · schemas · services (online features)
-configs/        generation, validation, features, rules, model, costs, reasons, monitoring (YAML)
-data/reference/ committed REAL CMS snapshot + code sets (provenance in metadata JSON)
-docs/           architecture, data dictionary, labeling, model card, evaluation report, guides
-infra/azure/    Container Apps provisioning + teardown
-scripts/        pipeline CLIs (build_dataset, build_features, train, evaluate, score, monitor, gate)
-src/            data · features · modeling · evaluation · monitoring · utils
-tests/          unit (fast) · integration (live API) · slow (training invariants)
-```
 
-## Engineering practices
+The evidence package documents the experimental results, dataset characteristics, technical implementation, reproducibility information, and research limitations.
 
-The code passes Ruff and MyPy, with ~110 tests across unit, integration, and slow suites. Before
-the Docker build and health smoke test, CI runs a model-quality regression gate: a tiny-world
-pipeline must beat PR-AUC and recall floors and the rules baseline. Logs are structured JSON with
-request IDs, the model loads from the registry first with a local fallback, and every chart uses a
-validated, CVD-safe palette.
+## Verification
 
-## Monitoring
+The reported verification results include:
 
-An Evidently drift preset covers 16 monitored columns. In-house checks add PSI on the risk score,
-Jensen-Shannon divergence on provider and procedure mix, monthly-volume deltas, and missing-value
-tracking. Together they produce an `ok / warn / critical` status that the dashboard reads, and
-investigator decisions feed a delayed realized-precision report. Simulated drift (pricing shift,
-mix change, missingness) escalates to **critical** (score PSI 3.81) as expected. Guide:
-[docs/monitoring.md](docs/monitoring.md).
+- 119 tests passed.
+- 7 tests skipped because required feature-store and processed-claim artifacts were unavailable.
+- Ruff checks and formatting passed.
+- `git diff --check` passed.
+- Dependency audit reported no known vulnerabilities in the regenerated development dependencies.
+- Streamlit started locally and returned HTTP 200.
 
-## Limitations and future work
+Live Azure protection, Docker image building, and browser-based narrow-viewport verification have not been confirmed.
 
-Synthetic labels limit external validity: results measure detection of documented injections
-([full discussion](docs/ethics_limitations.md)). Only single-line professional claims are covered
-(no institutional or DRG structures). Peer stats and provider features refresh at batch cadence.
-Planned next: real NCCI PTP full-file loading, a LEIE weak-label provider study, Alembic
-migrations, authN/authZ, champion-challenger deployment, and graph features for collusion
-detection.
+## Limitations
 
-## Documentation index
+This project has several important research limitations:
 
-- [Architecture](docs/architecture.md)
-- [Roadmap](docs/roadmap.md)
-- [Data dictionary](docs/data_dictionary.md)
-- [Labeling](docs/labeling.md)
-- [Evaluation report](docs/evaluation_report.md)
-- [Model card](docs/model_card.md)
-- [API examples](docs/api_examples.md)
-- [Deployment](docs/deployment.md)
-- [Monitoring](docs/monitoring.md)
-- [Ethics and limitations](docs/ethics_limitations.md)
-- [3-minute demo script](docs/demo_script.md)
+1. Synthetic labels are not verified Medicare payment outcomes.
+2. CMS provider-service data is aggregated and does not provide claim-level fraud ground truth.
+3. The current LEIE fixture is synthetic and is not a substitute for the official OIG exclusion database.
+4. Provider anomalies are indicators for further investigation, not proof of fraud.
+5. Improper payments are not necessarily fraudulent payments.
+6. Real-world operational performance requires validation using appropriate verified data and independent evaluation.
 
-## License
+## Future Enhancements
 
-MIT, see [LICENSE](LICENSE). The CMS data used here is public, and the committed sample keeps its
-provenance metadata.
+- Integration of regularly updated official OIG LEIE data.
+- Validation using suitable real-world healthcare payment datasets.
+- Controlled baseline and ablation experiments.
+- Improved threshold selection and review prioritization.
+- Further explainability and model monitoring.
+- Production deployment and security validation.
+- Expanded data provenance and audit capabilities.
+
+## Ethical Considerations
+
+The system is intended to assist analysts and compliance teams. Automated risk scores should not independently determine fraud, deny payments, or penalize healthcare providers.
+
+Human review, appropriate data governance, privacy protection, and independent validation are essential before operational deployment.
+
+## License and Attribution
+
+This project builds upon an upstream MIT-licensed repository.
+
+Please retain the original MIT license and appropriate attribution when distributing modified versions. Refer to the repository's `LICENSE` file for licensing details.
+
+## Disclaimer
+
+This project is developed for academic research, experimentation, and educational purposes. It is not an officially validated Medicare fraud detection system and should not be used as the sole basis for payment, compliance, or enforcement decisions.
+
+---
+
+**Research Focus:** Explainable AI | Healthcare Analytics | Payment Integrity | Anomaly Detection | Machine Learning | Risk Prioritization
